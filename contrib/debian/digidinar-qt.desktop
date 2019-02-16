@@ -1,0 +1,12 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=DigiDinar
+Comment=DigiDinar P2P Cryptocurrency
+Comment[fr]=DigiDinar, monnaie virtuelle cryptographique pair à pair
+Comment[tr]=DigiDinar, eşten eşe kriptografik sanal para birimi
+Exec=digidinar-qt %u
+Terminal=false
+Type=Application
+Icon=digidinar128
+MimeType=x-scheme-handler/digidinar;
+Categories=Office;Finance;

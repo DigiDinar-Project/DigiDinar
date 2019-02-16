@@ -1,9 +1,9 @@
-// Copyright (c) 2018 The PIVX developers
+// Copyright (c) 2018 The DigiDinar developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef PIVX_DETERMINISTICMINT_H
-#define PIVX_DETERMINISTICMINT_H
+#ifndef DDR_DETERMINISTICMINT_H
+#define DDR_DETERMINISTICMINT_H
 
 #include <libzerocoin/Denominations.h>
 #include <uint256.h>
@@ -64,4 +64,4 @@ public:
     };
 };
 
-#endif //PIVX_DETERMINISTICMINT_H
+#endif //DDR_DETERMINISTICMINT_H
