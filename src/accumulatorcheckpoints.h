@@ -1,9 +1,9 @@
-// Copyright (c) 2018 The PIVX developers
+// Copyright (c) 2018 The DigiDinar developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef PIVX_ACCUMULATORCHECKPOINTS_H
-#define PIVX_ACCUMULATORCHECKPOINTS_H
+#ifndef DDR_ACCUMULATORCHECKPOINTS_H
+#define DDR_ACCUMULATORCHECKPOINTS_H
 
 #include <libzerocoin/bignum.h>
 #include <univalue/include/univalue.h>
@@ -18,4 +18,4 @@ namespace AccumulatorCheckpoints
     Checkpoint GetClosestCheckpoint(const int& nHeight, int& nHeightCheckpoint);
 }
 
-#endif //PIVX_ACCUMULATORCHECKPOINTS_H
+#endif //DDR_ACCUMULATORCHECKPOINTS_H

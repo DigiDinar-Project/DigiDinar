@@ -1,10 +1,10 @@
-// Copyright (c) 2017-2018 The PIVX developers
+// Copyright (c) 2017-2018 The DigiDinar developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #include "blocksignature.h"
 #include "main.h"
-#include "zpivchain.h"
+#include "zddrchain.h"
 
 bool SignBlockWithKey(CBlock& block, const CKey& key)
 {
@@ -62,13 +62,13 @@ bool CheckBlockSignature(const CBlock& block)
     if (block.vchBlockSig.empty())
         return error("%s: vchBlockSig is empty!", __func__);
 
-    /** Each block is signed by the private key of the input that is staked. This can be either zPIV or normal UTXO
-     *  zPIV: Each zPIV has a keypair associated with it. The serial number is a hash of the public key.
+    /** Each block is signed by the private key of the input that is staked. This can be either zDDR or normal UTXO
+     *  zDDR: Each zDDR has a keypair associated with it. The serial number is a hash of the public key.
      *  UTXO: The public key that signs must match the public key associated with the first utxo of the coinstake tx.
      */
     CPubKey pubkey;
-    bool fzPIVStake = block.vtx[1].IsZerocoinSpend();
-    if (fzPIVStake) {
+    bool fzDDRStake = block.vtx[1].IsZerocoinSpend();
+    if (fzDDRStake) {
         libzerocoin::CoinSpend spend = TxInToZerocoinSpend(block.vtx[1].vin[0]);
         pubkey = spend.getPubKey();
     } else {

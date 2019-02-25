@@ -1,11 +1,11 @@
 Sample configuration files for:
 ```
-SystemD: pivxd.service
-Upstart: pivxd.conf
-OpenRC:  pivxd.openrc
-         pivxd.openrcconf
-CentOS:  pivxd.init
-macOS:    org.pivx.pivxd.plist
+SystemD: digidinard.service
+Upstart: digidinard.conf
+OpenRC:  digidinard.openrc
+         digidinard.openrcconf
+CentOS:  digidinard.init
+macOS:    org.digidinar.digidinard.plist
 ```
 have been made available to assist packagers in creating node packages here.
 
