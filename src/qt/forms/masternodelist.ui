@@ -6,25 +6,28 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>723</width>
+    <width>962</width>
     <height>457</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
   <layout class="QVBoxLayout" name="topLayout" stretch="0">
    <property name="leftMargin">
-    <number>9</number>
+    <number>0</number>
    </property>
    <property name="topMargin">
-    <number>9</number>
+    <number>0</number>
    </property>
    <property name="rightMargin">
-    <number>9</number>
+    <number>0</number>
    </property>
    <property name="bottomMargin">
-    <number>9</number>
+    <number>0</number>
    </property>
    <item>
     <layout class="QVBoxLayout" name="verticalLayout_Master" stretch="0,1">
@@ -48,6 +51,12 @@
         </property>
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_Header" stretch="1,0,1">
+          <property name="leftMargin">
+           <number>15</number>
+          </property>
+          <property name="rightMargin">
+           <number>0</number>
+          </property>
           <item>
            <widget class="QLabel" name="labelOverviewHeaderLeft">
             <property name="minimumSize">
@@ -72,6 +81,9 @@
             <property name="text">
              <string>MASTERNODES</string>
             </property>
+            <property name="margin">
+             <number>0</number>
+            </property>
            </widget>
           </item>
           <item>
@@ -91,14 +103,14 @@
            <widget class="QLabel" name="labelOverviewHeaderRight">
             <property name="minimumSize">
              <size>
-              <width>464</width>
-              <height>60</height>
+              <width>230</width>
+              <height>55</height>
              </size>
             </property>
             <property name="maximumSize">
              <size>
-              <width>16777215</width>
-              <height>60</height>
+              <width>250</width>
+              <height>55</height>
              </size>
             </property>
             <property name="font">
@@ -122,17 +134,20 @@
      <item>
       <widget class="QFrame" name="frame_BG">
        <layout class="QVBoxLayout" name="verticalLayout_3">
+        <property name="spacing">
+         <number>0</number>
+        </property>
         <property name="leftMargin">
-         <number>6</number>
+         <number>0</number>
         </property>
         <property name="topMargin">
-         <number>6</number>
+         <number>0</number>
         </property>
         <property name="rightMargin">
-         <number>6</number>
+         <number>0</number>
         </property>
         <property name="bottomMargin">
-         <number>6</number>
+         <number>0</number>
         </property>
         <item>
          <widget class="QFrame" name="frame_Content">
@@ -154,14 +169,38 @@
            </property>
            <item>
             <layout class="QGridLayout" name="gridLayout_2">
+             <property name="leftMargin">
+              <number>15</number>
+             </property>
+             <property name="topMargin">
+              <number>15</number>
+             </property>
+             <property name="rightMargin">
+              <number>15</number>
+             </property>
+             <property name="bottomMargin">
+              <number>15</number>
+             </property>
              <property name="spacing">
               <number>2</number>
              </property>
              <item row="0" column="0">
               <widget class="QFrame" name="frameList">
                <layout class="QVBoxLayout" name="verticalLayout_2">
+                <property name="spacing">
+                 <number>15</number>
+                </property>
+                <property name="leftMargin">
+                 <number>15</number>
+                </property>
+                <property name="topMargin">
+                 <number>15</number>
+                </property>
+                <property name="rightMargin">
+                 <number>15</number>
+                </property>
                 <property name="bottomMargin">
-                 <number>1</number>
+                 <number>15</number>
                 </property>
                 <item>
                  <layout class="QHBoxLayout" name="horizontalLayout_note">

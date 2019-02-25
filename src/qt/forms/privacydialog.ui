@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>991</width>
-    <height>766</height>
+    <height>737</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -25,7 +25,22 @@
     <height>0</height>
    </size>
   </property>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
   <layout class="QVBoxLayout" name="verticalLayout_1" stretch="0,0">
+   <property name="leftMargin">
+    <number>0</number>
+   </property>
+   <property name="topMargin">
+    <number>0</number>
+   </property>
+   <property name="rightMargin">
+    <number>0</number>
+   </property>
+   <property name="bottomMargin">
+    <number>0</number>
+   </property>
    <item>
     <layout class="QVBoxLayout" name="verticalLayout_Master" stretch="0,1">
      <property name="spacing">
@@ -378,7 +393,7 @@
                            </size>
                           </property>
                           <property name="toolTip">
-                           <string>Enter an amount of Ddr to convert to zDDR</string>
+                           <string>Enter an amount of DDR to convert to zDDR</string>
                           </property>
                           <property name="text">
                            <string>Mint Zerocoin</string>
@@ -430,7 +445,7 @@
                            </font>
                           </property>
                           <property name="toolTip">
-                           <string>Enter an amount of Ddr to convert to zDDR</string>
+                           <string>Enter an amount of DDR to convert to zDDR</string>
                           </property>
                           <property name="text">
                            <string>0.000 000 00 DDR</string>
@@ -953,7 +968,7 @@ zDDR are mature when they have more than 20 confirmations AND more than 2 mints 
                              </size>
                             </property>
                             <property name="toolTip">
-                             <string>The DIGIDINAR address to send the payment to. Creates local payment to yourself when empty.</string>
+                             <string>The Digi Dinar address to send the payment to. Creates local payment to yourself when empty.</string>
                             </property>
                            </widget>
                           </item>

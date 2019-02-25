@@ -1,6 +1,7 @@
 // Copyright (c) 2011-2014 The Bitcoin developers
 // Copyright (c) 2014-2015 The Dash developers
-// Copyright (c) 2015-2018 The DIGIDINAR developers
+// Copyright (c) 2015-2018 The PIVX developers
+// Copyright (c) 2019-2019 The Digi Dinar developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -22,9 +23,9 @@ static const bool DEFAULT_SPLASHSCREEN = true;
 #define STYLE_INVALID "background:#FF8080"
 
 /* Transaction list -- unconfirmed transaction */
-#define COLOR_UNCONFIRMED QColor(91, 76, 134)
+#define COLOR_UNCONFIRMED QColor(28, 38, 50)
 /* Transaction list -- negative amount */
-#define COLOR_NEGATIVE QColor(206, 0, 188)
+#define COLOR_NEGATIVE QColor(230, 95, 85)
 /* Transaction list -- bare address (without label) */
 #define COLOR_BAREADDRESS QColor(140, 140, 140)
 /* Transaction list -- TX status decoration - open until date */
@@ -53,9 +54,9 @@ static const int MAX_URI_LENGTH = 255;
 /* Number of frames in spinner animation */
 #define SPINNER_FRAMES 35
 
-#define QAPP_ORG_NAME "DIGIDINAR"
+#define QAPP_ORG_NAME "DigiDinar"
 #define QAPP_ORG_DOMAIN "digidinar.org"
-#define QAPP_APP_NAME_DEFAULT "DIGIDINAR-Qt"
-#define QAPP_APP_NAME_TESTNET "DIGIDINAR-Qt-testnet"
+#define QAPP_APP_NAME_DEFAULT "DigiDinar-Qt"
+#define QAPP_APP_NAME_TESTNET "DigiDinar-Qt-testnet"
 
 #endif // BITCOIN_QT_GUICONSTANTS_H

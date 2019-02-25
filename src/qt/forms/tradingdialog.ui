@@ -2941,7 +2941,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>Generate DIGIDINAR Deposit Address</string>
+      <string>Generate Digi Dinar Deposit Address</string>
      </property>
      <property name="icon">
       <iconset resource="../digidinar.qrc">

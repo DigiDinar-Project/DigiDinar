@@ -1,11 +1,13 @@
 // Copyright (c) 2014-2015 The Dash developers
-// Copyright (c) 2015-2018 The DigiDinar developers
+// Copyright (c) 2015-2018 The PIVX developers
+// Copyright (c) 2019-2019 The Digi Dinar developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #include "masternode-payments.h"
 #include "addrman.h"
 #include "masternode-budget.h"
+#include "masternode-devbudget.h"
 #include "masternode-sync.h"
 #include "masternodeman.h"
 #include "obfuscation.h"
@@ -250,6 +252,12 @@ bool IsBlockPayeeValid(const CBlock& block, int nBlockHeight)
         }
     }
 
+    // Check devfee payment
+    if (!devbudget.IsTransactionValid(txNew, nBlockHeight)) {
+        LogPrint("masternode","Invalid dev budget payment detected %s\n", txNew.ToString().c_str());
+        return false;
+    }
+
     // If we end here the transaction was either TrxValidationStatus::InValid and Budget enforcement is disabled, or
     // a double budget payment (status = TrxValidationStatus::DoublePayment) was detected, or no/not enough masternode
     // votes (status = TrxValidationStatus::VoteThreshold) for a finalized budget were found
@@ -277,6 +285,7 @@ void FillBlockPayee(CMutableTransaction& txNew, CAmount nFees, bool fProofOfStak
         budget.FillBlockPayee(txNew, nFees, fProofOfStake);
     } else {
         masternodePayments.FillBlockPayee(txNew, nFees, fProofOfStake, fZDDRStake);
+        devbudget.FillBlockPayee(txNew, nFees, fProofOfStake);
     }
 }
 
@@ -310,7 +319,7 @@ void CMasternodePayments::FillBlockPayee(CMutableTransaction& txNew, int64_t nFe
     }
 
     CAmount blockValue = GetBlockValue(pindexPrev->nHeight);
-    CAmount masternodePayment = GetMasternodePayment(pindexPrev->nHeight, blockValue, 0, fZDDRStake);
+    CAmount masternodePayment = GetMasternodePayment(pindexPrev->nHeight, blockValue, fZDDRStake);
 
     if (hasPayment) {
         if (fProofOfStake) {
@@ -339,6 +348,11 @@ void CMasternodePayments::FillBlockPayee(CMutableTransaction& txNew, int64_t nFe
         CBitcoinAddress address2(address1);
 
         LogPrint("masternode","Masternode payment of %s to %s\n", FormatMoney(masternodePayment).c_str(), address2.ToString().c_str());
+    }
+    else {
+        if (!fProofOfStake) {
+            txNew.vout[0].nValue = blockValue;
+        }
     }
 }
 
@@ -526,24 +540,12 @@ bool CMasternodeBlockPayees::IsTransactionValid(const CTransaction& txNew)
     LOCK(cs_vecPayments);
 
     int nMaxSignatures = 0;
-    int nMasternode_Drift_Count = 0;
 
     std::string strPayeesPossible = "";
 
     CAmount nReward = GetBlockValue(nBlockHeight);
 
-    if (IsSporkActive(SPORK_8_MASTERNODE_PAYMENT_ENFORCEMENT)) {
-        // Get a stable number of masternodes by ignoring newly activated (< 8000 sec old) masternodes
-        nMasternode_Drift_Count = mnodeman.stable_size() + Params().MasternodeCountDrift();
-    }
-    else {
-        //account for the fact that all peers do not see the same masternode count. A allowance of being off our masternode count is given
-        //we only need to look at an increased masternode count because as count increases, the reward decreases. This code only checks
-        //for mnPayment >= required, so it only makes sense to check the max node count allowed.
-        nMasternode_Drift_Count = mnodeman.size() + Params().MasternodeCountDrift();
-    }
-
-    CAmount requiredMasternodePayment = GetMasternodePayment(nBlockHeight, nReward, nMasternode_Drift_Count, txNew.IsZerocoinSpend());
+    CAmount requiredMasternodePayment = GetMasternodePayment(nBlockHeight, nReward, txNew.IsZerocoinSpend()) - GetDevelopersPayment(nBlockHeight);
 
     //require at least 6 signatures
     BOOST_FOREACH (CMasternodePayee& payee, vecPayments)
