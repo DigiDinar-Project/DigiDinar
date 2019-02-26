@@ -1,5 +1,5 @@
-/* src/config/pivx-config.h.  Generated from pivx-config.h.in by configure.  */
-/* src/config/pivx-config.h.in.  Generated from configure.ac by autoheader.  */
+/* src/config/digidinar-config.h.  Generated from digidinar-config.h.in by configure.  */
+/* src/config/digidinar-config.h.in.  Generated from configure.ac by autoheader.  */
 
 #ifndef PIV_CONFIG_H
 
@@ -334,7 +334,7 @@
 #define LT_OBJDIR ".libs/"
 
 /* Define to the address where bug reports for this package should be sent. */
-#define PACKAGE_BUGREPORT "www.pivx.org"
+#define PACKAGE_BUGREPORT "www.digidinar.org"
 
 /* Define to the full name of this package. */
 #define PACKAGE_NAME "Pivx Core"
@@ -343,7 +343,7 @@
 #define PACKAGE_STRING "Pivx Core 3.1.99"
 
 /* Define to the one symbol short name of this package. */
-#define PACKAGE_TARNAME "pivx"
+#define PACKAGE_TARNAME "digidinar"
 
 /* Define to the home page for this package. */
 #define PACKAGE_URL ""
