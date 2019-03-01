@@ -11,6 +11,10 @@ cache:
 stages:
   - lint
   - test
+addons:
+    apt:
+        packages:
+            - sshpass
 env:
   global:
     - MAKEJOBS=-j3
@@ -26,7 +30,7 @@ env:
     - BASE_OUTDIR=$TRAVIS_BUILD_DIR/out
     - SDK_URL=https://bitcoincore.org/depends-sources/sdks
     - WINEDEBUG=fixme-all
-    - DOCKER_PACKAGES="build-essential libtool autotools-dev automake pkg-config bsdmainutils curl git ca-certificates ccache"
+    - DOCKER_PACKAGES="build-essential libtool autotools-dev automake pkg-config bsdmainutils curl git ca-certificates ccache sshpass"
 
 before_install:
   - set -o errexit; source .travis/test_03_before_install.sh
