@@ -742,26 +742,26 @@ QWidget#PrivacyDialog QLabel {
     border: 0px solid #000;
 }
 
-    QWidget#PrivacyDialog QLabel#zCDZCLabel {
+QWidget#PrivacyDialog QLabel#zDDRLabel {
     font-size:14px;
     color:#f7b3f5;
     background-color:#00f0ff;
 }
 
-    QWidget#PrivacyDialog QLabel#oCDZCLabel {
+QWidget#PrivacyDialog QLabel#oDDRLabel {
     font-size:14px;
     color:#ffffff;
     background-color:#5c4c7c;
 }
 
-QWidget#PrivacyDialog QLabel#labelzGTMActions {
+QWidget#PrivacyDialog QLabel#labelzDDRActions {
     font-size:17px;
     color:#caba5a;
     background-color:transparent;
     font-weight: bold;
 }
 
-QWidget#PrivacyDialog QLabel#labelzGTMStats {
+QWidget#PrivacyDialog QLabel#labelzDDRStats {
     font-size:17px;
     color:#caba5a;
     background-color:transparent;
@@ -908,12 +908,12 @@ QDialog#HelpMessageDialog QScrollBar:vertical, QDialog#HelpMessageDialog QScroll
     border:0;
 }
 
-    /* About Crypto Dezire Cash Dialog */
+/* About Gentarium Dialog */
 QDialog#AboutDialog QLabel#label, QDialog#AboutDialog QLabel#copyrightLabel, QDialog#AboutDialog QLabel#label_2 { /* About Gentarium Contents */
     margin-left:10px;
 }
 
-    QDialog#AboutDialog QLabel#label_2 { /* Margin for About Crypto Dezire Cash text */
+QDialog#AboutDialog QLabel#label_2 { /* Margin for About Gentarium text */
     margin-right:10px;
 }
 
@@ -941,11 +941,11 @@ QLabel#labelOverviewHeaderLeft {
 
 QLabel#labelOverviewHeaderRight {
     qproperty-alignment: 'AlignVCenter | AlignRight';
-    background-image: url(':/images/cryptodezirecash_logo_horizontal');
+    background-image: url(':/images/gentarium_logo_horizontal');
     background-repeat: no-repeat;
 }
 
-    QWidget .QFrame#frame_Header { /* Header with Page-Title and Crypto Dezire Cash-image */
+QWidget .QFrame#frame_Header { /* Header with Page-Title and Gentarium-image */
     min-width:400px;
     background-color: transparent;
 }
@@ -992,7 +992,7 @@ QWidget .QFrame#frame_Balances > .QLabel {
     /* min-height:30px; */
 }
 
-    QWidget .QFrame#frame_Balances .QLabel#label_5 { /* CDZC Balances Label */
+QWidget .QFrame#frame_Balances .QLabel#label_5 { /* DDR Balances Label */
     qproperty-alignment: 'AlignVCenter | AlignLeft';
     min-width:160px;
     background-color:transparent;
@@ -1122,7 +1122,7 @@ QWidget .QFrame#frame_Balances .QLabel#labelWatchTotal { /* Watch-only Total Bal
     color:#caba5a;
 }
 
-    QWidget .QFrame#frame_Balances .QLabel#labelLockedBalanceText { /* Available zCDZC Label */
+QWidget .QFrame#frame_Balances .QLabel#labelLockedBalanceText { /* Available zDDR Label */
     qproperty-alignment: 'AlignVCenter | AlignLeft';
     min-width:160px;
     color:#caba5a;
@@ -1131,14 +1131,14 @@ QWidget .QFrame#frame_Balances .QLabel#labelWatchTotal { /* Watch-only Total Bal
     font-size:12px;
 }
 
-    QWidget .QFrame#frame_Balances .QLabel#labelLockedBalance { /* Available zCDZC Balance */
+QWidget .QFrame#frame_Balances .QLabel#labelLockedBalance { /* Available zDDR Balance */
     qproperty-alignment: 'AlignVCenter | AlignLeft';
     font-size:12px;
     color:#caba5a;
     margin-left:0px;
 }
 
-    QWidget .QFrame#frame_Balances .QLabel#labelWatchLocked { /* Available zCDZC Balance */
+QWidget .QFrame#frame_Balances .QLabel#labelWatchLocked { /* Available zDDR Balance */
     qproperty-alignment: 'AlignVCenter | AlignLeft';
     font-size:12px;
     margin-left:16px;
@@ -1158,7 +1158,7 @@ QWidget .QFrame#frame_ZerocoinBalances .QLabel#label_5z_3 { /* Zerocoin Balance 
     padding-right:5px;
 }
 
-    QWidget .QFrame#frame_ZerocoinBalances .QLabel#labelzBalanceText { /* Available zCDZC Label */
+QWidget .QFrame#frame_ZerocoinBalances .QLabel#labelzBalanceText { /* Available zDDR Label */
     qproperty-alignment: 'AlignVCenter | AlignLeft';
     min-width:160px;
     color:#ffffff;
@@ -1167,14 +1167,14 @@ QWidget .QFrame#frame_ZerocoinBalances .QLabel#label_5z_3 { /* Zerocoin Balance 
     font-size:12px;
 }
 
-    QWidget .QFrame#frame_ZerocoinBalances .QLabel#labelzBalance { /* Available zCDZC Balance */
+QWidget .QFrame#frame_ZerocoinBalances .QLabel#labelzBalance { /* Available zDDR Balance */
     qproperty-alignment: 'AlignVCenter | AlignLeft';
     font-size:12px;
     color:#caba5a;
     margin-left:0px;
 }
 
-    QWidget .QFrame#frame_ZerocoinBalances .QLabel#labelzBalanceUnconfirmedText { /* Unconfirmed zCDZC Label */
+QWidget .QFrame#frame_ZerocoinBalances .QLabel#labelzBalanceUnconfirmedText { /* Unconfirmed zDDR Label */
     qproperty-alignment: 'AlignVCenter | AlignLeft';
     min-width:160px;
     color:#caba5a;
@@ -1183,14 +1183,14 @@ QWidget .QFrame#frame_ZerocoinBalances .QLabel#label_5z_3 { /* Zerocoin Balance 
     font-size:12px;
 }
 
-    QWidget .QFrame#frame_ZerocoinBalances .QLabel#labelzBalanceUnconfirmed { /* Unconfirmed zCDZC Balance */
+QWidget .QFrame#frame_ZerocoinBalances .QLabel#labelzBalanceUnconfirmed { /* Unconfirmed zDDR Balance */
     qproperty-alignment: 'AlignVCenter | AlignLeft';
     font-size:12px;
     color:#caba5a;
     margin-left:0px;
 }
 
-    QWidget .QFrame#frame_ZerocoinBalances .QLabel#labelzBalanceMatureText { /* Mature zCDZC Label */
+QWidget .QFrame#frame_ZerocoinBalances .QLabel#labelzBalanceMatureText { /* Mature zDDR Label */
     qproperty-alignment: 'AlignVCenter | AlignLeft';
     min-width:160px;
     color:#caba5a;
@@ -1199,14 +1199,14 @@ QWidget .QFrame#frame_ZerocoinBalances .QLabel#label_5z_3 { /* Zerocoin Balance 
     font-size:12px;
 }
 
-    QWidget .QFrame#frame_ZerocoinBalances .QLabel#labelzBalanceMature { /* Mature zCDZC Balance */
+QWidget .QFrame#frame_ZerocoinBalances .QLabel#labelzBalanceMature { /* Mature zDDR Balance */
     qproperty-alignment: 'AlignVCenter | AlignLeft';
     font-size:12px;
     color:#caba5a;
     margin-left:0px;
 }
 
-    QWidget .QFrame#frame_ZerocoinBalances .QLabel#labelzBalanceImmatureText { /* Immature zCDZC Label */
+QWidget .QFrame#frame_ZerocoinBalances .QLabel#labelzBalanceImmatureText { /* Immature zDDR Label */
     qproperty-alignment: 'AlignVCenter | AlignLeft';
     min-width:160px;
     color:#caba5a;
@@ -1215,7 +1215,7 @@ QWidget .QFrame#frame_ZerocoinBalances .QLabel#label_5z_3 { /* Zerocoin Balance 
     font-size:12px;
 }
 
-    QWidget .QFrame#frame_ZerocoinBalances .QLabel#labelzBalanceImmature { /* Immature zCDZC Balance */
+QWidget .QFrame#frame_ZerocoinBalances .QLabel#labelzBalanceImmature { /* Immature zDDR Balance */
     qproperty-alignment: 'AlignVCenter | AlignLeft';
     font-size:12px;
     color:#caba5a;
@@ -1233,7 +1233,7 @@ QWidget .QFrame#frame_CombinedBalances .QLabel#label_5z { /* Combined Balance La
     padding-right:5px;
 }
 
-    QWidget .QFrame#frame_CombinedBalances .QLabel#labelBalanceTextz { /* Available CDZC Label */
+QWidget .QFrame#frame_CombinedBalances .QLabel#labelBalanceTextz { /* Available DDR Label */
     qproperty-alignment: 'AlignVCenter | AlignLeft';
     min-width:160px;
     color:#caba5a;
@@ -1242,14 +1242,14 @@ QWidget .QFrame#frame_CombinedBalances .QLabel#label_5z { /* Combined Balance La
     font-size:12px;
 }
 
-    QWidget .QFrame#frame_CombinedBalances .QLabel#labelBalancez { /* Available CDZC Balance */
+QWidget .QFrame#frame_CombinedBalances .QLabel#labelBalancez { /* Available DDR Balance */
     qproperty-alignment: 'AlignVCenter | AlignLeft';
     font-size:26px;
     font-weight:normal;
     color: #caba5a;
 }
 
-    QWidget .QFrame#frame_CombinedBalances .QLabel#labelzBalanceTextz { /* Available zCDZC Label */
+QWidget .QFrame#frame_CombinedBalances .QLabel#labelzBalanceTextz { /* Available zDDR Label */
     qproperty-alignment: 'AlignVCenter | AlignLeft';
     min-width:160px;
     color:#caba5a;
@@ -1259,7 +1259,7 @@ QWidget .QFrame#frame_CombinedBalances .QLabel#label_5z { /* Combined Balance La
     font-size:12px;
 }
 
-    QWidget .QFrame#frame_CombinedBalances .QLabel#labelzBalancez { /* Available zCDZC Balance */
+QWidget .QFrame#frame_CombinedBalances .QLabel#labelzBalancez { /* Available zDDR Balance */
     qproperty-alignment: 'AlignVCenter | AlignLeft';
     font-size:12px;
     font-weight:bold;
@@ -1407,7 +1407,7 @@ QDialog#SendCoinsDialog .QCheckBox#checkSwiftTX { /* SwiftTX Checkbox */
     margin-right:20px;
 }
 
-QDialog#SendCoinsDialog .QCheckBox#checkzGTM { /* SwiftTX Checkbox */
+QDialog#SendCoinsDialog .QCheckBox#checkzDDR { /* SwiftTX Checkbox */
     color:#caba5a;
     border-radius:5px;
     padding-top:20px;
@@ -1594,10 +1594,10 @@ QDialog#CoinControlDialog .CoinControlTreeWidget#treeWidget::indicator { /* Coin
 
 }
 
-    QDialog#ZCdzcControlDialog .QTreeWidget#treeWidget { /* zCDZC Control Widget Container */
-    outline:0;
-    background-color:#ffffff;
-    border:1px solid #333;
+QDialog#ZDdrControlDialog .QTreeWidget#treeWidget { /* zDDR Control Widget Container */
+outline:0;
+background-color:#ffffff;
+border:1px solid #333;
 }
 
 /**************************** RECEIVE COINS *********************************************/
