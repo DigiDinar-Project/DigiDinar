@@ -1128,32 +1128,32 @@ Please check the address and try again.</source>
         <translation>Valitse yksityisyyden taso.</translation>
     </message>
     <message>
-        <source>Use 2 separate masternodes to mix funds up to 10000 DDR</source>
-        <translation>Käytä 2 erillistä masternodea sekoittaaksesi enintään 10000 DIGIDINAR</translation>
+        <source>Use 2 separate masternodes to mix funds up to 25000 DDR</source>
+        <translation>Käytä 2 erillistä masternodea sekoittaaksesi enintään 25000 DIGIDINAR</translation>
     </message>
     <message>
-        <source>Use 8 separate masternodes to mix funds up to 10000 DDR</source>
-        <translation>Käytä 8 erillistä masternodea sekoittaaksesi enintään 10000 DIGIDINAR</translation>
+        <source>Use 8 separate masternodes to mix funds up to 25000 DDR</source>
+        <translation>Käytä 8 erillistä masternodea sekoittaaksesi enintään 25000 DIGIDINAR</translation>
     </message>
     <message>
         <source>Use 16 separate masternodes</source>
         <translation>Käytä 16 erillistä masternodea</translation>
     </message>
     <message>
-        <source>This option is the quickest and will cost about ~0.025 DDR to anonymize 10000 DDR</source>
-        <translation>Tämä vaihtoehto on nopein ja maksaa noin ~0.025 DDR anonymoidaksesi 10000 DIGIDINAR</translation>
+        <source>This option is the quickest and will cost about ~0.025 DDR to anonymize 25000 DDR</source>
+        <translation>Tämä vaihtoehto on nopein ja maksaa noin ~0.025 DDR anonymoidaksesi 25000 DIGIDINAR</translation>
     </message>
     <message>
-        <source>This option is moderately fast and will cost about 0.05 DDR to anonymize 10000 DDR</source>
-        <translation>Tämä vaihtoehto on suhteellisen nopea ja maksaa 0.05 DIGIDINAR anonymoidaksesi 10000 DIGIDINAR</translation>
+        <source>This option is moderately fast and will cost about 0.05 DDR to anonymize 25000 DDR</source>
+        <translation>Tämä vaihtoehto on suhteellisen nopea ja maksaa 0.05 DIGIDINAR anonymoidaksesi 25000 DIGIDINAR</translation>
     </message>
     <message>
         <source>This is the slowest and most secure option. Using maximum anonymity will cost</source>
         <translation>Tämä on hitain ja turvallisin vaihtoehto. Täydesti anonymisoiminen ei maksa mitään.</translation>
     </message>
     <message>
-        <source>0.1 DDR per 10000 DDR you anonymize.</source>
-        <translation>0.1 per 10000 DIGIDINAR, jotka anonymisoit.</translation>
+        <source>0.1 DDR per 25000 DDR you anonymize.</source>
+        <translation>0.1 per 25000 DIGIDINAR, jotka anonymisoit.</translation>
     </message>
     <message>
         <source>Obfuscation Configuration</source>

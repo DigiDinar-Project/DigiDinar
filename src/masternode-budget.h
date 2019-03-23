@@ -1,5 +1,5 @@
 // Copyright (c) 2014-2015 The Dash developers
-// Copyright (c) 2015-2018 The DigiDinar developers
+// Copyright (c) 2015-2018 The PIVX developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -515,9 +515,9 @@ public:
     int GetBlockCurrentCycle();
     int GetBlockEndCycle();
     double GetRatio();
-    int GetYeas();
-    int GetNays();
-    int GetAbstains();
+    int GetYeas() const;
+    int GetNays() const;
+    int GetAbstains() const;
     CAmount GetAmount() { return nAmount; }
     void SetAllotted(CAmount nAllotedIn) { nAlloted = nAllotedIn; }
     CAmount GetAllotted() { return nAlloted; }

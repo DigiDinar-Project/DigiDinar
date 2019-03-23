@@ -2292,12 +2292,12 @@ Please be patient after clicking import.</source>
     </message>
     <message>
         <location line="+13"/>
-        <source>Use 2 separate masternodes to mix funds up to 10000 DDR</source>
+        <source>Use 2 separate masternodes to mix funds up to 25000 DDR</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+13"/>
-        <source>Use 8 separate masternodes to mix funds up to 10000 DDR</source>
+        <source>Use 8 separate masternodes to mix funds up to 25000 DDR</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2307,12 +2307,12 @@ Please be patient after clicking import.</source>
     </message>
     <message>
         <location line="+13"/>
-        <source>This option is the quickest and will cost about ~0.025 DDR to anonymize 10000 DDR</source>
+        <source>This option is the quickest and will cost about ~0.025 DDR to anonymize 25000 DDR</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+13"/>
-        <source>This option is moderately fast and will cost about 0.05 DDR to anonymize 10000 DDR</source>
+        <source>This option is moderately fast and will cost about 0.05 DDR to anonymize 25000 DDR</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2322,7 +2322,7 @@ Please be patient after clicking import.</source>
     </message>
     <message>
         <location line="+13"/>
-        <source>0.1 DDR per 10000 DDR you anonymize.</source>
+        <source>0.1 DDR per 25000 DDR you anonymize.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -6647,12 +6647,12 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
     </message>
     <message>
         <location line="+2"/>
-        <source>Unable to locate enough Obfuscation non-denominated funds for this transaction that are not equal 10000 DDR.</source>
+        <source>Unable to locate enough Obfuscation non-denominated funds for this transaction that are not equal 25000 DDR.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+3"/>
-        <source>Unable to locate enough funds for this transaction that are not equal 10000 DDR.</source>
+        <source>Unable to locate enough funds for this transaction that are not equal 25000 DDR.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -6712,8 +6712,8 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
     </message>
     <message>
         <location line="+3"/>
-        <source>(51472 could be used only on mainnet)</source>
-        <translation type="unfinished">(51472 could be used only on mainnet)</translation>
+        <source>(32001 could be used only on mainnet)</source>
+        <translation type="unfinished">(32001 could be used only on mainnet)</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -6727,7 +6727,7 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
     </message>
     <message>
         <location line="+1"/>
-        <source>(must be 51472 for mainnet)</source>
+        <source>(must be 32001 for mainnet)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

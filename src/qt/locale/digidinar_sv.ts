@@ -1779,32 +1779,32 @@ Var god vänta efter att du trycker på importera.</translation>
         <translation>Var vänlig och välj en sekretess nivå.</translation>
     </message>
     <message>
-        <source>Use 2 separate masternodes to mix funds up to 10000 DDR</source>
-        <translation>Använd 2 separata huvudnoder för att blanda tillgångar upp till 10000 DDR</translation>
+        <source>Use 2 separate masternodes to mix funds up to 25000 DDR</source>
+        <translation>Använd 2 separata huvudnoder för att blanda tillgångar upp till 25000 DDR</translation>
     </message>
     <message>
-        <source>Use 8 separate masternodes to mix funds up to 10000 DDR</source>
-        <translation>Använd 8 separata huvudnoderför att blanda tillgångar upp till 10000 DDR</translation>
+        <source>Use 8 separate masternodes to mix funds up to 25000 DDR</source>
+        <translation>Använd 8 separata huvudnoderför att blanda tillgångar upp till 25000 DDR</translation>
     </message>
     <message>
         <source>Use 16 separate masternodes</source>
         <translation>Använd 16 separata huvudnoder</translation>
     </message>
     <message>
-        <source>This option is the quickest and will cost about ~0.025 DDR to anonymize 10000 DDR</source>
-        <translation>Det här alternativet är det snabbaste och kommer kostar ungefär ~0.025 DDR för att anonymisera 10000 DDR</translation>
+        <source>This option is the quickest and will cost about ~0.025 DDR to anonymize 25000 DDR</source>
+        <translation>Det här alternativet är det snabbaste och kommer kostar ungefär ~0.025 DDR för att anonymisera 25000 DDR</translation>
     </message>
     <message>
-        <source>This option is moderately fast and will cost about 0.05 DDR to anonymize 10000 DDR</source>
-        <translation>Det här alternativet är måttligt snabb och kommer kostar ungefär 0.05 DDR för att anonymisera 10000 DDR</translation>
+        <source>This option is moderately fast and will cost about 0.05 DDR to anonymize 25000 DDR</source>
+        <translation>Det här alternativet är måttligt snabb och kommer kostar ungefär 0.05 DDR för att anonymisera 25000 DDR</translation>
     </message>
     <message>
         <source>This is the slowest and most secure option. Using maximum anonymity will cost</source>
         <translation>Det här är det långsammaste och säkraste alternativet. Använda maximal anonymitet kommer kosta</translation>
     </message>
     <message>
-        <source>0.1 DDR per 10000 DDR you anonymize.</source>
-        <translation>0.1 DDR per 10000 DDR du anonymiserar.</translation>
+        <source>0.1 DDR per 25000 DDR you anonymize.</source>
+        <translation>0.1 DDR per 25000 DDR du anonymiserar.</translation>
     </message>
     <message>
         <source>Obfuscation Configuration</source>
@@ -5010,12 +5010,12 @@ Minta antingen högre valörer (så att färre inputs behövs) eller spendera mi
         <translation>Kan ej lokalisera tillräckligt Fördunklingsdenominationerade pengar för denna transaktion.</translation>
     </message>
     <message>
-        <source>Unable to locate enough Obfuscation non-denominated funds for this transaction that are not equal 10000 DDR.</source>
-        <translation>Kan ej lokalisera tillräckligt Fördunkling icke-denominationerade pengar för denna transaktion som inte är 10000 DDR.</translation>
+        <source>Unable to locate enough Obfuscation non-denominated funds for this transaction that are not equal 25000 DDR.</source>
+        <translation>Kan ej lokalisera tillräckligt Fördunkling icke-denominationerade pengar för denna transaktion som inte är 25000 DDR.</translation>
     </message>
     <message>
-        <source>Unable to locate enough funds for this transaction that are not equal 10000 DDR.</source>
-        <translation>Kan inte hitta tillräckligt med pengar för denna transaktion som inte är 10000 DDR.</translation>
+        <source>Unable to locate enough funds for this transaction that are not equal 25000 DDR.</source>
+        <translation>Kan inte hitta tillräckligt med pengar för denna transaktion som inte är 25000 DDR.</translation>
     </message>
     <message>
         <source>Use separate SOCKS5 proxy to reach peers via Tor hidden services (default: %s)</source>
@@ -5062,8 +5062,8 @@ Minta antingen högre valörer (så att färre inputs behövs) eller spendera mi
         <translation>Du måste specifiera en masternodeprivkey i konfigurationen. Var vänlig se dokumentationen för hjälp.</translation>
     </message>
     <message>
-        <source>(51472 could be used only on mainnet)</source>
-        <translation>(51472 kunde endast användas på mainnet)</translation>
+        <source>(32001 could be used only on mainnet)</source>
+        <translation>(32001 kunde endast användas på mainnet)</translation>
     </message>
     <message>
         <source>(default: %s)</source>
@@ -5074,8 +5074,8 @@ Minta antingen högre valörer (så att färre inputs behövs) eller spendera mi
         <translation>(standard: 1)</translation>
     </message>
     <message>
-        <source>(must be 51472 for mainnet)</source>
-        <translation>(måste vara 51472 för mainnet)</translation>
+        <source>(must be 32001 for mainnet)</source>
+        <translation>(måste vara 32001 för mainnet)</translation>
     </message>
     <message>
         <source>Accept command line and JSON-RPC commands</source>

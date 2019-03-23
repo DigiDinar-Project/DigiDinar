@@ -1468,24 +1468,24 @@ Prosím zkontrolujte adresu a zkuste to znovu.</translation>
         <translation>Vyberte úrpvěň ochrany soukromí</translation>
     </message>
     <message>
-        <source>Use 2 separate masternodes to mix funds up to 10000 DDR</source>
-        <translation>Použí 2 oddělené masternody k promíchání prostředků až do 10000 DDR</translation>
+        <source>Use 2 separate masternodes to mix funds up to 25000 DDR</source>
+        <translation>Použí 2 oddělené masternody k promíchání prostředků až do 25000 DDR</translation>
     </message>
     <message>
         <source>Use 16 separate masternodes</source>
         <translation>Použít 16 oddělených masternodů</translation>
     </message>
     <message>
-        <source>This option is the quickest and will cost about ~0.025 DDR to anonymize 10000 DDR</source>
-        <translation>Tato možnost je nejrychleší a bude stát zhruba ~0.025 DDR pro anonymizaci 10000 DDR</translation>
+        <source>This option is the quickest and will cost about ~0.025 DDR to anonymize 25000 DDR</source>
+        <translation>Tato možnost je nejrychleší a bude stát zhruba ~0.025 DDR pro anonymizaci 25000 DDR</translation>
     </message>
     <message>
         <source>This is the slowest and most secure option. Using maximum anonymity will cost</source>
         <translation>Toto je nejpomalejší a nejvíce bezpečná volba. Použití maximalní anonymity bude stát</translation>
     </message>
     <message>
-        <source>0.1 DDR per 10000 DDR you anonymize.</source>
-        <translation>0.1 DDR za 10000 DDR anonymizujete.</translation>
+        <source>0.1 DDR per 25000 DDR you anonymize.</source>
+        <translation>0.1 DDR za 25000 DDR anonymizujete.</translation>
     </message>
     <message>
         <source>Obfuscation Configuration</source>

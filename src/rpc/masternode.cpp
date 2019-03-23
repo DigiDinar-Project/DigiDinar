@@ -1,5 +1,5 @@
 // Copyright (c) 2009-2012 The Bitcoin developers
-// Copyright (c) 2015-2018 The DigiDinar developers
+// Copyright (c) 2015-2018 The PIVX developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -279,7 +279,7 @@ UniValue masternodeconnect(const UniValue& params, bool fHelp)
             "1. \"address\"     (string, required) IP or net address to connect to\n"
 
             "\nExamples:\n" +
-            HelpExampleCli("masternodeconnect", "\"192.168.0.6:51472\"") + HelpExampleRpc("masternodeconnect", "\"192.168.0.6:51472\""));
+            HelpExampleCli("masternodeconnect", "\"192.168.0.6:32001\"") + HelpExampleRpc("masternodeconnect", "\"192.168.0.6:32001\""));
 
     std::string strAddress = params[0].get_str();
 

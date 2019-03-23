@@ -123,11 +123,12 @@ public:
         nMaturity = 100;
         nMaxMoneyOut = 120000000 * COIN;
 
-        nMasternodeCollateral = 10000;
-        strDevFeeAddress = "gGxLHq2q8wbpgD9x6qZvyQYG4aDSnQVHoV";
+        nMasternodeCollateral = 25000;
+        strDevFeeAddress = "D5wVvyFg9t3TQGszyAkQ3G11QPJoS6Ldm3";
+        nStakeInputMinimal = 50 * COIN;
 
         /** Height or Time Based Activations **/
-        nLastPOWBlock = 600;
+        nLastPOWBlock = 300;
         nModifierUpdateBlock = 0;
         nZerocoinStartHeight = 0;
         nZerocoinStartTime = 1550792244; // Genesis time
@@ -161,7 +162,8 @@ public:
         assert(hashGenesisBlock == uint256("0x0000099ee5abb388a0fa2ca1864cfee1cbe510ab0e9abacfed70c7a3d6d9203e"));
         assert(genesis.hashMerkleRoot == uint256("0x355339996acc666194e66c4e7f0b151d3eef1ae7154970587f3a3295aab56a19"));
 
-        //vSeeds.push_back(CDNSSeedData("fuzzbawls.pw", "digidinar.seed.fuzzbawls.pw"));     // Primary DNS Seeder from Fuzzbawls
+        vSeeds.push_back(CDNSSeedData("134.255.234.59", "134.255.234.59"));     // Primary DNS Seeder
+        vSeeds.push_back(CDNSSeedData("185.239.239.199", "185.239.239.199"));     // Primary DNS Seeder
         
         // Digi Dinar addresses start with 'D'
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1, 30);
@@ -240,7 +242,8 @@ public:
         nBlockZerocoinV2 = 15;
 
         nSubsidyHalvingBlock = 1600;
-        nMasternodeCollateral = 10000;
+        nMasternodeCollateral = 25000;
+        nStakeInputMinimal = 50 * COIN;
 
         //! Modify the testnet genesis block so the timestamp is valid for a later start.
         genesis.nTime = 1547119740;
@@ -292,7 +295,6 @@ public:
     {
         networkID = CBaseChainParams::REGTEST;
         strNetworkID = "regtest";
-        strNetworkID = "regtest";
         pchMessageStart[0] = 0xa2;
         pchMessageStart[1] = 0xcf;
         pchMessageStart[2] = 0x7e;
@@ -316,6 +318,7 @@ public:
         fDefaultConsistencyChecks = true;
         fRequireStandard = false;
         fMineBlocksOnDemand = true;
+        fSkipProofOfWorkCheck = true;
         fTestnetToBeDeprecatedFieldRPC = false;
     }
     const Checkpoints::CCheckpointData& Checkpoints() const

@@ -1,7 +1,7 @@
 // Copyright (c) 2010 Satoshi Nakamoto
 // Copyright (c) 2009-2014 The Bitcoin developers
 // Copyright (c) 2014-2015 The Dash developers
-// Copyright (c) 2015-2018 The DigiDinar developers
+// Copyright (c) 2015-2018 The PIVX developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -17,14 +17,25 @@
 #include "accumulatormap.h"
 #include "accumulators.h"
 #include "wallet.h"
+#include "libzerocoin/bignum.h"
 #include "libzerocoin/Coin.h"
 #include <stdint.h>
 #include <fstream>
 #include <iostream>
 #include <univalue.h>
-#include "libzerocoin/bignum.h"
+#include <mutex>
+#include <condition_variable>
 
 using namespace std;
+
+struct CUpdatedBlock
+{
+    uint256 hash;
+    int height;
+};
+static std::mutex cs_blockchange;
+static std::condition_variable cond_blockchange;
+static CUpdatedBlock latestblock;
 
 extern void TxToJSON(const CTransaction& tx, const uint256 hashBlock, UniValue& entry);
 void ScriptPubKeyToJSON(const CScript& scriptPubKey, UniValue& out, bool fIncludeHex);
@@ -122,6 +133,8 @@ UniValue blockToJSON(const CBlock& block, const CBlockIndex* blockindex, bool tx
     if (pnext)
         result.push_back(Pair("nextblockhash", pnext->GetBlockHash().GetHex()));
 
+    result.push_back(Pair("modifier", strprintf("%016x", blockindex->nStakeModifier)));
+
     result.push_back(Pair("moneysupply",ValueFromAmount(blockindex->nMoneySupply)));
 
     UniValue zddrObj(UniValue::VOBJ);
@@ -132,6 +145,91 @@ UniValue blockToJSON(const CBlock& block, const CBlockIndex* blockindex, bool tx
     result.push_back(Pair("zDDRsupply", zddrObj));
 
     return result;
+}
+
+UniValue getchecksumblock(const UniValue& params, bool fHelp)
+{
+    if (fHelp || params.size() < 2 || params.size() > 3)
+        throw runtime_error(
+            "getchecksumblock\n"
+            "\nFinds the first occurrence of a certain accumulator checksum."
+            "\nReturns the block hash or, if fVerbose=true, the JSON block object\n"
+
+            "\nArguments:\n"
+            "1. \"checksum\"      (string, required) The hex encoded accumulator checksum\n"
+            "2. \"denom\"         (integer, required) The denomination of the accumulator\n"
+            "3. fVerbose          (boolean, optional, default=false) true for a json object, false for the hex encoded hash\n"
+
+            "\nResult (for fVerbose = true):\n"
+            "{\n"
+            "  \"hash\" : \"hash\",     (string) the block hash (same as provided)\n"
+            "  \"confirmations\" : n,   (numeric) The number of confirmations, or -1 if the block is not on the main chain\n"
+            "  \"size\" : n,            (numeric) The block size\n"
+            "  \"height\" : n,          (numeric) The block height or index\n"
+            "  \"version\" : n,         (numeric) The block version\n"
+            "  \"merkleroot\" : \"xxxx\", (string) The merkle root\n"
+            "  \"tx\" : [               (array of string) The transaction ids\n"
+            "     \"transactionid\"     (string) The transaction id\n"
+            "     ,...\n"
+            "  ],\n"
+            "  \"time\" : ttt,          (numeric) The block time in seconds since epoch (Jan 1 1970 GMT)\n"
+            "  \"mediantime\" : ttt,    (numeric) The median block time in seconds since epoch (Jan 1 1970 GMT)\n"
+            "  \"nonce\" : n,           (numeric) The nonce\n"
+            "  \"bits\" : \"1d00ffff\", (string) The bits\n"
+            "  \"difficulty\" : x.xxx,  (numeric) The difficulty\n"
+            "  \"previousblockhash\" : \"hash\",  (string) The hash of the previous block\n"
+            "  \"nextblockhash\" : \"hash\"       (string) The hash of the next block\n"
+            "  \"moneysupply\" : \"supply\"       (numeric) The money supply when this block was added to the blockchain\n"
+            "  \"zDDRsupply\" :\n"
+            "  {\n"
+            "     \"1\" : n,            (numeric) supply of 1 zDDR denomination\n"
+            "     \"5\" : n,            (numeric) supply of 5 zDDR denomination\n"
+            "     \"10\" : n,           (numeric) supply of 10 zDDR denomination\n"
+            "     \"50\" : n,           (numeric) supply of 50 zDDR denomination\n"
+            "     \"100\" : n,          (numeric) supply of 100 zDDR denomination\n"
+            "     \"500\" : n,          (numeric) supply of 500 zDDR denomination\n"
+            "     \"1000\" : n,         (numeric) supply of 1000 zDDR denomination\n"
+            "     \"5000\" : n,         (numeric) supply of 5000 zDDR denomination\n"
+            "     \"total\" : n,        (numeric) The total supply of all zDDR denominations\n"
+            "  }\n"
+            "}\n"
+
+            "\nResult (for verbose=false):\n"
+            "\"data\"             (string) A string that is serialized, hex-encoded data for block 'hash'.\n"
+
+            "\nExamples:\n" +
+            HelpExampleCli("getchecksumblock", "\"00000000000fd08c2fb661d2fcb0d49abb3a91e5f27082ce64feed3b4dede2e2\", 5") +
+            HelpExampleRpc("getchecksumblock", "\"00000000000fd08c2fb661d2fcb0d49abb3a91e5f27082ce64feed3b4dede2e2\", 5"));
+
+
+    LOCK(cs_main);
+
+    // param 0
+    std::string acc_checksum_str = params[0].get_str();
+    uint256 checksum_256(acc_checksum_str);
+    uint32_t acc_checksum = checksum_256.Get32();
+    // param 1
+    libzerocoin::CoinDenomination denomination = libzerocoin::IntToZerocoinDenomination(params[1].get_int());
+    // param 2
+    bool fVerbose = false;
+    if (params.size() > 2)
+        fVerbose = params[2].get_bool();
+
+    int checksumHeight = GetChecksumHeight(acc_checksum, denomination);
+
+    if (checksumHeight == 0)
+        throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Block not found");
+
+    CBlockIndex* pblockindex = chainActive[checksumHeight];
+
+    if (!fVerbose)
+        return pblockindex->GetBlockHash().GetHex();
+
+    CBlock block;
+    if (!ReadBlockFromDisk(block, pblockindex))
+        throw JSONRPCError(RPC_INTERNAL_ERROR, "Can't read block from disk");
+
+    return blockToJSON(block, pblockindex);
 }
 
 UniValue getblockcount(const UniValue& params, bool fHelp)
@@ -166,6 +264,148 @@ UniValue getbestblockhash(const UniValue& params, bool fHelp)
 
     LOCK(cs_main);
     return chainActive.Tip()->GetBlockHash().GetHex();
+}
+
+void RPCNotifyBlockChange(const uint256 hashBlock)
+{
+    CBlockIndex* pindex = nullptr;
+    pindex = mapBlockIndex.at(hashBlock);
+    if(pindex) {
+        std::lock_guard<std::mutex> lock(cs_blockchange);
+        latestblock.hash = pindex->GetBlockHash();
+        latestblock.height = pindex->nHeight;
+    }
+    cond_blockchange.notify_all();
+}
+
+UniValue waitfornewblock(const UniValue& params, bool fHelp)
+{
+    if (fHelp || params.size() > 1)
+        throw std::runtime_error(
+            "waitfornewblock ( timeout )\n"
+            "\nWaits for a specific new block and returns useful info about it.\n"
+            "\nReturns the current block on timeout or exit.\n"
+
+            "\nArguments:\n"
+            "1. timeout (int, optional, default=0) Time in milliseconds to wait for a response. 0 indicates no timeout.\n"
+
+            "\nResult:\n"
+            "{                           (json object)\n"
+            "  \"hash\" : {       (string) The blockhash\n"
+            "  \"height\" : {     (int) Block height\n"
+            "}\n"
+
+            "\nExamples:\n"
+            + HelpExampleCli("waitfornewblock", "1000")
+            + HelpExampleRpc("waitfornewblock", "1000")
+        );
+    int timeout = 0;
+    if (params.size() > 0)
+        timeout = params[0].get_int();
+    CUpdatedBlock block;
+    {
+        std::unique_lock<std::mutex> lock(cs_blockchange);
+        block = latestblock;
+        if(timeout)
+            cond_blockchange.wait_for(lock, std::chrono::milliseconds(timeout), [&block]{return latestblock.height != block.height || latestblock.hash != block.hash || !IsRPCRunning(); });
+        else
+            cond_blockchange.wait(lock, [&block]{return latestblock.height != block.height || latestblock.hash != block.hash || !IsRPCRunning(); });
+        block = latestblock;
+    }
+    UniValue ret(UniValue::VOBJ);
+    ret.push_back(Pair("hash", block.hash.GetHex()));
+    ret.push_back(Pair("height", block.height));
+    return ret;
+}
+
+UniValue waitforblock(const UniValue& params, bool fHelp)
+{
+    if (fHelp || params.size() < 1 || params.size() > 2)
+        throw std::runtime_error(
+            "waitforblock blockhash ( timeout )\n"
+            "\nWaits for a specific new block and returns useful info about it.\n"
+            "\nReturns the current block on timeout or exit.\n"
+
+            "\nArguments:\n"
+            "1. \"blockhash\" (required, string) Block hash to wait for.\n"
+            "2. timeout       (int, optional, default=0) Time in milliseconds to wait for a response. 0 indicates no timeout.\n"
+
+            "\nResult:\n"
+            "{                           (json object)\n"
+            "  \"hash\" : {       (string) The blockhash\n"
+            "  \"height\" : {     (int) Block height\n"
+            "}\n"
+
+            "\nExamples:\n"
+            + HelpExampleCli("waitforblock", "\"0000000000079f8ef3d2c688c244eb7a4570b24c9ed7b4a8c619eb02596f8862\", 1000")
+            + HelpExampleRpc("waitforblock", "\"0000000000079f8ef3d2c688c244eb7a4570b24c9ed7b4a8c619eb02596f8862\", 1000")
+        );
+    int timeout = 0;
+
+    uint256 hash = uint256S(params[0].get_str());
+
+    if (params.size() > 1)
+        timeout = params[1].get_int();
+
+    CUpdatedBlock block;
+    {
+        std::unique_lock<std::mutex> lock(cs_blockchange);
+        if(timeout)
+            cond_blockchange.wait_for(lock, std::chrono::milliseconds(timeout), [&hash]{return latestblock.hash == hash || !IsRPCRunning();});
+        else
+            cond_blockchange.wait(lock, [&hash]{return latestblock.hash == hash || !IsRPCRunning(); });
+        block = latestblock;
+    }
+
+    UniValue ret(UniValue::VOBJ);
+    ret.push_back(Pair("hash", block.hash.GetHex()));
+    ret.push_back(Pair("height", block.height));
+    return ret;
+}
+
+UniValue waitforblockheight(const UniValue& params, bool fHelp)
+{
+    if (fHelp || params.size() < 1 || params.size() > 2)
+        throw std::runtime_error(
+            "waitforblockheight height ( timeout )\n"
+            "\nWaits for (at least) block height and returns the height and hash\n"
+            "of the current tip.\n"
+            "\nReturns the current block on timeout or exit.\n"
+
+            "\nArguments:\n"
+            "1. height  (required, int) Block height to wait for (int)\n"
+            "2. timeout (int, optional, default=0) Time in milliseconds to wait for a response. 0 indicates no timeout.\n"
+
+            "\nResult:\n"
+            "{                           (json object)\n"
+            "  \"hash\" : {       (string) The blockhash\n"
+            "  \"height\" : {     (int) Block height\n"
+            "}\n"
+
+            "\nExamples:\n"
+            + HelpExampleCli("waitforblockheight", "\"100\", 1000")
+            + HelpExampleRpc("waitforblockheight", "\"100\", 1000")
+        );
+    int timeout = 0;
+
+    int height = params[0].get_int();
+
+    if (params.size() > 1)
+        timeout = params[1].get_int();
+
+    CUpdatedBlock block;
+    {
+        std::unique_lock<std::mutex> lock(cs_blockchange);
+        if(timeout)
+            cond_blockchange.wait_for(lock, std::chrono::milliseconds(timeout), [&height]{return latestblock.height >= height || !IsRPCRunning();});
+        else
+            cond_blockchange.wait(lock, [&height]{return latestblock.height >= height || !IsRPCRunning(); });
+        block = latestblock;
+    }
+    UniValue ret(UniValue::VOBJ);
+    ret.push_back(Pair("hash", block.hash.GetHex()));
+    ret.push_back(Pair("height", block.height));
+    return ret;
 }
 
 UniValue getdifficulty(const UniValue& params, bool fHelp)
@@ -587,10 +827,17 @@ static UniValue SoftForkMajorityDesc(int minVersion, CBlockIndex* pindex, int nR
 {
     int nFound = 0;
     CBlockIndex* pstart = pindex;
+    //for (int i = 0; i < Params().ToCheckBlockUpgradeMajority() && pstart != NULL; i++)
+    //{
+    //    if (pstart->nVersion >= minVersion)
+    //        ++nFound;
+    //    pstart = pstart->pprev;
+    //}
     UniValue rv(UniValue::VOBJ);
     rv.push_back(Pair("status", nFound >= nRequired));
     rv.push_back(Pair("found", nFound));
     rv.push_back(Pair("required", nRequired));
+    //rv.push_back(Pair("window", Params().ToCheckBlockUpgradeMajority()));
     return rv;
 }
 static UniValue SoftForkDesc(const std::string &name, int version, CBlockIndex* pindex)
@@ -598,6 +845,8 @@ static UniValue SoftForkDesc(const std::string &name, int version, CBlockIndex* 
     UniValue rv(UniValue::VOBJ);
     rv.push_back(Pair("id", name));
     rv.push_back(Pair("version", version));
+    //rv.push_back(Pair("enforce", SoftForkMajorityDesc(version, pindex, Params().EnforceBlockUpgradeMajority())));
+    //rv.push_back(Pair("reject", SoftForkMajorityDesc(version, pindex, Params().RejectBlockOutdatedMajority())));
     return rv;
 }
 
@@ -1010,6 +1259,46 @@ UniValue getaccumulatorvalues(const UniValue& params, bool fHelp)
     return ret;
 }
 
+UniValue calculateaccumulatorvalues(const UniValue& params, bool fHelp)
+{
+    if (fHelp || params.size() != 1)
+        throw runtime_error(
+            "calculateaccumulatorvalues \"height\"\n"
+                    "\nReturns the calculated accumulator values associated with a block height\n"
+
+                    "\nArguments:\n"
+                    "1. height   (numeric, required) the height of the checkpoint.\n"
+
+                    "\nExamples:\n" +
+            HelpExampleCli("calculateaccumulatorvalues", "\"height\"") + HelpExampleRpc("generateaccumulatorvalues", "\"height\""));
+
+    int nHeight = params[0].get_int();
+
+    CBlockIndex* pindex = chainActive[nHeight];
+    if (!pindex)
+        throw JSONRPCError(RPC_INVALID_PARAMETER, "invalid block height");
+
+    uint256 nCheckpointCalculated = 0;
+
+    AccumulatorMap mapAccumulators(Params().Zerocoin_Params(false));
+
+    if (!CalculateAccumulatorCheckpointWithoutDB(nHeight, nCheckpointCalculated, mapAccumulators))
+        return error("%s : failed to calculate accumulator checkpoint", __func__);
+
+    UniValue ret(UniValue::VARR);
+    UniValue obj(UniValue::VOBJ);
+
+    obj.push_back(Pair("height", nHeight));
+    for (libzerocoin::CoinDenomination denom : libzerocoin::zerocoinDenomList) {
+        CBigNum bnValue;
+
+        bnValue = mapAccumulators.GetValue(denom);
+        obj.push_back(Pair(std::to_string(denom), bnValue.GetHex()));
+    }
+    ret.push_back(obj);
+
+    return ret;
+}
 
 UniValue getaccumulatorwitness(const UniValue& params, bool fHelp)
 {

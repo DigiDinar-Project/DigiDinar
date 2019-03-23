@@ -1779,32 +1779,32 @@ Budite strpljivi nakon što kliknete uvoz.</translation>
         <translation>Odaberi razinu privatnosti.</translation>
     </message>
     <message>
-        <source>Use 2 separate masternodes to mix funds up to 10000 DDR</source>
-        <translation>Koristite 2 odvojene masternode za miješanje sredstava do 10000 DDR</translation>
+        <source>Use 2 separate masternodes to mix funds up to 25000 DDR</source>
+        <translation>Koristite 2 odvojene masternode za miješanje sredstava do 25000 DDR</translation>
     </message>
     <message>
-        <source>Use 8 separate masternodes to mix funds up to 10000 DDR</source>
-        <translation>Koristite 8 zasebnih masternoda za miješanje sredstava do 10000 DDR</translation>
+        <source>Use 8 separate masternodes to mix funds up to 25000 DDR</source>
+        <translation>Koristite 8 zasebnih masternoda za miješanje sredstava do 25000 DDR</translation>
     </message>
     <message>
         <source>Use 16 separate masternodes</source>
         <translation>Koristite 16 zasebnih masternodova</translation>
     </message>
     <message>
-        <source>This option is the quickest and will cost about ~0.025 DDR to anonymize 10000 DDR</source>
-        <translation>Ova je opcija najbrža i košta oko 0,025 DDR da anonimizira 10000 DDR</translation>
+        <source>This option is the quickest and will cost about ~0.025 DDR to anonymize 25000 DDR</source>
+        <translation>Ova je opcija najbrža i košta oko 0,025 DDR da anonimizira 25000 DDR</translation>
     </message>
     <message>
-        <source>This option is moderately fast and will cost about 0.05 DDR to anonymize 10000 DDR</source>
-        <translation>Ova je opcija umjereno brza i košta oko 0,05 DDR da anonimizira 10000 DDR</translation>
+        <source>This option is moderately fast and will cost about 0.05 DDR to anonymize 25000 DDR</source>
+        <translation>Ova je opcija umjereno brza i košta oko 0,05 DDR da anonimizira 25000 DDR</translation>
     </message>
     <message>
         <source>This is the slowest and most secure option. Using maximum anonymity will cost</source>
         <translation>Ovo je najsporiji i najsigurniji izbor. Korištenje maksimalne anonimnosti košta</translation>
     </message>
     <message>
-        <source>0.1 DDR per 10000 DDR you anonymize.</source>
-        <translation>0,1 DDR po 10000 DDR za anonimizaciju.</translation>
+        <source>0.1 DDR per 25000 DDR you anonymize.</source>
+        <translation>0,1 DDR po 25000 DDR za anonimizaciju.</translation>
     </message>
     <message>
         <source>Obfuscation Configuration</source>
@@ -5095,12 +5095,12 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
         <translation>Nije moguće locirati dovoljno sredstava s domenom Prikrivanja za tu transakciju.</translation>
     </message>
     <message>
-        <source>Unable to locate enough Obfuscation non-denominated funds for this transaction that are not equal 10000 DDR.</source>
-        <translation>Nije moguće pronaći dovoljno prikrivenih sredstava koja nisu denominirana za ovu transakciju koja nisu jednaka 10000 DDR.</translation>
+        <source>Unable to locate enough Obfuscation non-denominated funds for this transaction that are not equal 25000 DDR.</source>
+        <translation>Nije moguće pronaći dovoljno prikrivenih sredstava koja nisu denominirana za ovu transakciju koja nisu jednaka 25000 DDR.</translation>
     </message>
     <message>
-        <source>Unable to locate enough funds for this transaction that are not equal 10000 DDR.</source>
-        <translation>Nije moguće pronaći dovoljno sredstava za ovu transakciju koja nije jednaka 10000 DDR.</translation>
+        <source>Unable to locate enough funds for this transaction that are not equal 25000 DDR.</source>
+        <translation>Nije moguće pronaći dovoljno sredstava za ovu transakciju koja nije jednaka 25000 DDR.</translation>
     </message>
     <message>
         <source>Use separate SOCKS5 proxy to reach peers via Tor hidden services (default: %s)</source>
@@ -5147,8 +5147,8 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
         <translation>Morate odrediti masternodeprivkey u konfiguraciji. Za pomoć pogledajte dokumentaciju.</translation>
     </message>
     <message>
-        <source>(51472 could be used only on mainnet)</source>
-        <translation>(51472 se može koristiti samo na mainnetu)</translation>
+        <source>(32001 could be used only on mainnet)</source>
+        <translation>(32001 se može koristiti samo na mainnetu)</translation>
     </message>
     <message>
         <source>(default: %s)</source>
@@ -5159,8 +5159,8 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
         <translation>(default: 1)</translation>
     </message>
     <message>
-        <source>(must be 51472 for mainnet)</source>
-        <translation>(mora biti 51472 za glavnu mrežu)</translation>
+        <source>(must be 32001 for mainnet)</source>
+        <translation>(mora biti 32001 za glavnu mrežu)</translation>
     </message>
     <message>
         <source>Accept command line and JSON-RPC commands</source>

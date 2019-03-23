@@ -135,13 +135,15 @@ UniValue ValueFromAmount(const CAmount& amount)
             strprintf("%s%d.%08d", sign ? "-" : "", quotient, remainder));
 }
 
-uint256 ParseHashV(const UniValue& v, string strName)
+uint256 ParseHashV(const UniValue& v, std::string strName)
 {
-    string strHex;
+    std::string strHex;
     if (v.isStr())
         strHex = v.get_str();
     if (!IsHex(strHex)) // Note: IsHex("") is false
         throw JSONRPCError(RPC_INVALID_PARAMETER, strName + " must be hexadecimal string (not '" + strHex + "')");
+    if (64 != strHex.length())
+        throw JSONRPCError(RPC_INVALID_PARAMETER, strprintf("%s must be of length %d (not %d)", strName, 64, strHex.length()));
     uint256 result;
     result.SetHex(strHex);
     return result;
@@ -302,6 +304,7 @@ static const CRPCCommand vRPCCommands[] =
         /* Block chain and UTXO */
         {"blockchain", "findserial", &findserial, true, false, false},
         {"blockchain", "getaccumulatorvalues", &getaccumulatorvalues, true, false, false},
+        {"blockchain", "calculateaccumulatorvalues", &calculateaccumulatorvalues, true, false, false},
         {"blockchain", "getaccumulatorwitness", &getaccumulatorwitness, true, false, false},
         {"blockchain", "getmintsinblocks", &getmintsinblocks, true, false, false},
         {"blockchain", "getblockchaininfo", &getblockchaininfo, true, false, false},
@@ -311,6 +314,7 @@ static const CRPCCommand vRPCCommands[] =
         {"blockchain", "getblockhash", &getblockhash, true, false, false},
         {"blockchain", "getblockheader", &getblockheader, false, false, false},
         {"blockchain", "getchaintips", &getchaintips, true, false, false},
+        {"blockchain", "getchecksumblock", &getchecksumblock, false, false, false},
         {"blockchain", "getdifficulty", &getdifficulty, true, false, false},
         {"blockchain", "getfeeinfo", &getfeeinfo, true, false, false},
         {"blockchain", "getmempoolinfo", &getmempoolinfo, true, true, false},
@@ -334,6 +338,7 @@ static const CRPCCommand vRPCCommands[] =
         {"generating", "getgenerate", &getgenerate, true, false, false},
         {"generating", "gethashespersec", &gethashespersec, true, false, false},
         {"generating", "setgenerate", &setgenerate, true, true, false},
+        {"generating", "generate", &generate, true, true, false},
 #endif
 
         /* Raw transactions */
@@ -355,6 +360,9 @@ static const CRPCCommand vRPCCommands[] =
         {"hidden", "invalidateblock", &invalidateblock, true, true, false},
         {"hidden", "reconsiderblock", &reconsiderblock, true, true, false},
         {"hidden", "setmocktime", &setmocktime, true, false, false},
+        { "hidden",             "waitfornewblock",        &waitfornewblock,        true,  true,  false  },
+        { "hidden",             "waitforblock",           &waitforblock,           true,  true,  false  },
+        { "hidden",             "waitforblockheight",     &waitforblockheight,     true,  true,  false  },
 
         /* Digi Dinar features */
         {"digidinar", "masternode", &masternode, true, true, false},
@@ -440,6 +448,7 @@ static const CRPCCommand vRPCCommands[] =
         {"wallet", "walletpassphrasechange", &walletpassphrasechange, true, false, true},
         {"wallet", "walletpassphrase", &walletpassphrase, true, false, true},
 
+        {"zerocoin", "createrawzerocoinstake", &createrawzerocoinstake, false, false, true},
         {"zerocoin", "getzerocoinbalance", &getzerocoinbalance, false, false, true},
         {"zerocoin", "listmintedzerocoins", &listmintedzerocoins, false, false, true},
         {"zerocoin", "listspentzerocoins", &listspentzerocoins, false, false, true},
@@ -629,7 +638,7 @@ std::string HelpExampleRpc(string methodname, string args)
 {
     return "> curl --user myusername --data-binary '{\"jsonrpc\": \"1.0\", \"id\":\"curltest\", "
            "\"method\": \"" +
-           methodname + "\", \"params\": [" + args + "] }' -H 'content-type: text/plain;' http://127.0.0.1:51473/\n";
+           methodname + "\", \"params\": [" + args + "] }' -H 'content-type: text/plain;' http://127.0.0.1:32002/\n";
 }
 
 void RPCSetTimerInterfaceIfUnset(RPCTimerInterface *iface)

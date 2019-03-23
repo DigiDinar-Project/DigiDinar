@@ -1,7 +1,7 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2014 The Bitcoin developers
 // Copyright (c) 2014-2015 The Dash developers
-// Copyright (c) 2015-2018 The DigiDinar developers
+// Copyright (c) 2015-2018 The PIVX developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -1942,7 +1942,14 @@ CAmount CWallet::GetLockedWatchOnlyBalance() const
 /**
  * populate vCoins with vector of available COutputs.
  */
-void CWallet::AvailableCoins(vector<COutput>& vCoins, bool fOnlyConfirmed, const CCoinControl* coinControl, bool fIncludeZeroValue, AvailableCoinsType nCoinType, bool fUseIX, int nWatchonlyConfig) const
+void CWallet::AvailableCoins(
+        vector<COutput>& vCoins,
+        bool fOnlyConfirmed,
+        const CCoinControl* coinControl,
+        bool fIncludeZeroValue,
+        AvailableCoinsType nCoinType,
+        bool fUseIX,
+        int nWatchonlyConfig) const
 {
     vCoins.clear();
 
@@ -2114,6 +2121,9 @@ bool CWallet::SelectStakeCoins(std::list<std::unique_ptr<CStakeInput> >& listInp
             if (nAmountSelected + out.tx->vout[out.i].nValue > nTargetAmount)
                 continue;
 
+            //if (out.tx->vout[out.i].nValue < Params().StakeInputMinimal())
+            //    continue;
+
             //if zerocoinspend, then use the block time
             int64_t nTxTime = out.tx->GetTxTime();
             if (out.tx->IsZerocoinSpend()) {
@@ -2123,7 +2133,7 @@ bool CWallet::SelectStakeCoins(std::list<std::unique_ptr<CStakeInput> >& listInp
             }
 
             //check for min age
-            if (GetAdjustedTime() - nTxTime < nStakeMinAge)
+            if ((GetAdjustedTime() - nTxTime < nStakeMinAge ) && Params().NetworkID() != CBaseChainParams::REGTEST)
                 continue;
 
             //check that it is matured
@@ -2793,9 +2803,9 @@ bool CWallet::CreateTransaction(const vector<pair<CScript, CAmount> >& vecSend,
                     if (coin_type == ALL_COINS) {
                         strFailReason = _("Insufficient funds.");
                     } else if (coin_type == ONLY_NOT10000IFMN) {
-                        strFailReason = _("Unable to locate enough funds for this transaction that are not equal 10000 DDR.");
+                        strFailReason = _("Unable to locate enough funds for this transaction that are not equal 25000 DDR.");
                     } else if (coin_type == ONLY_NONDENOMINATED_NOT10000IFMN) {
-                        strFailReason = _("Unable to locate enough Obfuscation non-denominated funds for this transaction that are not equal 10000 DDR.");
+                        strFailReason = _("Unable to locate enough Obfuscation non-denominated funds for this transaction that are not equal 25000 DDR.");
                     } else {
                         strFailReason = _("Unable to locate enough Obfuscation denominated funds for this transaction.");
                         strFailReason += " " + _("Obfuscation uses exact denominated amounts to send funds, you might simply need to anonymize some more coins.");
@@ -2955,7 +2965,13 @@ bool CWallet::CreateTransaction(CScript scriptPubKey, const CAmount& nValue, CWa
 }
 
 // ppcoin: create coin stake transaction
-bool CWallet::CreateCoinStake(const CKeyStore& keystore, unsigned int nBits, int64_t nSearchInterval, CMutableTransaction& txNew, unsigned int& nTxNewTime)
+bool CWallet::CreateCoinStake(
+        const CKeyStore& keystore,
+        unsigned int nBits,
+        int64_t nSearchInterval,
+        CMutableTransaction& txNew,
+        unsigned int& nTxNewTime
+        )
 {
     // The following split & combine thresholds are important to security
     // Should not be adjusted if you don't understand the consequences
@@ -2979,14 +2995,25 @@ bool CWallet::CreateCoinStake(const CKeyStore& keystore, unsigned int nBits, int
 
     // Get the list of stakable inputs
     std::list<std::unique_ptr<CStakeInput> > listInputs;
-    if (!SelectStakeCoins(listInputs, nBalance - nReserveBalance))
+    if (!SelectStakeCoins(listInputs, nBalance - nReserveBalance)) {
+        LogPrint("debug","CreateCoinStake(): selectStakeCoins failed\n");
         return false;
+    }
 
-    if (listInputs.empty())
-        return false;
+    if (GetAdjustedTime() - chainActive.Tip()->GetBlockTime() < 60){
 
-    if (GetAdjustedTime() - chainActive.Tip()->GetBlockTime() < 60)
+        if(Params().NetworkID() != CBaseChainParams::REGTEST){
         MilliSleep(10000);
+        }else{
+            MilliSleep(1000);
+        }
+
+    }
+    
+    if (listInputs.empty()) {
+        LogPrint("debug","CreateCoinStake(): listInputs empty\n");
+        return false;
+    }
 
     CAmount nCredit;
     CScript scriptPubKeyKernel;
@@ -3000,7 +3027,7 @@ bool CWallet::CreateCoinStake(const CKeyStore& keystore, unsigned int nBits, int
         //make sure that enough time has elapsed between
         CBlockIndex* pindex = stakeInput->GetIndexFrom();
         if (!pindex || pindex->nHeight < 1) {
-            LogPrintf("*** no pindexfrom\n");
+            LogPrintf("CreateCoinStake(): no pindexfrom\n");
             continue;
         }
 
@@ -3013,7 +3040,7 @@ bool CWallet::CreateCoinStake(const CKeyStore& keystore, unsigned int nBits, int
         if (Stake(stakeInput.get(), nBits, block.GetBlockTime(), nTxNewTime, hashProofOfStake)) {
             LOCK(cs_main);
             //Double check that this will pass time requirements
-            if (nTxNewTime <= chainActive.Tip()->GetMedianTimePast()) {
+            if (nTxNewTime <= chainActive.Tip()->GetMedianTimePast() && Params().NetworkID() != CBaseChainParams::REGTEST) {
                 LogPrintf("CreateCoinStake() : kernel found, but it is too far in the past \n");
                 continue;
             }
@@ -4062,6 +4089,8 @@ void CWallet::CreateAutoMintTransaction(const CAmount& nMintAmount, CCoinControl
 // CWallet::AutoZeromint() gets called with each new incoming block
 void CWallet::AutoZeromint()
 {
+    if (!fEnableZeromint)
+        return;
     // Don't bother Autominting if Zerocoin Protocol isn't active
     if (GetAdjustedTime() > GetSporkValue(SPORK_16_ZEROCOIN_MAINTENANCE_MODE)) return;
 
@@ -4083,8 +4112,6 @@ void CWallet::AutoZeromint()
     if (fEnableAutoConvert)
         AutoZeromintForAddress();
 
-    if (!fEnableZeromint)
-        return;
 
     CAmount nZerocoinBalance = GetZerocoinBalance(false); //false includes both pending and mature zerocoins. Need total balance for this so nothing is overminted.
     CAmount nBalance = GetUnlockedCoins(); // We only consider unlocked coins, this also excludes masternode-vins
@@ -4660,7 +4687,7 @@ bool CWallet::MintToTxIn(CZerocoinMint zerocoinSelected, int nSecurityLevel, con
     //LogPrintf("%s : selected mint %s\n pubcoinhash=%s\n", __func__, zerocoinSelected.ToString(), GetPubCoinHash(zerocoinSelected.GetValue()).GetHex());
     if (!pubCoinSelected.validate()) {
         receipt.SetStatus(_("The selected mint coin is an invalid coin"), ZDDR_INVALID_COIN);
-        return false;
+        return error("%s : %s", __func__, receipt.GetStatusMessage());
     }
 
     // 3. Compute Accumulator and Witness
@@ -4710,7 +4737,7 @@ bool CWallet::MintToTxIn(CZerocoinMint zerocoinSelected, int nSecurityLevel, con
             libzerocoin::CoinSpend spend2(Params().Zerocoin_Params(true), paramsAccumulator, privateCoin, accumulator,
                                           nChecksum, witness, hashTxOut, libzerocoin::SpendType::SPEND);
             LogPrintf("*** spend2 valid=%d\n", spend2.Verify(accumulator));
-            return false;
+            return error("%s : %s", __func__, receipt.GetStatusMessage());
         }
 
         // Deserialize the CoinSpend intro a fresh object
@@ -4718,7 +4745,7 @@ bool CWallet::MintToTxIn(CZerocoinMint zerocoinSelected, int nSecurityLevel, con
         serializedCoinSpend << spend;
         std::vector<unsigned char> data(serializedCoinSpend.begin(), serializedCoinSpend.end());
 
-        //Add the coin spend into a Digi Dinar transaction
+        //Add the coin spend into a transaction
         newTxIn.scriptSig = CScript() << OP_ZEROCOINSPEND << data.size();
         newTxIn.scriptSig.insert(newTxIn.scriptSig.end(), data.begin(), data.end());
         newTxIn.prevout.SetNull();
@@ -4733,16 +4760,16 @@ bool CWallet::MintToTxIn(CZerocoinMint zerocoinSelected, int nSecurityLevel, con
             serializedCoinSpendChecking << spend;
         } catch (...) {
             receipt.SetStatus(_("Failed to deserialize"), ZDDR_BAD_SERIALIZATION);
-            return false;
+            return error("%s : %s", __func__, receipt.GetStatusMessage());
         }
 
         libzerocoin::CoinSpend newSpendChecking(paramsCoin, paramsAccumulator, serializedCoinSpendChecking);
         if (!newSpendChecking.Verify(accumulator)) {
             receipt.SetStatus(_("The transaction did not verify"), ZDDR_BAD_SERIALIZATION);
-            return false;
+            return error("%s : %s", __func__, receipt.GetStatusMessage());
         }
 
-        if (IsSerialKnown(spend.getCoinSerialNumber())) {
+if (Params().NetworkID() != CBaseChainParams::REGTEST && IsSerialKnown(spend.getCoinSerialNumber())) {
             //Tried to spend an already spent zDDR
             receipt.SetStatus(_("The coin spend has been used"), ZDDR_SPENT_USED_ZDDR);
 
@@ -4756,7 +4783,7 @@ bool CWallet::MintToTxIn(CZerocoinMint zerocoinSelected, int nSecurityLevel, con
                 LogPrintf("%s: failed to write zerocoinmint\n", __func__);
 
             pwalletMain->NotifyZerocoinChanged(pwalletMain, zerocoinSelected.GetValue().GetHex(), "Used", CT_UPDATED);
-            return false;
+            return error("%s : %s", __func__, receipt.GetStatusMessage());
         }
 
         uint32_t nAccumulatorChecksum = GetChecksum(accumulator.getValue());
@@ -4765,7 +4792,7 @@ bool CWallet::MintToTxIn(CZerocoinMint zerocoinSelected, int nSecurityLevel, con
         receipt.AddSpend(zcSpend);
     } catch (const std::exception&) {
         receipt.SetStatus(_("CoinSpend: Accumulator witness does not verify"), ZDDR_INVALID_WITNESS);
-        return false;
+        return error("%s : %s", __func__, receipt.GetStatusMessage());
     }
 
     receipt.SetStatus(_("Spend Valid"), ZDDR_SPEND_OKAY); // Everything okay

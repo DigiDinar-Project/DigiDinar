@@ -1750,11 +1750,11 @@ Patikrinkite adresą ir bandykite dar kartą.</translation>
         <translation>Pasirinkite privatumo lygmenį.</translation>
     </message>
     <message>
-        <source>Use 2 separate masternodes to mix funds up to 10000 DDR</source>
+        <source>Use 2 separate masternodes to mix funds up to 25000 DDR</source>
         <translation>Naudokite 2 atskirus masternod'us, kad sumaišytumėte lėšas iki 10 000 DDR</translation>
     </message>
     <message>
-        <source>Use 8 separate masternodes to mix funds up to 10000 DDR</source>
+        <source>Use 8 separate masternodes to mix funds up to 25000 DDR</source>
         <translation>Naudokite 8 atskirus masternod'us, kad sumaišytumėte lėšas iki 10 000 DDR</translation>
     </message>
     <message>
@@ -1762,19 +1762,19 @@ Patikrinkite adresą ir bandykite dar kartą.</translation>
         <translation>Naudokite 16 atskirų masternod'ų</translation>
     </message>
     <message>
-        <source>This option is the quickest and will cost about ~0.025 DDR to anonymize 10000 DDR</source>
-        <translation>Ši parinktis yra greičiausia ir kainuos apie ~0.025 DDR, kad anonimizuotų 10000 DDR</translation>
+        <source>This option is the quickest and will cost about ~0.025 DDR to anonymize 25000 DDR</source>
+        <translation>Ši parinktis yra greičiausia ir kainuos apie ~0.025 DDR, kad anonimizuotų 25000 DDR</translation>
     </message>
     <message>
-        <source>This option is moderately fast and will cost about 0.05 DDR to anonymize 10000 DDR</source>
-        <translation>Ši parinktis yra vidutiniškai greita ir kainuoja apie 0,05 DDR, kad anonimizuotų 10000 DDR</translation>
+        <source>This option is moderately fast and will cost about 0.05 DDR to anonymize 25000 DDR</source>
+        <translation>Ši parinktis yra vidutiniškai greita ir kainuoja apie 0,05 DDR, kad anonimizuotų 25000 DDR</translation>
     </message>
     <message>
         <source>This is the slowest and most secure option. Using maximum anonymity will cost</source>
         <translation>Tai yra lėčiausias ir saugiausias variantas. Maksimalus anonimiškumas kainuos.</translation>
     </message>
     <message>
-        <source>0.1 DDR per 10000 DDR you anonymize.</source>
+        <source>0.1 DDR per 25000 DDR you anonymize.</source>
         <translation>0.1 DDR kas 1000 DDR kuriuos anonimizuosite.</translation>
     </message>
     <message>

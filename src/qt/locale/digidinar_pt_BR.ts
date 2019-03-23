@@ -1574,32 +1574,32 @@ Favor verificar o endereço e tente novamente.</translation>
         <translation>Favor selecionar o nível de privacidade.</translation>
     </message>
     <message>
-        <source>Use 2 separate masternodes to mix funds up to 10000 DDR</source>
-        <translation>Use 2 masternodes separados para embaralhar fundos até 10000 DDR</translation>
+        <source>Use 2 separate masternodes to mix funds up to 25000 DDR</source>
+        <translation>Use 2 masternodes separados para embaralhar fundos até 25000 DDR</translation>
     </message>
     <message>
-        <source>Use 8 separate masternodes to mix funds up to 10000 DDR</source>
-        <translation>Use 8 masternodes separados para embaralhar fundos até 10000 DDR</translation>
+        <source>Use 8 separate masternodes to mix funds up to 25000 DDR</source>
+        <translation>Use 8 masternodes separados para embaralhar fundos até 25000 DDR</translation>
     </message>
     <message>
         <source>Use 16 separate masternodes</source>
         <translation>Use 16 masternodes separados</translation>
     </message>
     <message>
-        <source>This option is the quickest and will cost about ~0.025 DDR to anonymize 10000 DDR</source>
-        <translation>Está opção é a mais rápida e vai custar em torno de ~0.025 DDR para anonimizar 10000 DDR</translation>
+        <source>This option is the quickest and will cost about ~0.025 DDR to anonymize 25000 DDR</source>
+        <translation>Está opção é a mais rápida e vai custar em torno de ~0.025 DDR para anonimizar 25000 DDR</translation>
     </message>
     <message>
-        <source>This option is moderately fast and will cost about 0.05 DDR to anonymize 10000 DDR</source>
-        <translation>Está opção moderamente rápida e vai custar em torno de ~0.05 DDR para anonimizar 10000 DDR</translation>
+        <source>This option is moderately fast and will cost about 0.05 DDR to anonymize 25000 DDR</source>
+        <translation>Está opção moderamente rápida e vai custar em torno de ~0.05 DDR para anonimizar 25000 DDR</translation>
     </message>
     <message>
         <source>This is the slowest and most secure option. Using maximum anonymity will cost</source>
         <translation>Esta é a opção mais lenta e mais segura. Usando a anonimização máxima vai custar</translation>
     </message>
     <message>
-        <source>0.1 DDR per 10000 DDR you anonymize.</source>
-        <translation>0.1 DDR por 10000 DDR que deixar anônima.</translation>
+        <source>0.1 DDR per 25000 DDR you anonymize.</source>
+        <translation>0.1 DDR por 25000 DDR que deixar anônima.</translation>
     </message>
     <message>
         <source>Obfuscation Configuration</source>
@@ -3696,8 +3696,8 @@ https://www.transifex.com/digidinar-project/digidinar-project-translations</tran
         <translation>Define o tamanho máximo de transações de alta prioridade/taxa baixa em bytes (padrão: %d)</translation>
     </message>
     <message>
-        <source>Unable to locate enough funds for this transaction that are not equal 10000 DDR.</source>
-        <translation>Incapaz de localizar fundos para esta transação que não são iguais a 10000 DDR.</translation>
+        <source>Unable to locate enough funds for this transaction that are not equal 25000 DDR.</source>
+        <translation>Incapaz de localizar fundos para esta transação que não são iguais a 25000 DDR.</translation>
     </message>
     <message>
         <source>Use separate SOCKS5 proxy to reach peers via Tor hidden services (default: %s)</source>
@@ -3728,8 +3728,8 @@ https://www.transifex.com/digidinar-project/digidinar-project-translations</tran
         <translation>Você deve especificar uma masternodeprivkey na configuração. Favor verificar o manual para obter ajuda.</translation>
     </message>
     <message>
-        <source>(51472 could be used only on mainnet)</source>
-        <translation>(51472 could be used only on mainnet)</translation>
+        <source>(32001 could be used only on mainnet)</source>
+        <translation>(32001 could be used only on mainnet)</translation>
     </message>
     <message>
         <source>(default: %s)</source>
@@ -3740,8 +3740,8 @@ https://www.transifex.com/digidinar-project/digidinar-project-translations</tran
         <translation>(padrão: 1)</translation>
     </message>
     <message>
-        <source>(must be 51472 for mainnet)</source>
-        <translation>(deve ser 51472 para mainnet)</translation>
+        <source>(must be 32001 for mainnet)</source>
+        <translation>(deve ser 32001 para mainnet)</translation>
     </message>
     <message>
         <source>Accept connections from outside (default: 1 if no -proxy or -connect)</source>

@@ -200,9 +200,9 @@ QT_TRANSLATE_NOOP("digidinar-core", ""
 "Unable to locate enough Obfuscation denominated funds for this transaction."),
 QT_TRANSLATE_NOOP("digidinar-core", ""
 "Unable to locate enough Obfuscation non-denominated funds for this "
-"transaction that are not equal 10000 DDR."),
+"transaction that are not equal 25000 DDR."),
 QT_TRANSLATE_NOOP("digidinar-core", ""
-"Unable to locate enough funds for this transaction that are not equal 10000 "
+"Unable to locate enough funds for this transaction that are not equal 25000 "
 "DDR."),
 QT_TRANSLATE_NOOP("digidinar-core", ""
 "Use separate SOCKS5 proxy to reach peers via Tor hidden services (default: "
@@ -238,10 +238,10 @@ QT_TRANSLATE_NOOP("digidinar-core", ""
 QT_TRANSLATE_NOOP("digidinar-core", ""
 "You must specify a masternodeprivkey in the configuration. Please see "
 "documentation for help."),
-QT_TRANSLATE_NOOP("digidinar-core", "(51472 could be used only on mainnet)"),
+QT_TRANSLATE_NOOP("digidinar-core", "(32001 could be used only on mainnet)"),
 QT_TRANSLATE_NOOP("digidinar-core", "(default: %s)"),
 QT_TRANSLATE_NOOP("digidinar-core", "(default: 1)"),
-QT_TRANSLATE_NOOP("digidinar-core", "(must be 51472 for mainnet)"),
+QT_TRANSLATE_NOOP("digidinar-core", "(must be 32001 for mainnet)"),
 QT_TRANSLATE_NOOP("digidinar-core", "<category> can be:"),
 QT_TRANSLATE_NOOP("digidinar-core", "Accept command line and JSON-RPC commands"),
 QT_TRANSLATE_NOOP("digidinar-core", "Accept connections from outside (default: 1 if no -proxy or -connect)"),

@@ -1628,12 +1628,12 @@ Bonvolu kontroku la adreson kaj riprovu</translation>
         <translation>Bonvolu elekti privata nivelo.</translation>
     </message>
     <message>
-        <source>This option is the quickest and will cost about ~0.025 DDR to anonymize 10000 DDR</source>
-        <translation>Tion opcion estas la plej rapida kaji kostos ~0.025 DDR por anonimigi 10000 DDR</translation>
+        <source>This option is the quickest and will cost about ~0.025 DDR to anonymize 25000 DDR</source>
+        <translation>Tion opcion estas la plej rapida kaji kostos ~0.025 DDR por anonimigi 25000 DDR</translation>
     </message>
     <message>
-        <source>This option is moderately fast and will cost about 0.05 DDR to anonymize 10000 DDR</source>
-        <translation>Tion opcion estas moderebla rapide kaj kostos ĉirkaŭ 0.05 DDR por anonimigi 10000 DDR</translation>
+        <source>This option is moderately fast and will cost about 0.05 DDR to anonymize 25000 DDR</source>
+        <translation>Tion opcion estas moderebla rapide kaj kostos ĉirkaŭ 0.05 DDR por anonimigi 25000 DDR</translation>
     </message>
     <message>
         <source>This is the slowest and most secure option. Using maximum anonymity will cost</source>

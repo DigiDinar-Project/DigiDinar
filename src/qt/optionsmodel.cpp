@@ -83,11 +83,11 @@ void OptionsModel::Init()
     fCoinControlFeatures = settings.value("fCoinControlFeatures", false).toBool();
 
     if (!settings.contains("fZeromintEnable"))
-        settings.setValue("fZeromintEnable", true);
+        settings.setValue("fZeromintEnable", false);
     fEnableZeromint = settings.value("fZeromintEnable").toBool();
 
     if (!settings.contains("fEnableAutoConvert"))
-        settings.setValue("fEnableAutoConvert", true);
+        settings.setValue("fEnableAutoConvert", false);
     fEnableAutoConvert = settings.value("fEnableAutoConvert").toBool();
 
     if (!settings.contains("nZeromintPercentage"))

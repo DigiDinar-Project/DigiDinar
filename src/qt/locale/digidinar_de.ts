@@ -1771,32 +1771,32 @@ Bitte haben Sie etwas Geduld, nachdem Sie auf Importieren geklickt haben.</trans
         <translation>Bitte den gewünschten Privatsphäre Level auswählen.</translation>
     </message>
     <message>
-        <source>Use 2 separate masternodes to mix funds up to 10000 DDR</source>
-        <translation>2 separate Masternodes verwenden um bis zu 10000 DDR zu mixen</translation>
+        <source>Use 2 separate masternodes to mix funds up to 25000 DDR</source>
+        <translation>2 separate Masternodes verwenden um bis zu 25000 DDR zu mixen</translation>
     </message>
     <message>
-        <source>Use 8 separate masternodes to mix funds up to 10000 DDR</source>
-        <translation>8 separate Masternodes verwenden um bis zu 10000 DDR zu mixen</translation>
+        <source>Use 8 separate masternodes to mix funds up to 25000 DDR</source>
+        <translation>8 separate Masternodes verwenden um bis zu 25000 DDR zu mixen</translation>
     </message>
     <message>
         <source>Use 16 separate masternodes</source>
         <translation>16 separate Masternodes verwenden</translation>
     </message>
     <message>
-        <source>This option is the quickest and will cost about ~0.025 DDR to anonymize 10000 DDR</source>
-        <translation>Diese Option ist die schnellst und kostet ungefähr ~0.025 DDR um 10000 DDR zu anonymisieren </translation>
+        <source>This option is the quickest and will cost about ~0.025 DDR to anonymize 25000 DDR</source>
+        <translation>Diese Option ist die schnellst und kostet ungefähr ~0.025 DDR um 25000 DDR zu anonymisieren </translation>
     </message>
     <message>
-        <source>This option is moderately fast and will cost about 0.05 DDR to anonymize 10000 DDR</source>
-        <translation>Diese Option ist angemessen schnell und kostet ungefähr  0.05 DDR um 10000 DDR zu anonymisieren</translation>
+        <source>This option is moderately fast and will cost about 0.05 DDR to anonymize 25000 DDR</source>
+        <translation>Diese Option ist angemessen schnell und kostet ungefähr  0.05 DDR um 25000 DDR zu anonymisieren</translation>
     </message>
     <message>
         <source>This is the slowest and most secure option. Using maximum anonymity will cost</source>
         <translation>Diese Option ist die langsamste und sicherste Option. Die Verwendung maximaler Anonymisierung kostet</translation>
     </message>
     <message>
-        <source>0.1 DDR per 10000 DDR you anonymize.</source>
-        <translation>0.1 DDR per 10000 DDR die anonymisiert werden.</translation>
+        <source>0.1 DDR per 25000 DDR you anonymize.</source>
+        <translation>0.1 DDR per 25000 DDR die anonymisiert werden.</translation>
     </message>
     <message>
         <source>Obfuscation Configuration</source>
@@ -5085,12 +5085,12 @@ Präge entweder höhere Stückelungen (damit weniger Eingaben benötigt werdenn)
         <translation>Nicht genügend gestückeltes, verschleiertes Guthaben für diese Transaktion gefunden.</translation>
     </message>
     <message>
-        <source>Unable to locate enough Obfuscation non-denominated funds for this transaction that are not equal 10000 DDR.</source>
-        <translation>Nicht genügend verschleiertes, nicht gestückeltes Guthaben für diese Transaktion gefunden, die nicht gleich 10000 DDR entsprechen.</translation>
+        <source>Unable to locate enough Obfuscation non-denominated funds for this transaction that are not equal 25000 DDR.</source>
+        <translation>Nicht genügend verschleiertes, nicht gestückeltes Guthaben für diese Transaktion gefunden, die nicht gleich 25000 DDR entsprechen.</translation>
     </message>
     <message>
-        <source>Unable to locate enough funds for this transaction that are not equal 10000 DDR.</source>
-        <translation>Nicht genügend Guthaben für diese Transaktion gefunden, die nicht gleich 10000 DDR entsprechen.</translation>
+        <source>Unable to locate enough funds for this transaction that are not equal 25000 DDR.</source>
+        <translation>Nicht genügend Guthaben für diese Transaktion gefunden, die nicht gleich 25000 DDR entsprechen.</translation>
     </message>
     <message>
         <source>Use separate SOCKS5 proxy to reach peers via Tor hidden services (default: %s)</source>
@@ -5137,8 +5137,8 @@ Präge entweder höhere Stückelungen (damit weniger Eingaben benötigt werdenn)
         <translation>Sie müssen einen privaten Masternode-Schlüssel in der Konfiguration festlegen. Bitte nutzen Sie die Dokumentation zwecks Hilfe.</translation>
     </message>
     <message>
-        <source>(51472 could be used only on mainnet)</source>
-        <translation>(51472 kann nur im Mainnet verwendet werden)</translation>
+        <source>(32001 could be used only on mainnet)</source>
+        <translation>(32001 kann nur im Mainnet verwendet werden)</translation>
     </message>
     <message>
         <source>(default: %s)</source>
@@ -5149,8 +5149,8 @@ Präge entweder höhere Stückelungen (damit weniger Eingaben benötigt werdenn)
         <translation>(default: 1)</translation>
     </message>
     <message>
-        <source>(must be 51472 for mainnet)</source>
-        <translation>(muss im Mainnet 51472 sein)</translation>
+        <source>(must be 32001 for mainnet)</source>
+        <translation>(muss im Mainnet 32001 sein)</translation>
     </message>
     <message>
         <source>Accept command line and JSON-RPC commands</source>

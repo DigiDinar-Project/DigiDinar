@@ -1,7 +1,6 @@
 // Copyright (c) 2009-2014 The Bitcoin developers
 // Copyright (c) 2014-2015 The Dash developers
-// Copyright (c) 2015-2018 The DigiDinar developers
-// Copyright (c) 2019-2019 The Digi Dinar developers
+// Copyright (c) 2015-2018 The PIVX developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -381,6 +380,9 @@ UniValue dumpwallet(const UniValue& params, bool fHelp)
 
     EnsureWalletIsUnlocked();
 
+    boost::filesystem::path filepath = params[0].get_str().c_str();
+    filepath = boost::filesystem::absolute(filepath);
+
     ofstream file;
     file.open(params[0].get_str().c_str());
     if (!file.is_open())
@@ -423,7 +425,11 @@ UniValue dumpwallet(const UniValue& params, bool fHelp)
     file << "\n";
     file << "# End of dump\n";
     file.close();
-    return NullUniValue;
+
+    UniValue reply(UniValue::VOBJ);
+    reply.push_back(Pair("filename", filepath.string()));
+
+    return reply;
 }
 
 UniValue bip38encrypt(const UniValue& params, bool fHelp)

@@ -1780,32 +1780,32 @@ Please be patient after clicking import.</source>
         <translation>익명화 레벨을 선택해주세요.</translation>
     </message>
     <message>
-        <source>Use 2 separate masternodes to mix funds up to 10000 DDR</source>
-        <translation>2개의 개별 마스터노드를 이용하여 최대 10000 DDR 를 섞을 수 있습니다.</translation>
+        <source>Use 2 separate masternodes to mix funds up to 25000 DDR</source>
+        <translation>2개의 개별 마스터노드를 이용하여 최대 25000 DDR 를 섞을 수 있습니다.</translation>
     </message>
     <message>
-        <source>Use 8 separate masternodes to mix funds up to 10000 DDR</source>
-        <translation>8개의 개별 마스터노드를 이용하여 최대 10000 DDR 를 섞을 수 있습니다.</translation>
+        <source>Use 8 separate masternodes to mix funds up to 25000 DDR</source>
+        <translation>8개의 개별 마스터노드를 이용하여 최대 25000 DDR 를 섞을 수 있습니다.</translation>
     </message>
     <message>
         <source>Use 16 separate masternodes</source>
         <translation>16개의 개별 마스터노드를 사용</translation>
     </message>
     <message>
-        <source>This option is the quickest and will cost about ~0.025 DDR to anonymize 10000 DDR</source>
-        <translation>이 옵션은 가장 빠르게 전송되며 10000 DDR 익명화에 약 ~0.025 DDR의 비용이 들어갑니다.</translation>
+        <source>This option is the quickest and will cost about ~0.025 DDR to anonymize 25000 DDR</source>
+        <translation>이 옵션은 가장 빠르게 전송되며 25000 DDR 익명화에 약 ~0.025 DDR의 비용이 들어갑니다.</translation>
     </message>
     <message>
-        <source>This option is moderately fast and will cost about 0.05 DDR to anonymize 10000 DDR</source>
-        <translation>이 옵션은 중간 정도의 속도로 전송되며 10000 DDR 익명화에 약 0.05 DDR의 비용이 들어갑니다.</translation>
+        <source>This option is moderately fast and will cost about 0.05 DDR to anonymize 25000 DDR</source>
+        <translation>이 옵션은 중간 정도의 속도로 전송되며 25000 DDR 익명화에 약 0.05 DDR의 비용이 들어갑니다.</translation>
     </message>
     <message>
         <source>This is the slowest and most secure option. Using maximum anonymity will cost</source>
         <translation>이것은 가장 느리고 안전한 옵션입니다. 최고 익명성을 사용하면 비용이 발생합니다.</translation>
     </message>
     <message>
-        <source>0.1 DDR per 10000 DDR you anonymize.</source>
-        <translation>10000 DDR 익명화에 0.1 DDR 가 듭니다.</translation>
+        <source>0.1 DDR per 25000 DDR you anonymize.</source>
+        <translation>25000 DDR 익명화에 0.1 DDR 가 듭니다.</translation>
     </message>
     <message>
         <source>Obfuscation Configuration</source>
@@ -5095,12 +5095,12 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
         <translation>이 트랜잭션를 위해 난독화 표기된 충분한 금액을 찾을 수 없습니다.</translation>
     </message>
     <message>
-        <source>Unable to locate enough Obfuscation non-denominated funds for this transaction that are not equal 10000 DDR.</source>
-        <translation>이 트랜잭션를 위해 난독화 표기가 안된 충분한 금액을 찾을 수 없습니다. 10000 DDR과 일치하지 않음.</translation>
+        <source>Unable to locate enough Obfuscation non-denominated funds for this transaction that are not equal 25000 DDR.</source>
+        <translation>이 트랜잭션를 위해 난독화 표기가 안된 충분한 금액을 찾을 수 없습니다. 25000 DDR과 일치하지 않음.</translation>
     </message>
     <message>
-        <source>Unable to locate enough funds for this transaction that are not equal 10000 DDR.</source>
-        <translation>트랜잭션에 대한 충분한 금액을 찾을 수 없습니다. 10000 DDR와 같지 않음</translation>
+        <source>Unable to locate enough funds for this transaction that are not equal 25000 DDR.</source>
+        <translation>트랜잭션에 대한 충분한 금액을 찾을 수 없습니다. 25000 DDR와 같지 않음</translation>
     </message>
     <message>
         <source>Use separate SOCKS5 proxy to reach peers via Tor hidden services (default: %s)</source>
@@ -5147,8 +5147,8 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
         <translation>환경설정에서 masternodeprivkey를 지정해야 합니다. 도움말을 참조하십시오.</translation>
     </message>
     <message>
-        <source>(51472 could be used only on mainnet)</source>
-        <translation>(51472 은 메인넷에서만 사용될 수 있습니다)</translation>
+        <source>(32001 could be used only on mainnet)</source>
+        <translation>(32001 은 메인넷에서만 사용될 수 있습니다)</translation>
     </message>
     <message>
         <source>(default: %s)</source>
@@ -5159,8 +5159,8 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
         <translation>(기본값: 1)</translation>
     </message>
     <message>
-        <source>(must be 51472 for mainnet)</source>
-        <translation>(메인넷 일경우 51472)</translation>
+        <source>(must be 32001 for mainnet)</source>
+        <translation>(메인넷 일경우 32001)</translation>
     </message>
     <message>
         <source>Accept command line and JSON-RPC commands</source>

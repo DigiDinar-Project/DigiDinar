@@ -1,5 +1,5 @@
 // Copyright (c) 2012-2013 The PPCoin developers
-// Copyright (c) 2015-2018 The DigiDinar developers
+// Copyright (c) 2015-2018 The PIVX developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -250,6 +250,11 @@ bool GetKernelStakeModifier(uint256 hashBlockFrom, uint64_t& nStakeModifier, int
     const CBlockIndex* pindexFrom = mapBlockIndex[hashBlockFrom];
     nStakeModifierHeight = pindexFrom->nHeight;
     nStakeModifierTime = pindexFrom->GetBlockTime();
+    // Fixed stake modifier only for regtest
+    if (Params().NetworkID() == CBaseChainParams::REGTEST) {
+        nStakeModifier = pindexFrom->nStakeModifier;
+        return true;
+    }
     int64_t nStakeModifierSelectionInterval = GetStakeModifierSelectionInterval();
     const CBlockIndex* pindex = pindexFrom;
     CBlockIndex* pindexNext = chainActive[pindexFrom->nHeight + 1];
@@ -295,12 +300,14 @@ bool CheckStake(const CDataStream& ssUniqueID, CAmount nValueIn, const uint64_t 
 
 bool Stake(CStakeInput* stakeInput, unsigned int nBits, unsigned int nTimeBlockFrom, unsigned int& nTimeTx, uint256& hashProofOfStake)
 {
+    if(Params().NetworkID() != CBaseChainParams::REGTEST) {
     if (nTimeTx < nTimeBlockFrom)
         return error("CheckStakeKernelHash() : nTime violation");
 
-    if (nTimeBlockFrom + nStakeMinAge > nTimeTx) // Min age requirement
+        if ((nTimeBlockFrom + nStakeMinAge > nTimeTx)) // Min age requirement
         return error("CheckStakeKernelHash() : min age violation - nTimeBlockFrom=%d nStakeMinAge=%d nTimeTx=%d",
                      nTimeBlockFrom, nStakeMinAge, nTimeTx);
+    }
 
     //grab difficulty
     uint256 bnTargetPerCoinDay;

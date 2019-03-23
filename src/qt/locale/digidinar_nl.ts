@@ -1780,32 +1780,32 @@ Waas alsjeblieft geduldig nadat u op importeren hebt geklikt.</translation>
         <translation>Selecteer de privacy level.</translation>
     </message>
     <message>
-        <source>Use 2 separate masternodes to mix funds up to 10000 DDR</source>
-        <translation>Gebruik 2 aparte masternodes om fondsen te mixen tot 10000 DDR</translation>
+        <source>Use 2 separate masternodes to mix funds up to 25000 DDR</source>
+        <translation>Gebruik 2 aparte masternodes om fondsen te mixen tot 25000 DDR</translation>
     </message>
     <message>
-        <source>Use 8 separate masternodes to mix funds up to 10000 DDR</source>
-        <translation>Gebruik 8 aparte masternodes om fondsen te mixen tot 10000 DDR</translation>
+        <source>Use 8 separate masternodes to mix funds up to 25000 DDR</source>
+        <translation>Gebruik 8 aparte masternodes om fondsen te mixen tot 25000 DDR</translation>
     </message>
     <message>
         <source>Use 16 separate masternodes</source>
         <translation>Gebruik 16 aparte masternodes</translation>
     </message>
     <message>
-        <source>This option is the quickest and will cost about ~0.025 DDR to anonymize 10000 DDR</source>
-        <translation>Deze optie is het snelst en kost ongeveer ~0,025 DDR om 10000 DDR te anonimiseren</translation>
+        <source>This option is the quickest and will cost about ~0.025 DDR to anonymize 25000 DDR</source>
+        <translation>Deze optie is het snelst en kost ongeveer ~0,025 DDR om 25000 DDR te anonimiseren</translation>
     </message>
     <message>
-        <source>This option is moderately fast and will cost about 0.05 DDR to anonymize 10000 DDR</source>
-        <translation>Deze optie is gematigd snel en kost ongeveer 0,05 DDR om 10000 DDR te anonimiseren</translation>
+        <source>This option is moderately fast and will cost about 0.05 DDR to anonymize 25000 DDR</source>
+        <translation>Deze optie is gematigd snel en kost ongeveer 0,05 DDR om 25000 DDR te anonimiseren</translation>
     </message>
     <message>
         <source>This is the slowest and most secure option. Using maximum anonymity will cost</source>
         <translation>Dit is de langzaamste en veiligste optie. Het gebruik van maximale anonimiteit kost</translation>
     </message>
     <message>
-        <source>0.1 DDR per 10000 DDR you anonymize.</source>
-        <translation>je anonimiseert 0,1 DDR per 10000 DDR.</translation>
+        <source>0.1 DDR per 25000 DDR you anonymize.</source>
+        <translation>je anonimiseert 0,1 DDR per 25000 DDR.</translation>
     </message>
     <message>
         <source>Obfuscation Configuration</source>
@@ -5094,12 +5094,12 @@ Ofwel het munten van hogere denominaties (dus minder invoer nodig) of het te bes
         <translation>Kan niet genoeg verduistering gedenomineerde fondsen voor deze transactie vinden.</translation>
     </message>
     <message>
-        <source>Unable to locate enough Obfuscation non-denominated funds for this transaction that are not equal 10000 DDR.</source>
-        <translation>Kan niet genoeg verduistering niet gedenomineerde fondsen voor deze transactie vinden die niet gelijk zijn aan 10000 DDR.</translation>
+        <source>Unable to locate enough Obfuscation non-denominated funds for this transaction that are not equal 25000 DDR.</source>
+        <translation>Kan niet genoeg verduistering niet gedenomineerde fondsen voor deze transactie vinden die niet gelijk zijn aan 25000 DDR.</translation>
     </message>
     <message>
-        <source>Unable to locate enough funds for this transaction that are not equal 10000 DDR.</source>
-        <translation>Kan niet genoeg fondsen voor deze transactie vinden die niet gelijk zijn aan 10000 DDR.</translation>
+        <source>Unable to locate enough funds for this transaction that are not equal 25000 DDR.</source>
+        <translation>Kan niet genoeg fondsen voor deze transactie vinden die niet gelijk zijn aan 25000 DDR.</translation>
     </message>
     <message>
         <source>Use separate SOCKS5 proxy to reach peers via Tor hidden services (default: %s)</source>
@@ -5146,8 +5146,8 @@ Ofwel het munten van hogere denominaties (dus minder invoer nodig) of het te bes
         <translation>Je moet een masternodeprivkey opgeven in de configuratie. Raadpleeg de documentatie voor hulp.</translation>
     </message>
     <message>
-        <source>(51472 could be used only on mainnet)</source>
-        <translation>(51472 kan alleen op mainnet worden gebruikt)</translation>
+        <source>(32001 could be used only on mainnet)</source>
+        <translation>(32001 kan alleen op mainnet worden gebruikt)</translation>
     </message>
     <message>
         <source>(default: %s)</source>
@@ -5158,8 +5158,8 @@ Ofwel het munten van hogere denominaties (dus minder invoer nodig) of het te bes
         <translation>(standaard: 1)</translation>
     </message>
     <message>
-        <source>(must be 51472 for mainnet)</source>
-        <translation>(moet 51472 voor mainnet zijn)</translation>
+        <source>(must be 32001 for mainnet)</source>
+        <translation>(moet 32001 voor mainnet zijn)</translation>
     </message>
     <message>
         <source>Accept command line and JSON-RPC commands</source>

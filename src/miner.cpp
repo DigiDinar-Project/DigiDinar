@@ -110,12 +110,26 @@ CBlockTemplate* CreateNewBlock(const CScript& scriptPubKeyIn, CWallet* pwallet, 
     CBlock* pblock = &pblocktemplate->block; // pointer for convenience
 
     // -regtest only: allow overriding block.nVersion with
+    CBlockIndex* pindexPrev;
+    {   // Don't keep cs_main locked
+        LOCK(cs_main);
+        pindexPrev = chainActive.Tip();
+    }
+    const int nHeight = pindexPrev->nHeight + 1;
     // -blockversion=N to test forking scenarios
-    if (Params().MineBlocksOnDemand())
+    bool fZerocoinActive = nHeight >= Params().Zerocoin_StartHeight();
+    pblock->nVersion = 5;   // Supports CLTV activation
+
+    // -regtest only: allow overriding block.nVersion with
+    // -blockversion=N to test forking scenarios
+    if (Params().MineBlocksOnDemand()) {
+        if (fZerocoinActive)
+            pblock->nVersion = 5;
+        else
+            pblock->nVersion = 3;
         pblock->nVersion = GetArg("-blockversion", pblock->nVersion);
 
-    bool fZerocoinActive = GetAdjustedTime() >= Params().Zerocoin_StartTime();
-    pblock->nVersion = 5;   // Supports CLTV activation
+    }
 
     // Create coinbase tx
     CMutableTransaction txNew;
@@ -133,7 +147,6 @@ CBlockTemplate* CreateNewBlock(const CScript& scriptPubKeyIn, CWallet* pwallet, 
     if (fProofOfStake) {
         boost::this_thread::interruption_point();
         pblock->nTime = GetAdjustedTime();
-        CBlockIndex* pindexPrev = chainActive.Tip();
         pblock->nBits = GetNextWorkRequired(pindexPrev, pblock);
         CMutableTransaction txCoinStake;
         int64_t nSearchTime = pblock->nTime; // search to current time
@@ -150,8 +163,10 @@ CBlockTemplate* CreateNewBlock(const CScript& scriptPubKeyIn, CWallet* pwallet, 
             nLastCoinStakeSearchTime = nSearchTime;
         }
 
-        if (!fStakeFound)
+        if (!fStakeFound) {
+            LogPrintf("CreateNewBlock(): stake not found\n");
             return NULL;
+        }
     }
 
     // Largest block you're willing to create:
@@ -176,8 +191,6 @@ CBlockTemplate* CreateNewBlock(const CScript& scriptPubKeyIn, CWallet* pwallet, 
     {
         LOCK2(cs_main, mempool.cs);
 
-        CBlockIndex* pindexPrev = chainActive.Tip();
-        const int nHeight = pindexPrev->nHeight + 1;
         CCoinsViewCache view(pcoinsTip);
 
         // Priority order to process transactions
@@ -452,6 +465,7 @@ CBlockTemplate* CreateNewBlock(const CScript& scriptPubKeyIn, CWallet* pwallet, 
         pblock->nNonce = 0;
 
         //Calculate the accumulator checkpoint only if the previous cached checkpoint need to be updated
+        if (fZerocoinActive) {
         uint256 nCheckpoint;
         uint256 hashBlockLastAccumulated = nHeight >= 10 ? chainActive[nHeight - (nHeight % 10) - 10]->GetBlockHash() : chainActive[0]->GetBlockHash();
         if (nHeight >= pCheckpointCache.first || pCheckpointCache.second.first != hashBlockLastAccumulated) {
@@ -471,9 +485,34 @@ CBlockTemplate* CreateNewBlock(const CScript& scriptPubKeyIn, CWallet* pwallet, 
                 }
             }
         }
+        }
 
         pblock->nAccumulatorCheckpoint = pCheckpointCache.second.second;
         pblocktemplate->vTxSigOps[0] = GetLegacySigOpCount(pblock->vtx[0]);
+        if (fProofOfStake) {
+            unsigned int nExtraNonce = 0;
+            IncrementExtraNonce(pblock, pindexPrev, nExtraNonce);
+            LogPrintf("CPUMiner : proof-of-stake block found %s \n", pblock->GetHash().ToString().c_str());
+            if (pblock->IsZerocoinStake()) {
+                //Find the key associated with the zerocoin that is being staked
+                libzerocoin::CoinSpend spend = TxInToZerocoinSpend(pblock->vtx[1].vin[0]);
+                CBigNum bnSerial = spend.getCoinSerialNumber();
+                CKey key;
+                if (!pwallet->GetZerocoinKey(bnSerial, key)) {
+                    LogPrintf("%s: failed to find zDDR with serial %s, unable to sign block\n", __func__, bnSerial.GetHex());
+                    return NULL;
+                }
+
+                //Sign block with the zWORM key
+                if (!SignBlockWithKey(*pblock, key)) {
+                    LogPrintf("BitcoinMiner(): Signing new block with zDDR key failed \n");
+                    return NULL;
+                }
+            } else if (!SignBlock(*pblock, *pwallet)) {
+                LogPrintf("BitcoinMiner(): Signing new block with UTXO key failed \n");
+                return NULL;
+            }
+        }
 
         CValidationState state;
         if (!TestBlockValidity(state, *pblock, pindexPrev, false, false)) {

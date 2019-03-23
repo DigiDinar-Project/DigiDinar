@@ -1,7 +1,7 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2014 The Bitcoin developers
 // Copyright (c) 2014-2015 The Dash developers
-// Copyright (c) 2015-2018 The DigiDinar developers
+// Copyright (c) 2015-2018 The PIVX developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -19,7 +19,9 @@
 #include "primitives/transaction.h"
 #include "scheduler.h"
 #include "ui_interface.h"
+#ifdef ENABLE_WALLET
 #include "wallet.h"
+#endif // ENABLE_WALLET
 
 #ifdef WIN32
 #include <string.h>
@@ -1556,6 +1558,7 @@ void ThreadMessageHandler()
     }
 }
 
+#ifdef ENABLE_WALLET
 // ppcoin: stake minter thread
 void static ThreadStakeMinter()
 {
@@ -1572,6 +1575,7 @@ void static ThreadStakeMinter()
     }
     LogPrintf("ThreadStakeMinter exiting,\n");
 }
+#endif // ENABLE_WALLET
 
 bool BindListenPort(const CService& addrBind, string& strError, bool fWhitelisted)
 {
@@ -1771,9 +1775,11 @@ void StartNode(boost::thread_group& threadGroup, CScheduler& scheduler)
     // Dump network addresses
     scheduler.scheduleEvery(&DumpData, DUMP_ADDRESSES_INTERVAL);
 
+#ifdef ENABLE_WALLET
     // ppcoin:mint proof-of-stake blocks in the background
-    if (GetBoolArg("-staking", true))
+    if (GetBoolArg("-staking", true) && pwalletMain)
         threadGroup.create_thread(boost::bind(&TraceThread<void (*)()>, "stakemint", &ThreadStakeMinter));
+#endif // ENABLE_WALLET
 }
 
 bool StopNode()

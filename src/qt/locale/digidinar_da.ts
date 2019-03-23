@@ -1780,32 +1780,32 @@ Vær tålmodig efter at du har klikket på import.</translation>
         <translation>Vælg tilsløringsniveau</translation>
     </message>
     <message>
-        <source>Use 2 separate masternodes to mix funds up to 10000 DDR</source>
-        <translation>Brug 2 separate masternoder for at tilsløre beløb op til 10000 DDR</translation>
+        <source>Use 2 separate masternodes to mix funds up to 25000 DDR</source>
+        <translation>Brug 2 separate masternoder for at tilsløre beløb op til 25000 DDR</translation>
     </message>
     <message>
-        <source>Use 8 separate masternodes to mix funds up to 10000 DDR</source>
-        <translation>Brug 8 separate masternoder for at tilsløre op til 10000 DDR</translation>
+        <source>Use 8 separate masternodes to mix funds up to 25000 DDR</source>
+        <translation>Brug 8 separate masternoder for at tilsløre op til 25000 DDR</translation>
     </message>
     <message>
         <source>Use 16 separate masternodes</source>
         <translation>Brug 16 separate masternoder</translation>
     </message>
     <message>
-        <source>This option is the quickest and will cost about ~0.025 DDR to anonymize 10000 DDR</source>
-        <translation>Dette valg er det hurtigste og vil koste i omegnen af 0.025 DDR for at anonymiser 10000 DDR</translation>
+        <source>This option is the quickest and will cost about ~0.025 DDR to anonymize 25000 DDR</source>
+        <translation>Dette valg er det hurtigste og vil koste i omegnen af 0.025 DDR for at anonymiser 25000 DDR</translation>
     </message>
     <message>
-        <source>This option is moderately fast and will cost about 0.05 DDR to anonymize 10000 DDR</source>
-        <translation>Dette valg er relativt hurtigt og vil koste i omegnen af 0.05 DDR for at anonymiser 10000 DDR</translation>
+        <source>This option is moderately fast and will cost about 0.05 DDR to anonymize 25000 DDR</source>
+        <translation>Dette valg er relativt hurtigt og vil koste i omegnen af 0.05 DDR for at anonymiser 25000 DDR</translation>
     </message>
     <message>
         <source>This is the slowest and most secure option. Using maximum anonymity will cost</source>
         <translation>Denne mulighed er den langsomste og det mest sikre valg. Valg af maksimal tilsløring vil koste</translation>
     </message>
     <message>
-        <source>0.1 DDR per 10000 DDR you anonymize.</source>
-        <translation>0.1 pr 10000 DDR for at tilsløre.</translation>
+        <source>0.1 DDR per 25000 DDR you anonymize.</source>
+        <translation>0.1 pr 25000 DDR for at tilsløre.</translation>
     </message>
     <message>
         <source>Obfuscation Configuration</source>
@@ -5094,12 +5094,12 @@ Enten mint højere nomineringer (så færre input er nødvendige) eller reducere
         <translation>Det er ikke muligt at allokere tilstrækkeligt med tilsløret designeret indestående for at gennemføre denne transaktion.</translation>
     </message>
     <message>
-        <source>Unable to locate enough Obfuscation non-denominated funds for this transaction that are not equal 10000 DDR.</source>
-        <translation>Det er ikke muligt at allokere tilstrækkeligt med tilsløret  ikke-designeret indestående for at gennemføre denne transaktion, der ikke ækvivalerer 10000 DDR.</translation>
+        <source>Unable to locate enough Obfuscation non-denominated funds for this transaction that are not equal 25000 DDR.</source>
+        <translation>Det er ikke muligt at allokere tilstrækkeligt med tilsløret  ikke-designeret indestående for at gennemføre denne transaktion, der ikke ækvivalerer 25000 DDR.</translation>
     </message>
     <message>
-        <source>Unable to locate enough funds for this transaction that are not equal 10000 DDR.</source>
-        <translation>Det var ikke muligt at allokere tilstrækkelige midler til denne transaktion som er forskellig fra 10000 DDR.</translation>
+        <source>Unable to locate enough funds for this transaction that are not equal 25000 DDR.</source>
+        <translation>Det var ikke muligt at allokere tilstrækkelige midler til denne transaktion som er forskellig fra 25000 DDR.</translation>
     </message>
     <message>
         <source>Use separate SOCKS5 proxy to reach peers via Tor hidden services (default: %s)</source>
@@ -5146,8 +5146,8 @@ Enten mint højere nomineringer (så færre input er nødvendige) eller reducere
         <translation>Der skal angives en masternodeprivkey i konfigurationen. For mere information, se i dokumentationen.</translation>
     </message>
     <message>
-        <source>(51472 could be used only on mainnet)</source>
-        <translation>(51472 kunne kun bruges på hovednettet)</translation>
+        <source>(32001 could be used only on mainnet)</source>
+        <translation>(32001 kunne kun bruges på hovednettet)</translation>
     </message>
     <message>
         <source>(default: %s)</source>
@@ -5158,8 +5158,8 @@ Enten mint højere nomineringer (så færre input er nødvendige) eller reducere
         <translation>(default: 1)</translation>
     </message>
     <message>
-        <source>(must be 51472 for mainnet)</source>
-        <translation>(skal være 51472 for hovednettet)</translation>
+        <source>(must be 32001 for mainnet)</source>
+        <translation>(skal være 32001 for hovednettet)</translation>
     </message>
     <message>
         <source>Accept command line and JSON-RPC commands</source>
