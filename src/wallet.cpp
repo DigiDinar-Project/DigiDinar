@@ -2121,8 +2121,8 @@ bool CWallet::SelectStakeCoins(std::list<std::unique_ptr<CStakeInput> >& listInp
             if (nAmountSelected + out.tx->vout[out.i].nValue > nTargetAmount)
                 continue;
 
-            //if (out.tx->vout[out.i].nValue < Params().StakeInputMinimal())
-            //    continue;
+            if (out.tx->vout[out.i].nValue < Params().StakeInputMinimal())
+                continue;
 
             //if zerocoinspend, then use the block time
             int64_t nTxTime = out.tx->GetTxTime();
