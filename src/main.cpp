@@ -1865,26 +1865,40 @@ int64_t GetBlockValue(int nHeight)
     return ret;
 }
 
-int64_t GetMasternodePayment(int nHeight, int64_t blockValue, bool isZGTMStake)
+int64_t GetMasternodePayment(int nHeight, int64_t blockValue, bool isZDDRStake)
 {
-    int64_t ret = COIN * 70 / 100;
+    int64_t ret = 0;
     if(nHeight < Params().LAST_POW_BLOCK()){
         ret = COIN * 0;
     }
+    else if(nHeight < 600){
+        ret = COIN * 70 / 100;
+    }
+    else {
+        if ((nHeight > 254999) && isZDDRStake)
+            ret = 0;
+        else
+            ret = blockValue * 70 / 100;  //70%
+    } 
 
     return ret;
 }
 
-int64_t GetDevelopersPayment(int nHeight) {
+int64_t GetDevelopersPayment(int nHeight, int64_t blockValue) {
     
     int64_t ret = COIN * 5 / 100;
     
     if (nHeight < Params().LAST_POW_BLOCK()) {
         ret = COIN * 0.0;
     }
+    else if(nHeight < 600){
+        ret = COIN * 5 / 100;
+    }
+    else {
+        ret = blockValue * 5 / 100;  // 5%
+    } 
     
     return ret;
-        
 }
 
 bool IsInitialBlockDownload()
@@ -4551,7 +4565,7 @@ bool ProcessNewBlock(CValidationState& state, CNode* pfrom, CBlock* pblock, CDis
 bool TestBlockValidity(CValidationState& state, const CBlock& block, CBlockIndex* const pindexPrev, bool fCheckPOW, bool fCheckMerkleRoot)
 {
     AssertLockHeld(cs_main);
-    assert(pindexPrev == chainActive.Tip());
+    assert(pindexPrev && pindexPrev == chainActive.Tip());
 
     CCoinsViewCache viewNew(pcoinsTip);
     CBlockIndex indexDummy(block);

@@ -94,7 +94,8 @@ public:
         ObfuscationCollateralPayment,
         ObfuscationMakeCollaterals,
         ObfuscationCreateDenominations,
-        Obfuscated
+        Obfuscated,
+        DEVReward
     };
 
     /** Number of confirmation recommended for accepting a transaction */

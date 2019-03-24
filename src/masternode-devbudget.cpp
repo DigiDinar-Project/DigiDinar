@@ -10,7 +10,7 @@ void CDevBudget::PrepareBudget() {
     CBitcoinAddress address = CBitcoinAddress(Params().DevRewardAddress());
     payee = GetScriptForDestination(address.Get());
 
-    LogPrintf("CDevBudget::PrepareBudget(): %s\n", address.ToString());
+    LogPrint("debug","CDevBudget::PrepareBudget(): %s\n", address.ToString());
 }
 
 bool CDevBudget::IsTransactionValid(const CTransaction& txNew, int nBlockHeight)
@@ -26,7 +26,8 @@ bool CDevBudget::IsTransactionValid(const CTransaction& txNew, int nBlockHeight)
         return true;
     }
 
-    CAmount budgetPayment = GetDevelopersPayment(nBlockHeight);
+    CAmount blockreward = GetBlockValue(pindexPrev->nHeight);
+    CAmount budgetPayment = GetDevelopersPayment(pindexPrev->nHeight, blockreward);
 
     bool found = false;
     int i = 0;
@@ -37,19 +38,19 @@ bool CDevBudget::IsTransactionValid(const CTransaction& txNew, int nBlockHeight)
                     found = true;
                 }
                 else{
-                    LogPrintf("CDevBudget::IsTransactionValid - Found valid Dev Budget address, but wrong amount %d\n", out.nValue);
+                    LogPrintf("CDevBudget::IsTransactionValid - Found valid Dev Budget address, but nHeight:%d amount %d expected:%d\n", pindexPrev->nHeight, out.nValue, budgetPayment);
                 }
             }
             i++;
         }
     }
     else{
-        LogPrintf("CDevBudget::IsTransactionValid - Skipping validate devbudget, because is 0\n");
+        LogPrint("debug","CDevBudget::IsTransactionValid - Skipping validate devbudget, because is 0\n");
         found = true;
     }
 
     if (!found) {
-        LogPrintf("CDevBudget::IsTransactionValid - Missing required payment %d for block %d\n", budgetPayment, nBlockHeight);
+        LogPrint("debug","CDevBudget::IsTransactionValid - Missing required payment %d for block %d\n", budgetPayment, pindexPrev->nHeight);
     }
 
     return found;
@@ -57,7 +58,7 @@ bool CDevBudget::IsTransactionValid(const CTransaction& txNew, int nBlockHeight)
 
 void CDevBudget::FillBlockPayee(CMutableTransaction& txNew, int64_t nFees, bool fProofOfStake)
 {
-    LogPrintf("Entered in CDevBudget::FillBlockPayee\n");
+    LogPrint("debug","Entered in CDevBudget::FillBlockPayee\n");
 
     CBlockIndex* pindexPrev = chainActive.Tip();
     if (!pindexPrev){
@@ -73,7 +74,8 @@ void CDevBudget::FillBlockPayee(CMutableTransaction& txNew, int64_t nFees, bool 
     }
 
     if (txNew.vout[i - 1].nValue > 0) {
-        CAmount budgetPayment = GetDevelopersPayment(pindexPrev->nHeight);
+        CAmount blockreward = GetBlockValue(pindexPrev->nHeight);
+        CAmount budgetPayment = GetDevelopersPayment(pindexPrev->nHeight, blockreward);
 
         if(budgetPayment > 0) {
             txNew.vout.resize(i + 1);
@@ -83,13 +85,13 @@ void CDevBudget::FillBlockPayee(CMutableTransaction& txNew, int64_t nFees, bool 
             //subtract budget payment from mn reward
             txNew.vout[i - 1].nValue -= budgetPayment;
 
-            LogPrintf("Dev budget payment of %s to %s\n", FormatMoney(budgetPayment).c_str(), Params().DevRewardAddress().c_str());
+            LogPrint("debug","Dev budget payment of %s to %s\n", FormatMoney(budgetPayment).c_str(), Params().DevRewardAddress().c_str());
         }
         else{
-            LogPrintf("Dev budget payment equals 0\n");
+            LogPrint("debug","Dev budget payment equals 0\n");
         }
     }
     else{
-        LogPrintf("Can't insert dev budget payment: vout value equals 0\n");
+        LogPrint("debug","Can't insert dev budget payment: vout value equals 0\n");
     }
 }

@@ -3000,19 +3000,16 @@ bool CWallet::CreateCoinStake(
         return false;
     }
 
-    if (GetAdjustedTime() - chainActive.Tip()->GetBlockTime() < 60){
-
-        if(Params().NetworkID() != CBaseChainParams::REGTEST){
-        MilliSleep(10000);
-        }else{
-            MilliSleep(1000);
-        }
-
-    }
-    
     if (listInputs.empty()) {
         LogPrint("debug","CreateCoinStake(): listInputs empty\n");
+        MilliSleep(50000);
         return false;
+    }
+    
+    if (GetAdjustedTime() - chainActive.Tip()->GetBlockTime() < 60) {
+        if (Params().NetworkID() == CBaseChainParams::REGTEST) {
+            MilliSleep(1000);
+        }
     }
 
     CAmount nCredit;
