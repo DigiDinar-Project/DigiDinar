@@ -126,7 +126,7 @@ public:
 
         nMasternodeCollateral = 25000;
         strDevFeeAddress = "D5wVvyFg9t3TQGszyAkQ3G11QPJoS6Ldm3";
-        nStakeInputMinimal = 10 * COIN;
+        nStakeInputMinimal = 6 * COIN;
 
         /** Height or Time Based Activations **/
         nLastPOWBlock = 300;
@@ -134,6 +134,11 @@ public:
         nZerocoinStartHeight = 0;
         nZerocoinStartTime = 1550792244; // Genesis time
         nBlockZerocoinV2 = 20;
+
+        // Fake Serial Attack
+        nFakeSerialBlockheightEnd = -1;
+        nSupplyBeforeFakeSerial = 0;   // zerocoin supply at block nFakeSerialBlockheightEnd
+
         /**
          * Build the genesis block. Note that the output of the genesis coinbase cannot
          * be spent as it did not originally exist in the database.
@@ -235,7 +240,7 @@ public:
         nMinerThreads = 0;
         nTargetSpacing = 1 * 60;  // Digi Dinar: 1 minute
         nLastPOWBlock = 200;
-        nMaturity = 15;
+        nMaturity = 100;
         nModifierUpdateBlock = 0;
         nMaxMoneyOut = 120000000 * COIN;
         nZerocoinStartHeight = 15;
@@ -245,6 +250,10 @@ public:
         nSubsidyHalvingBlock = 1600;
         nMasternodeCollateral = 25000;
         nStakeInputMinimal = 50 * COIN;
+
+        // Fake Serial Attack
+        nFakeSerialBlockheightEnd = -1;
+        nSupplyBeforeFakeSerial = 0;
 
         //! Modify the testnet genesis block so the timestamp is valid for a later start.
         genesis.nTime = 1547119740;
@@ -307,6 +316,9 @@ public:
         genesis.nTime = 1547119739;
         genesis.nBits = 0x207fffff;
         genesis.nNonce = 12345;
+
+        // Fake Serial Attack
+        nFakeSerialBlockheightEnd = -1;
 
         hashGenesisBlock = genesis.GetHash();
         assert(hashGenesisBlock == uint256("0x7ca3e82de950df19c22b5391ec18d16ffa3d2ba77bf5ee130324ba181d59d66b"));

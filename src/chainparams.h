@@ -108,6 +108,11 @@ public:
     int Zerocoin_StartHeight() const { return nZerocoinStartHeight; }
     int Zerocoin_StartTime() const { return nZerocoinStartTime; }
     int Zerocoin_Block_V2_Start() const { return nBlockZerocoinV2; }
+
+    // fake serial attack
+    int Zerocoin_Block_EndFakeSerial() const { return nFakeSerialBlockheightEnd; }
+    CAmount GetSupplyBeforeFakeSerial() const { return nSupplyBeforeFakeSerial; }
+
     
     // GGR
     /** Number of halving reward block */
@@ -170,6 +175,10 @@ protected:
     int nMasternodeCollateral;
     std::string strDevFeeAddress;
     CAmount nStakeInputMinimal;
+
+    // fake serial attack
+    int nFakeSerialBlockheightEnd = 0;
+    CAmount nSupplyBeforeFakeSerial = 0;
 };
 
 /**

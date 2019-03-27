@@ -1503,7 +1503,7 @@ bool AppInit2()
                     }
                 }
 
-                // Recalculate money supply for blocks that are impacted by accounting issue after zerocoin activation
+
                 if (GetBoolArg("-reindexmoneysupply", false)) {
                     if (chainActive.Height() > Params().Zerocoin_StartHeight()) {
                         RecalculateZDDRMinted();

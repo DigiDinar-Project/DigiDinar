@@ -2121,9 +2121,6 @@ bool CWallet::SelectStakeCoins(std::list<std::unique_ptr<CStakeInput> >& listInp
             if (nAmountSelected + out.tx->vout[out.i].nValue > nTargetAmount)
                 continue;
 
-            if (out.tx->vout[out.i].nValue < Params().StakeInputMinimal())
-                continue;
-
             //if zerocoinspend, then use the block time
             int64_t nTxTime = out.tx->GetTxTime();
             if (out.tx->IsZerocoinSpend()) {
@@ -2138,6 +2135,9 @@ bool CWallet::SelectStakeCoins(std::list<std::unique_ptr<CStakeInput> >& listInp
 
             //check that it is matured
             if (out.nDepth < (out.tx->IsCoinStake() ? Params().COINBASE_MATURITY() : 10))
+                continue;
+            
+            if (out.tx->vout[out.i].nValue < Params().StakeInputMinimal())
                 continue;
 
             //add to our stake set
