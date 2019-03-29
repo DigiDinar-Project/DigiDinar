@@ -8,7 +8,7 @@
 #include "walletdb.h"
 #include "init.h"
 #include "wallet.h"
-#include "primitives/deterministicmint.h"
+#include "deterministicmint.h"
 #include "zddrchain.h"
 
 using namespace libzerocoin;
@@ -328,7 +328,7 @@ bool CzDDRWallet::SetMintSeen(const CBigNum& bnValue, const int& nHeight, const 
 
     // Add to zddrTracker which also adds to database
     pwalletMain->zddrTracker->Add(dMint, true);
-    
+
     //Update the count if it is less than the mint's count
     if (nCountLastUsed < pMint.second) {
         CWalletDB walletdb(strWalletFile);

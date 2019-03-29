@@ -5,7 +5,7 @@
 #include "zddrcontroldialog.h"
 #include "ui_zddrcontroldialog.h"
 
-#include "accumulators.h"
+#include "zddr/accumulators.h"
 #include "main.h"
 #include "walletmodel.h"
 
@@ -108,6 +108,19 @@ void ZDdrControlDialog::updateList()
 
         itemMint->setText(COLUMN_CONFIRMATIONS, QString::number(nConfirmations));
         itemMint->setData(COLUMN_CONFIRMATIONS, Qt::UserRole, QVariant((qlonglong) nConfirmations));
+        
+        {
+            LOCK(pwalletMain->zddrTracker->cs_spendcache);
+
+            CoinWitnessData *witnessData = pwalletMain->zddrTracker->GetSpendCache(mint.hashStake);
+            if (witnessData->nHeightAccStart > 0  && witnessData->nHeightAccEnd > 0) {
+                int nPercent = std::max(0, std::min(100, (int)((double)(witnessData->nHeightAccEnd - witnessData->nHeightAccStart) / (double)(nBestHeight - witnessData->nHeightAccStart - 220) * 100)));
+                QString percent = QString::number(nPercent) + QString("%");
+                itemMint->setText(COLUMN_PRECOMPUTE, percent);
+            } else {
+                itemMint->setText(COLUMN_PRECOMPUTE, QString("0%"));
+            }
+        }
 
         // check for maturity
         bool isMature = false;

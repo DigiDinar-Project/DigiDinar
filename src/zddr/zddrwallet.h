@@ -2,14 +2,14 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef DDR_ZDDRWALLET_H
-#define DDR_ZDDRWALLET_H
+#ifndef PIVX_ZDDRWALLET_H
+#define PIVX_ZDDRWALLET_H
 
 #include <map>
 #include "libzerocoin/Coin.h"
 #include "mintpool.h"
 #include "uint256.h"
-#include "primitives/zerocoin.h"
+#include "zerocoin.h"
 
 class CDeterministicMint;
 
@@ -46,4 +46,4 @@ private:
     uint512 GetZerocoinSeed(uint32_t n);
 };
 
-#endif //DDR_ZDDRWALLET_H
+#endif //PIVX_ZDDRWALLET_H

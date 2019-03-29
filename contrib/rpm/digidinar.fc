@@ -1,0 +1,8 @@
+/usr/bin/digidinar-cli		--	gen_context(system_u:object_r:digidinar_exec_t,s0)
+/usr/sbin/digidinard		--	gen_context(system_u:object_r:digidinar_exec_t,s0)
+/usr/lib(64)?/digidinar/digidinard		--	gen_context(system_u:object_r:digidinar_exec_t,s0)
+
+/etc/digidinar(/.*)?		gen_context(system_u:object_r:digidinar_conf_t,s0)
+/var/lib/digidinar(/.*)?		gen_context(system_u:object_r:digidinar_var_lib_t,s0)
+
+(/var)?/run/digidinard(/.*)?   gen_context(system_u:object_r:digidinar_var_run_t,s0)

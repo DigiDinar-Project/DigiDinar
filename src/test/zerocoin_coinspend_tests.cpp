@@ -1,13 +1,13 @@
-// Copyright (c) 2017-2018 The DIGIDINAR developers
+// Copyright (c) 2017-2018 The DigiDinar developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #include "libzerocoin/Denominations.h"
 #include "libzerocoin/CoinSpend.h"
 #include "libzerocoin/Accumulator.h"
-#include "primitives/zerocoin.h"
-#include "primitives/deterministicmint.h"
-#include "zddrwallet.h"
+#include "zddr/zerocoin.h"
+#include "zddr/deterministicmint.h"
+#include "zddr/zddrwallet.h"
 #include "libzerocoin/Coin.h"
 #include "amount.h"
 #include "chainparams.h"

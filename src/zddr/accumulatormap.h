@@ -1,5 +1,4 @@
-// Copyright (c) 2017-2018 The PIVX developers
-// Copyright (c) 2019-2019 The DigiDinar developers
+// Copyright (c) 2017-2018 The DigiDinar developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -21,6 +20,7 @@ public:
     bool Load(uint256 nCheckpoint);
     void Load(const AccumulatorCheckpoints::Checkpoint& checkpoint);
     bool Accumulate(const libzerocoin::PublicCoin& pubCoin, bool fSkipValidation = false);
+    libzerocoin::Accumulator GetAccumulator(libzerocoin::CoinDenomination denom);
     CBigNum GetValue(libzerocoin::CoinDenomination denom);
     uint256 GetCheckpoint();
     void Reset();

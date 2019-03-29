@@ -1,0 +1,81 @@
+policy_module(digidinar, 1.100.1)
+
+########################################
+#
+# Declarations
+#
+
+type digidinar_t;
+type digidinar_exec_t;
+init_daemon_domain(digidinar_t, digidinar_exec_t)
+
+permissive digidinar_t;
+
+type digidinar_initrc_exec_t;
+init_script_file(digidinar_initrc_exec_t)
+
+type digidinar_conf_t;
+files_type(digidinar_conf_t)
+
+type digidinar_var_lib_t;
+files_type(digidinar_var_lib_t)
+
+type digidinar_var_run_t;
+files_type(digidinar_var_run_t)
+
+type digidinar_port_t;
+corenet_port(digidinar_port_t)
+
+########################################
+#
+# digidinar local policy
+#
+allow digidinar_t self:process { fork };
+
+allow digidinar_t self:fifo_file rw_fifo_file_perms;
+allow digidinar_t self:unix_stream_socket create_stream_socket_perms;
+
+manage_dirs_pattern(digidinar_t, digidinar_conf_t, digidinar_conf_t)
+manage_files_pattern(digidinar_t, digidinar_conf_t, digidinar_conf_t)
+
+manage_dirs_pattern(digidinar_t, digidinar_var_lib_t, digidinar_var_lib_t)
+manage_files_pattern(digidinar_t, digidinar_var_lib_t, digidinar_var_lib_t)
+files_var_lib_filetrans(digidinar_t, digidinar_var_lib_t, { dir file })
+
+manage_dirs_pattern(digidinar_t, digidinar_var_run_t, digidinar_var_run_t)
+manage_files_pattern(digidinar_t, digidinar_var_run_t, digidinar_var_run_t)
+
+sysnet_dns_name_resolve(digidinar_t)
+corenet_all_recvfrom_unlabeled(digidinar_t)
+
+allow digidinar_t self:tcp_socket create_stream_socket_perms;
+corenet_tcp_sendrecv_generic_if(digidinar_t)
+corenet_tcp_sendrecv_generic_node(digidinar_t)
+corenet_tcp_sendrecv_all_ports(digidinar_t)
+corenet_tcp_bind_generic_node(digidinar_t)
+
+gen_require(`
+    type digidinar_port_t;
+')
+allow digidinar_t digidinar_port_t:tcp_socket name_bind;
+
+gen_require(`
+    type digidinar_port_t;
+')
+allow digidinar_t digidinar_port_t:tcp_socket name_connect;
+
+domain_use_interactive_fds(digidinar_t)
+
+files_read_etc_files(digidinar_t)
+
+miscfiles_read_localization(digidinar_t)
+
+sysnet_dns_name_resolve(digidinar_t)
+
+allow digidinar_t digidinar_exec_t:file execute_no_trans;
+allow digidinar_t self:process setsched;
+corecmd_exec_ls(digidinar_t)
+corenet_tcp_connect_http_port(digidinar_t)
+dev_read_urand(digidinar_t)
+fs_getattr_xattr_fs(digidinar_t)
+kernel_read_system_state(digidinar_t)

@@ -1,4 +1,4 @@
-// Copyright (c) 2017-2018 The DIGI DINAR developers
+// Copyright (c) 2017-2018 The DigiDinar developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -7,15 +7,15 @@
 #include "chainparams.h"
 #include "main.h"
 #include "txdb.h"
-#include "primitives/deterministicmint.h"
+#include "zddr/deterministicmint.h"
 #include "key.h"
-#include "accumulatorcheckpoints.h"
+#include "zddr/accumulatorcheckpoints.h"
 #include "libzerocoin/bignum.h"
 #include <boost/test/unit_test.hpp>
 #include <iostream>
-#include <accumulators.h>
+#include <zddr/accumulators.h>
 #include "wallet.h"
-#include "zddrwallet.h"
+#include "zddr/zddrwallet.h"
 #include "zddrchain.h"
 
 using namespace libzerocoin;

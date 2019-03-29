@@ -1,5 +1,4 @@
-// Copyright (c) 2017-2018 The PIVX developers
-// Copyright (c) 2019-2019 The DigiDinar developers
+// Copyright (c) 2017-2018 The DigiDinar developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -72,6 +71,11 @@ bool AccumulatorMap::Accumulate(const PublicCoin& pubCoin, bool fSkipValidation)
     else
         mapAccumulators.at(denom)->accumulate(pubCoin);
     return true;
+}
+
+libzerocoin::Accumulator AccumulatorMap::GetAccumulator(libzerocoin::CoinDenomination denom)
+{
+    return libzerocoin::Accumulator(params, denom, GetValue(denom));
 }
 
 //Get the value of a specific accumulator

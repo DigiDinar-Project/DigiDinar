@@ -1,4 +1,4 @@
-// Copyright (c) 2017-2018 The PIVX developers
+// Copyright (c) 2017-2018 The DigiDinar developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -248,6 +248,7 @@ public:
     int GetStatus();
     int GetNeededSpends();
 };
+
 /**
  * Wrapped serials attack inflation, only for mainnet.
  * FUTURE: Move this to another file..
@@ -258,4 +259,4 @@ int GetWrapppedSerialInflation(libzerocoin::CoinDenomination denom);
 
 int64_t GetWrapppedSerialInflationAmount();
 
-#endif //PIVX_ZEROCOIN_H
+#endif //DigiDinar_ZEROCOIN_H

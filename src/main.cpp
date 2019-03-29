@@ -8,8 +8,8 @@
 
 #include "main.h"
 
-#include "accumulators.h"
-#include "accumulatormap.h"
+#include "zddr/accumulators.h"
+#include "zddr/accumulatormap.h"
 #include "addrman.h"
 #include "alert.h"
 #include "blocksignature.h"
@@ -36,7 +36,7 @@
 #include "validationinterface.h"
 #include "zddrchain.h"
 
-#include "primitives/zerocoin.h"
+#include "zddr/zerocoin.h"
 #include "libzerocoin/Denominations.h"
 #include "invalid.h"
 #include <sstream>
@@ -80,6 +80,7 @@ bool fCheckBlockIndex = false;
 bool fVerifyingBlocks = false;
 unsigned int nCoinCacheSize = 5000;
 bool fAlerts = DEFAULT_ALERTS;
+bool fClearSpendCache = false;
 
 unsigned int nStakeMinAge = 6 * 60 * 60;
 int64_t nReserveBalance = 0;
@@ -2660,7 +2661,7 @@ bool UpdateZDDRSupply(const CBlock& block, CBlockIndex* pindex, bool fJustCheck)
     // Initialize zerocoin supply to the supply from previous block
     if (pindex->pprev && pindex->pprev->GetBlockHeader().nVersion > 3) {
         for (auto& denom : zerocoinDenomList) {
-            pindex->mapZerocoinSupply.at(denom) = pindex->pprev->mapZerocoinSupply.at(denom);
+            pindex->mapZerocoinSupply.at(denom) = pindex->pprev->GetZcMints(denom);
         }
     }
 

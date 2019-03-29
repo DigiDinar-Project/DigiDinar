@@ -7,7 +7,7 @@ Setup
 
 Running
 ---------------------
-The following are some helpful notes on how to run PIVX on your native platform.
+The following are some helpful notes on how to run DigiDinar on your native platform.
 
 ### Unix
 
@@ -22,19 +22,19 @@ Unpack the files into a directory, and then run digidinar-qt.exe.
 
 ### OSX
 
-Drag PIVX-Qt to your applications folder, and then run PIVX-Qt.
+Drag DigiDinar-Qt to your applications folder, and then run DigiDinar-Qt.
 
 ### Need Help?
 
-* See the documentation at the [PIVX Wiki](https://en.bitcoin.it/wiki/Main_Page) ***TODO***
+* See the documentation at the [DigiDinar Wiki](https://en.bitcoin.it/wiki/Main_Page) ***TODO***
 for help and more information.
 * Ask for help on [BitcoinTalk](https://bitcointalk.org/index.php?topic=1262920.0) or on the [PIVX Forum](http://forum.digidinar.org/).
 * Join our Discord server [Discord Server](https://discord.digidinar.org)
-* Join one of our Slack groups [PIVX Slack Groups](https://digidinar.org/slack-logins/) (Main community is replaced by Discord).
+* Join one of our Slack groups [DigiDinar Slack Groups](https://digidinar.org/slack-logins/) (Main community is replaced by Discord).
 
 Building
 ---------------------
-The following are developer notes on how to build PIVX on your native platform. They are not complete guides, but include notes on the necessary libraries, compile flags, etc.
+The following are developer notes on how to build DigiDinar on your native platform. They are not complete guides, but include notes on the necessary libraries, compile flags, etc.
 
 - [OSX Build Notes](build-osx.md)
 - [Unix Build Notes](build-unix.md)
@@ -42,7 +42,7 @@ The following are developer notes on how to build PIVX on your native platform. 
 
 Development
 ---------------------
-The Pivx repo's [root README](https://github.com/PIVX-Project/PIVX/blob/master/README.md) contains relevant information on the development process and automated testing.
+The DigiDinar repo's [root README](https://github.com/DigiDinar-Project/DigiDinar/blob/master/README.md) contains relevant information on the development process and automated testing.
 
 - [Developer Notes](developer-notes.md)
 - [Multiwallet Qt Development](multiwallet-qt.md)
@@ -57,7 +57,7 @@ The Pivx repo's [root README](https://github.com/PIVX-Project/PIVX/blob/master/R
 ### Resources
 
 * Discuss on the [BitcoinTalk](https://bitcointalk.org/index.php?topic=1262920.0) or the [PIVX](http://forum.digidinar.org/) forum.
-* Join the [PIVX-Dev](https://digidinar-dev.slack.com/) Slack group ([Sign-Up](https://digidinar-dev.herokuapp.com/)).
+* Join the [DigiDinar-Dev](https://digidinar-dev.slack.com/) Slack group ([Sign-Up](https://digidinar-dev.herokuapp.com/)).
 
 ### Miscellaneous
 - [Assets Attribution](assets-attribution.md)

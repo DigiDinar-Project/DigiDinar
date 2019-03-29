@@ -2,15 +2,16 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include <primitives/deterministicmint.h>
+#include <zddr/deterministicmint.h>
 #include "zddrtracker.h"
 #include "util.h"
 #include "sync.h"
 #include "main.h"
 #include "txdb.h"
 #include "walletdb.h"
-#include "zddrwallet.h"
-#include "accumulators.h"
+#include "zddr/accumulators.h"
+#include "zddr/zddrwallet.h"
+#include "witness.h"
 
 using namespace std;
 
@@ -105,6 +106,29 @@ bool CzDDRTracker::GetMetaFromStakeHash(const uint256& hashStake, CMintMeta& met
             meta = it.second;
             return true;
         }
+    }
+
+    return false;
+}
+
+CoinWitnessData* CzDDRTracker::GetSpendCache(const uint256& hashStake)
+{
+    AssertLockHeld(cs_spendcache);
+    if (!mapStakeCache.count(hashStake)) {
+        std::unique_ptr<CoinWitnessData> uptr(new CoinWitnessData());
+        mapStakeCache.insert(std::make_pair(hashStake, std::move(uptr)));
+        return mapStakeCache.at(hashStake).get();
+    }
+
+    return mapStakeCache.at(hashStake).get();
+}
+
+bool CzDDRTracker::ClearSpendCache()
+{
+    AssertLockHeld(cs_spendcache);
+    if (!mapStakeCache.empty()) {
+        mapStakeCache.clear();
+        return true;
     }
 
     return false;
