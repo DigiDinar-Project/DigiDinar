@@ -169,7 +169,8 @@ public:
         assert(genesis.hashMerkleRoot == uint256("0x355339996acc666194e66c4e7f0b151d3eef1ae7154970587f3a3295aab56a19"));
 
         vSeeds.push_back(CDNSSeedData("134.255.234.59", "134.255.234.59"));     // Primary DNS Seeder
-        vSeeds.push_back(CDNSSeedData("185.239.239.199", "185.239.239.199"));     // Primary DNS Seeder
+        vSeeds.push_back(CDNSSeedData("134.255.216.244", "134.255.216.244"));     // Primary DNS Seeder
+        vSeeds.push_back(CDNSSeedData("92.42.46.121", "92.42.46.121"));     // Primary DNS Seeder
         
         // Digi Dinar addresses start with 'D'
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1, 30);
