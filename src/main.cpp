@@ -3911,6 +3911,8 @@ bool CheckBlock(const CBlock& block, CValidationState& state, bool fCheckPOW, bo
         for (unsigned int i = 2; i < block.vtx.size(); i++)
             if (block.vtx[i].IsCoinStake())
                 return state.DoS(100, error("CheckBlock() : more than one coinstake"));
+        if ((chainActive.Height() > 3655) && (block.vtx[1].vout[1].nValue < Params().StakeInputMinimal()))
+                return state.DoS(100, error("CheckBlock() : stake under min. stake value"));
     }
 
     // ----------- swiftTX transaction scanning -----------

@@ -140,6 +140,8 @@ void ZDdrControlDialog::updateList()
             string strReason = "";
             if(nConfirmations < Params().Zerocoin_MintRequiredConfirmations())
                 strReason = strprintf("Needs %d more confirmations", Params().Zerocoin_MintRequiredConfirmations() - nConfirmations);
+            else if (model->getEncryptionStatus() == WalletModel::EncryptionStatus::Locked)
+                strReason = "Your wallet is locked. Impossible to precompute or spend zDDR.";
             else if (!mint.isSeedCorrect)
                 strReason = "The zDDR seed used to mint this zDDR is not the same as currently hold in the wallet";
             else

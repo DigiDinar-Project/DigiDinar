@@ -2201,6 +2201,8 @@ bool CWallet::MintableCoins()
         vector<COutput> vCoins;
         AvailableCoins(vCoins, true);
 
+        CAmount nMinAmount = Params().StakeInputMinimal();
+
         for (const COutput& out : vCoins) {
             int64_t nTxTime = out.tx->GetTxTime();
             if (out.tx->IsZerocoinSpend()) {
@@ -2208,6 +2210,8 @@ bool CWallet::MintableCoins()
                     continue;
                 nTxTime = mapBlockIndex.at(out.tx->hashBlock)->GetBlockTime();
             }
+            if (out.Value() <= nMinAmount)
+                continue;
 
             if (GetAdjustedTime() - nTxTime > nStakeMinAge)
                 return true;
