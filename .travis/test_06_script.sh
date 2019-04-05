@@ -67,7 +67,7 @@ if [ "$RUN_FUNCTIONAL_TESTS" = "true" ]; then
 fi
 
 BEGIN_FOLD deploy
-DOCKER_EXEC  $TRAVIS_BUILD_DIR/contrib/travis-artifacts/collect-artifacts.sh $TRAVIS_BUILD_DIR $OUTDIR build $TRAVIS_COMMIT $HOST
+#DOCKER_EXEC  $TRAVIS_BUILD_DIR/contrib/travis-artifacts/collect-artifacts.sh $TRAVIS_BUILD_DIR $OUTDIR build $TRAVIS_COMMIT $HOST
 END_FOLD
 
 BEGIN_FOLD upload
