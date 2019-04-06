@@ -15,12 +15,22 @@ RELEASEDIR=$BASEDIR/$RELEASEBASE/$COMMIT/$HOST
 
 mkdir -p $RELEASEDIR
 
+if [ -d "$OUTDIR" ]; then
+  cp $OUTDIR/bin/* $RELEASEDIR/
+fi
+
+count=`ls -1 *.dmg 2>/dev/null | wc -l`
+if [ $count != 0 ]
+then 
 # MaxOSX artifacts
 cp -a *.dmg $RELEASEDIR || true
+fi
 
+count=`ls -1 *.exe 2>/dev/null | wc -l`
+if [ $count != 0 ]
+then 
 # Windows artifacts
 cp -a *.exe $RELEASEDIR || true
+fi 
 
-ls $OUTDIR
-
-tar -cvzf package-$HOST.tgz $BASEDIR
+tar -cvzf package-$HOST.tgz $RELEASEDIR
