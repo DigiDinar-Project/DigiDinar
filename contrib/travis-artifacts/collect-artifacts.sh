@@ -13,4 +13,14 @@ HOST=$5
 
 RELEASEDIR=$BASEDIR/$RELEASEBASE/$COMMIT/$HOST
 
+mkdir -p $RELEASEDIR
+
+# MaxOSX artifacts
+cp -a *.dmg $RELEASEDIR || true
+
+# Windows artifacts
+cp -a *.exe $RELEASEDIR || true
+
+ls $OUTDIR
+
 tar -cvzf package-$HOST.tgz $BASEDIR
