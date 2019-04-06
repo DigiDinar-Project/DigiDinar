@@ -13,4 +13,4 @@ HOST=$5
 
 RELEASEDIR=$BASEDIR/$RELEASEBASE/$COMMIT/$HOST
 
-tar -cvzf package-$HOST.tgz $BASEDIR/out
+tar -cvzf package-$HOST.tgz $BASEDIR
