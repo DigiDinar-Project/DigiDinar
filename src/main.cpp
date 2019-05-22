@@ -2445,10 +2445,11 @@ void AddWrappedSerialsInflation()
     if (pindex->nHeight > chainActive.Height())
         return;
 
+    uiInterface.ShowProgress(_("Adding Wrapped Serials supply..."), 0);
     while (true) {
         if (pindex->nHeight % 1000 == 0) {
             LogPrintf("%s : block %d...\n", __func__, pindex->nHeight);
-            int percent = (int)( (double)(pindex->nHeight - Params().Zerocoin_Block_EndFakeSerial()) * 100 / (chainActive.Height() - Params().Zerocoin_Block_EndFakeSerial()) );
+            int percent = std::max(1, std::min(99, (int)((double)(pindex->nHeight - Params().Zerocoin_Block_EndFakeSerial()) * 100 / (chainActive.Height() - Params().Zerocoin_Block_EndFakeSerial()))));
             uiInterface.ShowProgress(_("Adding Wrapped Serials supply..."), percent);
         }
 
@@ -2469,10 +2470,11 @@ void AddWrappedSerialsInflation()
 void RecalculateZDDRMinted()
 {
     CBlockIndex *pindex = chainActive[Params().Zerocoin_StartHeight()];
+    uiInterface.ShowProgress(_("Recalculating minted ZDDR..."), 0);
     while (true) {
         if (pindex->nHeight % 1000 == 0) {
             LogPrintf("%s : block %d...\n", __func__, pindex->nHeight);
-            int percent = (int)( (double)(pindex->nHeight - Params().Zerocoin_StartHeight()) * 100 / (chainActive.Height() - Params().Zerocoin_StartHeight()) );
+            int percent = std::max(1, std::min(99, (int)((double)(pindex->nHeight - Params().Zerocoin_StartHeight()) * 100 / (chainActive.Height() - Params().Zerocoin_StartHeight()))));
             uiInterface.ShowProgress(_("Recalculating minted ZDDR..."), percent);
         }
 
@@ -2493,16 +2495,18 @@ void RecalculateZDDRMinted()
         else
             break;
     }
+    uiInterface.ShowProgress("", 100);
 }
 
 void RecalculateZDDRSpent()
 {
     CBlockIndex* pindex = chainActive[Params().Zerocoin_StartHeight()];
+    uiInterface.ShowProgress(_("Recalculating spent ZDDR..."), 0);
     while (true) {
         if (pindex->nHeight % 1000 == 0) {
             LogPrintf("%s : block %d...\n", __func__, pindex->nHeight);
-            int percent = (int)( (double)(pindex->nHeight - Params().Zerocoin_StartHeight()) * 100 / (chainActive.Height() - Params().Zerocoin_StartHeight()) );
-            uiInterface.ShowProgress(_("Recalculating spent ZDDR..."), percent);
+            int percent = std::max(1, std::min(99, (int)((double)(pindex->nHeight - Params().Zerocoin_StartHeight()) * 100 / (chainActive.Height() - Params().Zerocoin_StartHeight()))));
+            uiInterface.ShowProgress(_("Recalculating spent ZPIV..."), percent);
         }
 
         //Rewrite zDDR supply
@@ -2549,10 +2553,11 @@ bool RecalculateDDRSupply(int nHeightStart)
     CBlockIndex* pindex = chainActive[nHeightStart];
     CAmount nSupplyPrev = pindex->pprev->nMoneySupply;
 
+    uiInterface.ShowProgress(_("Recalculating DDR supply..."), 0);
     while (true) {
         if (pindex->nHeight % 1000 == 0) {
             LogPrintf("%s : block %d...\n", __func__, pindex->nHeight);
-            int percent = (int)( (double)((pindex->nHeight - nHeightStart) * 100) / (chainActive.Height() - nHeightStart) );
+            int percent = std::max(1, std::min(99, (int)((double)((pindex->nHeight - nHeightStart) * 100) / (chainActive.Height() - nHeightStart))));
             uiInterface.ShowProgress(_("Recalculating DDR supply..."), percent);
         }
 
@@ -2942,9 +2947,14 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
 
     // Ensure that accumulator checkpoints are valid and in the same state as this instance of the chain
     AccumulatorMap mapAccumulators(Params().Zerocoin_Params(pindex->nHeight < Params().Zerocoin_Block_V2_Start()));
-    if (!ValidateAccumulatorCheckpoint(block, pindex, mapAccumulators))
+    if (!ValidateAccumulatorCheckpoint(block, pindex, mapAccumulators)) {
+        if (!ShutdownRequested()) {
         return state.DoS(100, error("%s: Failed to validate accumulator checkpoint for block=%s height=%d", __func__,
                                     block.GetHash().GetHex(), pindex->nHeight), REJECT_INVALID, "bad-acc-checkpoint");
+        }
+        return error("%s: Failed to validate accumulator checkpoint for block=%s height=%d because wallet is shutting down", __func__,
+                block.GetHash().GetHex(), pindex->nHeight);
+    }
 
     if (!control.Wait())
         return state.DoS(100, error("%s: CheckQueue failed", __func__), REJECT_INVALID, "block-validation-failed");
@@ -4355,27 +4365,28 @@ bool AcceptBlock(CBlock& block, CValidationState& state, CBlockIndex** ppindex, 
             // Start at the block we're adding on to
             CBlockIndex *prev = pindexPrev;
 
-            int readBlock = 0;
-            vector<CBigNum> vBlockSerials;
             CBlock bl;
+            if (!ReadBlockFromDisk(bl, prev))
+                return error("%s: previous block %s not on disk", __func__, prev->GetBlockHash().GetHex());
             // Go backwards on the forked chain up to the split
-            do {
+            vector<CBigNum> vBlockSerials;
+            int readBlock = 0;
+            // Go backwards on the forked chain up to the split
+            while (!chainActive.Contains(prev)) {
+
+                // Increase amount of read blocks
+                readBlock++;
                 // Check if the forked chain is longer than the max reorg limit
                 if(readBlock == Params().MaxReorganizationDepth()){
                     // TODO: Remove this chain from disk.
                     return error("%s: forked chain longer than maximum reorg limit", __func__);
                 }
 
-                if(!ReadBlockFromDisk(bl, prev))
-                    // Previous block not on disk
-                    return error("%s: previous block %s not on disk", __func__, prev->GetBlockHash().GetHex());
-                // Increase amount of read blocks
-                readBlock++;
                 // Loop through every input from said block
-                for (const CTransaction& t : bl.vtx) {
-                    for (const CTxIn& in: t.vin) {
+                for (const CTransaction &t : bl.vtx) {
+                    for (const CTxIn &in: t.vin) {
                         // Loop through every input of the staking tx
-                        for (const CTxIn& stakeIn : ddrInputs) {
+                        for (const CTxIn &stakeIn : ddrInputs) {
                             // if it's already spent
 
                             // First regular staking check
@@ -4394,8 +4405,10 @@ bool AcceptBlock(CBlock& block, CValidationState& state, CBlockIndex** ppindex, 
                 }
 
                 prev = prev->pprev;
+                if (!ReadBlockFromDisk(bl, prev))
+                    return error("%s: previous block %s not on disk", __func__, prev->GetBlockHash().GetHex());
 
-            } while (!chainActive.Contains(prev));
+            }
 
             // Split height
             splitHeight = prev->nHeight;
@@ -4459,7 +4472,7 @@ bool AcceptBlock(CBlock& block, CValidationState& state, CBlockIndex** ppindex, 
                 if(coin && !coin->IsAvailable(in.prevout.n)){
                     // If this is not available get the height of the spent and validate it with the forked height
                     // Check if this occurred before the chain split
-                    if(!(isBlockFromFork && coin->nHeight > splitHeight)){
+                    if(!isBlockFromFork){
                         // Coins not available
                         return error("%s: coin stake inputs already spent in main chain", __func__);
                     }
