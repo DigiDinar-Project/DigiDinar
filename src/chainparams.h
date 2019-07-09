@@ -50,6 +50,11 @@ public:
     const std::vector<unsigned char>& AlertKey() const { return vAlertPubKey; }
     int GetDefaultPort() const { return nDefaultPort; }
     const uint256& ProofOfWorkLimit() const { return bnProofOfWorkLimit; }
+    int SubsidyHalvingInterval() const { return nSubsidyHalvingInterval; }
+    /** Used to check majorities for block version upgrade */
+    int EnforceBlockUpgradeMajority() const { return nEnforceBlockUpgradeMajority; }
+    int RejectBlockOutdatedMajority() const { return nRejectBlockOutdatedMajority; }
+    int ToCheckBlockUpgradeMajority() const { return nToCheckBlockUpgradeMajority; }
     int MaxReorganizationDepth() const { return nMaxReorganizationDepth; }
 
     /** Used if GenerateBitcoins is called with a negative number of threads */
@@ -81,7 +86,11 @@ public:
     const std::vector<CAddress>& FixedSeeds() const { return vFixedSeeds; }
     virtual const Checkpoints::CCheckpointData& Checkpoints() const = 0;
     int PoolMaxTransactions() const { return nPoolMaxTransactions; }
-    CAmount StakeInputMinimal() const { return nStakeInputMinimal; }
+    /** Return the number of blocks in a budget cycle */
+    int GetBudgetCycleBlocks() const { return nBudgetCycleBlocks; }
+    int64_t GetProposalEstablishmentTime() const { return nProposalEstablishmentTime; }
+    
+    virtual CAmount StakeInputMinimal(int height) const = 0;
 
     /** Spork key and Masternode Handling **/
     std::string SporkKey() const { return strSporkKey; }
@@ -95,6 +104,7 @@ public:
     std::string Zerocoin_Modulus() const { return zerocoinModulus; }
     libzerocoin::ZerocoinParams* Zerocoin_Params(bool useModulusV1) const;
     int Zerocoin_MaxSpendsPerTransaction() const { return nMaxZerocoinSpendsPerTransaction; }
+    int Zerocoin_MaxPublicSpendsPerTransaction() const { return nMaxZerocoinPublicSpendsPerTransaction; }
     CAmount Zerocoin_MintFee() const { return nMinZerocoinMintFee; }
     int Zerocoin_MintRequiredConfirmations() const { return nMintRequiredConfirmations; }
     int Zerocoin_RequiredAccumulation() const { return nRequiredAccumulation; }
@@ -113,7 +123,8 @@ public:
     int Zerocoin_Block_EndFakeSerial() const { return nFakeSerialBlockheightEnd; }
     CAmount GetSupplyBeforeFakeSerial() const { return nSupplyBeforeFakeSerial; }
 
-    
+    int Zerocoin_Block_Public_Spend_Enabled() const { return nPublicZCSpends; }
+
     // GGR
     /** Number of halving reward block */
     int SubsidyHalvingBlock() const { return nSubsidyHalvingBlock; }
@@ -132,6 +143,10 @@ protected:
     int nDefaultPort;
     uint256 bnProofOfWorkLimit;
     int nMaxReorganizationDepth;
+    int nSubsidyHalvingInterval;
+    int nEnforceBlockUpgradeMajority;
+    int nRejectBlockOutdatedMajority;
+    int nToCheckBlockUpgradeMajority;
     int64_t nTargetTimespan;
     int64_t nTargetSpacing;
     int nLastPOWBlock;
@@ -154,11 +169,13 @@ protected:
     bool fTestnetToBeDeprecatedFieldRPC;
     bool fHeadersFirstSyncingActive;
     int nPoolMaxTransactions;
+    int nBudgetCycleBlocks;
     std::string strSporkKey;
     std::string strObfuscationPoolDummyAddress;
     int64_t nStartMasternodePayments;
     std::string zerocoinModulus;
     int nMaxZerocoinSpendsPerTransaction;
+    int nMaxZerocoinPublicSpendsPerTransaction;
     CAmount nMinZerocoinMintFee;
     int nMintRequiredConfirmations;
     int nRequiredAccumulation;
@@ -168,8 +185,10 @@ protected:
     int nZerocoinStartHeight;
     int nZerocoinStartTime;
     int nZerocoinRequiredStakeDepth;
+    int64_t nProposalEstablishmentTime;
 
     int nBlockZerocoinV2;
+    int nPublicZCSpends;
 
     int nSubsidyHalvingBlock;
     int nMasternodeCollateral;
@@ -192,6 +211,9 @@ class CModifiableParams
 public:
     //! Published setters to allow changing values in unit test cases
     virtual void setSubsidyHalvingBlock(int anSubsidyHalvingBlock) = 0;
+    virtual void setEnforceBlockUpgradeMajority(int anEnforceBlockUpgradeMajority) = 0;
+    virtual void setRejectBlockOutdatedMajority(int anRejectBlockOutdatedMajority) = 0;
+    virtual void setToCheckBlockUpgradeMajority(int anToCheckBlockUpgradeMajority) = 0;
     virtual void setDefaultConsistencyChecks(bool aDefaultConsistencyChecks) = 0;
     virtual void setAllowMinDifficultyBlocks(bool aAllowMinDifficultyBlocks) = 0;
     virtual void setSkipProofOfWorkCheck(bool aSkipProofOfWorkCheck) = 0;

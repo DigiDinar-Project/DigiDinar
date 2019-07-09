@@ -13,6 +13,7 @@ QT_TS = \
   qt/locale/digidinar_da.ts \
   qt/locale/digidinar_de.ts \
   qt/locale/digidinar_en.ts \
+  qt/locale/digidinar_en_GB.ts \
   qt/locale/digidinar_en_US.ts \
   qt/locale/digidinar_eo.ts \
   qt/locale/digidinar_es.ts \
@@ -46,7 +47,6 @@ QT_FORMS_UI = \
   qt/forms/bip38tooldialog.ui \
   qt/forms/coincontroldialog.ui \
   qt/forms/blockexplorer.ui \
-  qt/forms/obfuscationconfig.ui \
   qt/forms/editaddressdialog.ui \
   qt/forms/governancepage.ui \
   qt/forms/helpmessagedialog.ui \
@@ -82,7 +82,6 @@ QT_MOC_CPP = \
   qt/moc_coincontroldialog.cpp \
   qt/moc_coincontroltreewidget.cpp \
   qt/moc_csvmodelwriter.cpp \
-  qt/moc_obfuscationconfig.cpp \
   qt/moc_editaddressdialog.cpp \
   qt/moc_governancepage.cpp \
   qt/moc_guiutil.cpp \
@@ -158,7 +157,6 @@ BITCOIN_QT_H = \
   qt/coincontroldialog.h \
   qt/coincontroltreewidget.h \
   qt/csvmodelwriter.h \
-  qt/obfuscationconfig.h \
   qt/editaddressdialog.h \
   qt/governancepage.h \
   qt/guiconstants.h \
@@ -311,7 +309,6 @@ BITCOIN_QT_WALLET_CPP = \
   qt/blockexplorer.cpp \
   qt/coincontroldialog.cpp \
   qt/coincontroltreewidget.cpp \
-  qt/obfuscationconfig.cpp \
   qt/editaddressdialog.cpp \
   qt/governancepage.cpp \
   qt/masternodelist.cpp \

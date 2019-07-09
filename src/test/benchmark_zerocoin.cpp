@@ -9,7 +9,7 @@
  * @copyright  Copyright 2013 Ian Miers, Christina Garman and Matthew Green
  * @license    This project is released under the MIT license.
  **/
-// Copyright (c) 2017-2018 The DIGI DINAR developers
+// Copyright (c) 2017-2018 The PIVX developers
 
 #include <boost/test/unit_test.hpp>
 #include <string>
@@ -25,6 +25,7 @@
 #include "libzerocoin/Coin.h"
 #include "libzerocoin/CoinSpend.h"
 #include "libzerocoin/Accumulator.h"
+#include "test_digidinar.h"
 
 using namespace std;
 using namespace libzerocoin;
@@ -402,7 +403,8 @@ Testb_RunAllTests()
 	cout << ggSuccessfulTests << " out of " << ggNumTests << " tests passed." << endl << endl;
 	delete gg_Params;
 }
-BOOST_AUTO_TEST_SUITE(benchmark_zerocoin)
+
+BOOST_FIXTURE_TEST_SUITE(benchmark_zerocoin, TestingSetup)
 
 BOOST_AUTO_TEST_CASE(benchmark_test)
 {

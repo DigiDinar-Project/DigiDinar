@@ -6,6 +6,7 @@
 
 #include "masternode-payments.h"
 #include "addrman.h"
+#include "chainparams.h"
 #include "masternode-budget.h"
 #include "masternode-devbudget.h"
 #include "masternode-sync.h"
@@ -196,7 +197,7 @@ bool IsBlockValueValid(const CBlock& block, CAmount nExpectedValue, CAmount nMin
 
     if (!masternodeSync.IsSynced()) { //there is no budget data to use to check anything
         //super blocks will always be on these blocks, max 100 per budgeting
-        if (nHeight % GetBudgetPaymentCycleBlocks() < 100) {
+        if (nHeight % Params().GetBudgetCycleBlocks() < 100) {
             return true;
         } else {
             if (nMinted > nExpectedValue) {
@@ -545,19 +546,20 @@ bool CMasternodeBlockPayees::IsTransactionValid(const CTransaction& txNew)
 
     CAmount nReward = GetBlockValue(nBlockHeight);
 
-    CAmount requiredMasternodePayment = GetMasternodePayment(nBlockHeight, nReward, txNew.IsZerocoinSpend()) - GetDevelopersPayment(nBlockHeight, nReward);
+    CAmount requiredMasternodePayment = GetMasternodePayment(nBlockHeight, nReward, txNew.HasZerocoinSpendInputs()) - GetDevelopersPayment(nBlockHeight, nReward);
+
 
     //require at least 6 signatures
-    BOOST_FOREACH (CMasternodePayee& payee, vecPayments)
+    for (CMasternodePayee& payee : vecPayments)
         if (payee.nVotes >= nMaxSignatures && payee.nVotes >= MNPAYMENTS_SIGNATURES_REQUIRED)
             nMaxSignatures = payee.nVotes;
 
     // if we don't have at least 6 signatures on a payee, approve whichever is the longest chain
     if (nMaxSignatures < MNPAYMENTS_SIGNATURES_REQUIRED) return true;
 
-    BOOST_FOREACH (CMasternodePayee& payee, vecPayments) {
+    for (CMasternodePayee& payee : vecPayments) {
         bool found = false;
-        BOOST_FOREACH (CTxOut out, txNew.vout) {
+        for (CTxOut out : txNew.vout) {
             if (payee.scriptPubKey == out.scriptPubKey) {
                 if(out.nValue >= requiredMasternodePayment)
                     found = true;
@@ -591,7 +593,7 @@ std::string CMasternodeBlockPayees::GetRequiredPaymentsString()
 
     std::string ret = "Unknown";
 
-    BOOST_FOREACH (CMasternodePayee& payee, vecPayments) {
+    for (CMasternodePayee& payee : vecPayments) {
         CTxDestination address1;
         ExtractDestination(payee.scriptPubKey, address1);
         CBitcoinAddress address2(address1);

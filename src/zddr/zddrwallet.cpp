@@ -5,9 +5,9 @@
 #include "zddrwallet.h"
 #include "main.h"
 #include "txdb.h"
-#include "walletdb.h"
+#include "wallet/walletdb.h"
 #include "init.h"
-#include "wallet.h"
+#include "wallet/wallet.h"
 #include "deterministicmint.h"
 #include "zddrchain.h"
 
@@ -229,7 +229,7 @@ void CzDDRWallet::SyncWithChain(bool fGenerateMintPool)
                 bool fFoundMint = false;
                 CBigNum bnValue = 0;
                 for (const CTxOut& out : tx.vout) {
-                    if (!out.scriptPubKey.IsZerocoinMint())
+                    if (!out.IsZerocoinMint())
                         continue;
 
                     PublicCoin pubcoin(Params().Zerocoin_Params(false));

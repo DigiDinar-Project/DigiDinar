@@ -8,7 +8,7 @@
 #include "zddr/deterministicmint.h"
 #include "main.h"
 #include "stakeinput.h"
-#include "wallet.h"
+#include "wallet/wallet.h"
 
 CZDdrStake::CZDdrStake(const libzerocoin::CoinSpend& spend)
 {

@@ -1,9 +1,9 @@
-// Copyright (c) 2018 The DigiDinar developers
+// Copyright (c) 2018 The PIVX developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef DDR_ZDDRCHAIN_H
-#define DDR_ZDDRCHAIN_H
+#ifndef DIGIDINAR_ZDDRCHAIN_H
+#define DIGIDINAR_ZDDRCHAIN_H
 
 #include "libzerocoin/Coin.h"
 #include "libzerocoin/Denominations.h"
@@ -39,4 +39,4 @@ bool TxOutToPublicCoin(const CTxOut& txout, libzerocoin::PublicCoin& pubCoin, CV
 std::list<libzerocoin::CoinDenomination> ZerocoinSpendListFromBlock(const CBlock& block, bool fFilterInvalid);
 
 
-#endif //DDR_ZDDRCHAIN_H
+#endif //DIGIDINAR_ZDDRCHAIN_H

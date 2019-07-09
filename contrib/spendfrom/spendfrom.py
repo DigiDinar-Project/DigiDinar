@@ -35,9 +35,9 @@ def check_json_precision():
 def determine_db_dir():
     """Return the default location of the digidinar data directory"""
     if platform.system() == "Darwin":
-        return os.path.expanduser("~/Library/Application Support/DigiDinar/")
+        return os.path.expanduser("~/Library/Application Support/DIGIDINAR/")
     elif platform.system() == "Windows":
-        return os.path.join(os.environ['APPDATA'], "DigiDinar")
+        return os.path.join(os.environ['APPDATA'], "DIGIDINAR")
     return os.path.expanduser("~/.digidinar")
 
 def read_bitcoin_config(dbdir):

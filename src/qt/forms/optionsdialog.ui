@@ -20,7 +20,7 @@
    <item>
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>4</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="tabMain">
       <attribute name="title">
@@ -131,7 +131,13 @@
         </spacer>
        </item>
        <item>
-        <layout class="QHBoxLayout" name="horiz-autominting-layout">
+        <widget class="QWidget" name="verticalZddrOptionsWidget" native="true">
+         <layout class="QVBoxLayout" name="verticalZddrOptionsLayout">
+          <property name="margin">
+           <number>0</number>
+          </property>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalAutomintingLayout">
          <item>
           <widget class="QCheckBox" name="checkBoxZeromintEnable">
            <property name="toolTip">
@@ -161,7 +167,7 @@
         </layout>
        </item>
        <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_3">
+           <layout class="QHBoxLayout" name="horizontalZmintPercentageLayout">
          <item>
           <widget class="QLabel" name="percentage_label">
            <property name="toolTip">
@@ -225,6 +231,9 @@
           </widget>
          </item>
         </layout>
+          </item>
+         </layout>
+        </widget>
        </item>
       </layout>
      </widget>
@@ -552,6 +561,12 @@ https://www.transifex.com/digidinar-project/digidinar-project-translations</stri
         </layout>
        </item>
        <item>
+        <widget class="QWidget" name="verticalZddrDisplayWidget" native="true">
+         <layout class="QVBoxLayout" name="verticalZddrDisplayLayout">
+          <property name="margin">
+           <number>0</number>
+          </property>
+       <item>
         <widget class="Line" name="line">
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
@@ -563,13 +578,10 @@ https://www.transifex.com/digidinar-project/digidinar-project-translations</stri
          <item>
           <widget class="QLabel" name="unitLabel">
            <property name="text">
-            <string>&amp;Unit to show amounts in:</string>
+               <string>Unit to show amounts in:</string>
            </property>
            <property name="textFormat">
             <enum>Qt::PlainText</enum>
-           </property>
-           <property name="buddy">
-            <cstring>unit</cstring>
            </property>
           </widget>
          </item>
@@ -646,9 +658,6 @@ https://www.transifex.com/digidinar-project/digidinar-project-translations</stri
            <property name="text">
             <string>Third party transaction URLs</string>
            </property>
-           <property name="buddy">
-            <cstring>thirdPartyTxUrls</cstring>
-           </property>
           </widget>
          </item>
          <item>
@@ -659,6 +668,9 @@ https://www.transifex.com/digidinar-project/digidinar-project-translations</stri
           </widget>
          </item>
         </layout>
+          </item>
+         </layout>
+        </widget>
        </item>
        <item>
         <spacer name="verticalSpacer">

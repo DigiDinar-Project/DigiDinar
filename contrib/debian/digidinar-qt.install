@@ -1,6 +1,6 @@
 usr/local/bin/digidinar-qt usr/bin
-share/pixmaps/bitcoin32.xpm usr/share/pixmaps
-share/pixmaps/bitcoin16.xpm usr/share/pixmaps
-share/pixmaps/bitcoin128.png usr/share/pixmaps
+share/pixmaps/digidinar32.xpm usr/share/pixmaps
+share/pixmaps/digidinar16.xpm usr/share/pixmaps
+share/pixmaps/digidinar128.png usr/share/pixmaps
 debian/digidinar-qt.desktop usr/share/applications
 debian/digidinar-qt.protocol usr/share/kde4/services/

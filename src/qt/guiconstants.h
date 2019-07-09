@@ -1,7 +1,6 @@
 // Copyright (c) 2011-2014 The Bitcoin developers
 // Copyright (c) 2014-2015 The Dash developers
 // Copyright (c) 2015-2018 The PIVX developers
-// Copyright (c) 2019-2019 The Digi Dinar developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -14,7 +13,7 @@ static const int MODEL_UPDATE_DELAY = 1000;
 /* AskPassphraseDialog -- Maximum passphrase length */
 static const int MAX_PASSPHRASE_SIZE = 1024;
 
-/* DigiDinar GUI -- Size of icons in status bar */
+/* Digidinar GUI -- Size of icons in status bar */
 static const int STATUSBAR_ICONSIZE = 16;
 
 static const bool DEFAULT_SPLASHSCREEN = true;
@@ -39,7 +38,7 @@ static const bool DEFAULT_SPLASHSCREEN = true;
 #define COLOR_CONFLICTED QColor(170, 29, 33)
 /* Transaction list -- TX status decoration - orphan (Light Gray #D3D3D3) */
 #define COLOR_ORPHAN QColor(211, 211, 211)
-/* Transaction list -- TX status decoration - stake (BlueViolet #e28a2b) */
+/* Transaction list -- TX status decoration - stake (BlueViolet #8A2BE2) */
 #define COLOR_STAKE QColor(202, 186, 90)
 /* Tooltips longer than this (in characters) are converted into rich text,
    so that they can be word-wrapped.

@@ -120,6 +120,11 @@ public:
         nDefaultPort = 32001;
         bnProofOfWorkLimit = ~uint256(0) >> 20; // Digi Dinar starting difficulty is 1 / 2^12
         nMaxReorganizationDepth = 100;
+        nEnforceBlockUpgradeMajority = 75; // 75%
+        nRejectBlockOutdatedMajority = 95; // 95%
+        nToCheckBlockUpgradeMajority = 100; // Approximate expected amount of blocks in 7 days (1440*7.5)
+        
+
         nMinerThreads = 0;
         nTargetSpacing = 1 * 60;  // Digi Dinar: 1 minute
         nMaturity = 100;
@@ -135,6 +140,9 @@ public:
         nZerocoinStartHeight = 0;
         nZerocoinStartTime = 1550792244; // Genesis time
         nBlockZerocoinV2 = 20;
+
+        // Public coin spend enforcement
+        nPublicZCSpends = 58700;
 
         // Fake Serial Attack
         nFakeSerialBlockheightEnd = -1;
@@ -189,11 +197,12 @@ public:
         fDefaultConsistencyChecks = false;
         fRequireStandard = true;
         fMineBlocksOnDemand = false;
-        fSkipProofOfWorkCheck = true;
+        fSkipProofOfWorkCheck = false;
         fTestnetToBeDeprecatedFieldRPC = false;
         fHeadersFirstSyncingActive = false;
 
         nPoolMaxTransactions = 3;
+        nBudgetCycleBlocks = 43200; //!< Amount of blocks in a months period of time (using 1 minutes per) = (60*24*30)
         strSporkKey = "047639742517259eca25085a46d37699beac997a7ae0e7f73c36f51919a538041ce5be3c528a9defa5213bfa228958f95ba2770947cc9b3483d73f4fd6d1b97589";
         strObfuscationPoolDummyAddress = "D87q2gC9j6nNrnzCsg4aY6bHMLsT9nUhEw";
         nStartMasternodePayments = 1547119800; //Wed, 25 Jun 2014 20:36:16 GMT
@@ -206,6 +215,7 @@ public:
             "8441436038339044149526344321901146575444541784240209246165157233507787077498171257724679629263863563732899121548"
             "31438167899885040445364023527381951378636564391212010397122822120720357";
         nMaxZerocoinSpendsPerTransaction = 7; // Assume about 20kb each
+        nMaxZerocoinPublicSpendsPerTransaction = 637; // Assume about 220 bytes each input
         nMinZerocoinMintFee = 1 * CENT; //high fee required for zerocoin mints
         nMintRequiredConfirmations = 20; //the maximum amount of confirmations until accumulated in 19
         nRequiredAccumulation = 1;
@@ -214,12 +224,25 @@ public:
         nZerocoinRequiredStakeDepth = 200; //The required confirmations for a zddr to be stakable
 
         nBudget_Fee_Confirmations = 6; // Number of confirmations for the finalization fee
+        nProposalEstablishmentTime = 60 * 60 * 24; // Proposals must be at least a day old to make it into a budget
     }
 
     const Checkpoints::CCheckpointData& Checkpoints() const
     {
         return data;
     }
+    
+    
+    CAmount StakeInputMinimal(int nTargetHeight) const
+    {
+        if (nTargetHeight < 60000 )
+            return nStakeInputMinimal; 
+        else if (nTargetHeight < 150000 )
+            return nStakeInputMinimal * 30; 
+        else
+            return nStakeInputMinimal * 60;
+    }
+    
 };
 static CMainParams mainParams;
 
@@ -248,6 +271,9 @@ public:
         nZerocoinStartHeight = 15;
         nZerocoinStartTime = 1550792244;
         nBlockZerocoinV2 = 15;
+
+        // Public coin spend enforcement
+        nPublicZCSpends = 0;
 
         nSubsidyHalvingBlock = 1600;
         nMasternodeCollateral = 25000;
@@ -284,15 +310,26 @@ public:
         fTestnetToBeDeprecatedFieldRPC = true;
 
         nPoolMaxTransactions = 2;
+	nBudgetCycleBlocks = 144; //!< Ten cycles per day on testnet
+        
         strSporkKey = "042f3ee3fd6b795c7176f61e967fd7923d4c43f09d68720dfc05239f64b4765471f9a0049e1508f663c13bb454706e73947fae169c0ea41ddb6a97c4fa5b38690e";
         strObfuscationPoolDummyAddress = "y57cqfGRkekRyDRNeJiLtYVEbvhXrNbmox";
         nStartMasternodePayments = 1547119740 + 500 * 120; 
         nBudget_Fee_Confirmations = 3; // Number of confirmations for the finalization fee. We have to make this very short
                                        // here because we only have a 8 block finalization window on testnet
+        nProposalEstablishmentTime = 60 * 5; // Proposals must be at least 5 mns old to make it into a test budget
     }
     const Checkpoints::CCheckpointData& Checkpoints() const
     {
         return dataTestnet;
+    }
+    
+    CAmount StakeInputMinimal(int nTargetHeight) const
+    {
+        if (nTargetHeight < 6000 )
+            return nStakeInputMinimal; 
+        else
+            return nStakeInputMinimal * 30;
     }
 };
 static CTestNetParams testNetParams;
@@ -340,6 +377,14 @@ public:
     {
         return dataRegtest;
     }
+    
+    CAmount StakeInputMinimal(int nTargetHeight) const
+    {
+        if (nTargetHeight < 6000)
+            return nStakeInputMinimal; 
+        else
+            return nStakeInputMinimal * 30;
+    }
 };
 static CRegTestParams regTestParams;
 
@@ -371,6 +416,9 @@ public:
 
     //! Published setters to allow changing values in unit test cases
     virtual void setSubsidyHalvingBlock(int anSubsidyHalvingBlock) { nSubsidyHalvingBlock = anSubsidyHalvingBlock; }
+    virtual void setEnforceBlockUpgradeMajority(int anEnforceBlockUpgradeMajority) { nEnforceBlockUpgradeMajority = anEnforceBlockUpgradeMajority; }
+    virtual void setRejectBlockOutdatedMajority(int anRejectBlockOutdatedMajority) { nRejectBlockOutdatedMajority = anRejectBlockOutdatedMajority; }
+    virtual void setToCheckBlockUpgradeMajority(int anToCheckBlockUpgradeMajority) { nToCheckBlockUpgradeMajority = anToCheckBlockUpgradeMajority; }
     virtual void setDefaultConsistencyChecks(bool afDefaultConsistencyChecks) { fDefaultConsistencyChecks = afDefaultConsistencyChecks; }
     virtual void setAllowMinDifficultyBlocks(bool afAllowMinDifficultyBlocks) { fAllowMinDifficultyBlocks = afAllowMinDifficultyBlocks; }
     virtual void setSkipProofOfWorkCheck(bool afSkipProofOfWorkCheck) { fSkipProofOfWorkCheck = afSkipProofOfWorkCheck; }

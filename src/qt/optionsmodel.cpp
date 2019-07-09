@@ -23,8 +23,8 @@
 
 #ifdef ENABLE_WALLET
 #include "masternodeconfig.h"
-#include "wallet.h"
-#include "walletdb.h"
+#include "wallet/wallet.h"
+#include "wallet/walletdb.h"
 #endif
 
 #include <QNetworkProxy>
@@ -97,11 +97,6 @@ void OptionsModel::Init()
     if (!settings.contains("nPreferredDenom"))
         settings.setValue("nPreferredDenom", 0);
     nPreferredDenom = settings.value("nPreferredDenom", "0").toLongLong();
-
-    if (!settings.contains("nAnonymizeDigiDinarAmount"))
-        settings.setValue("nAnonymizeDigiDinarAmount", 1000);
-
-    nAnonymizeDigiDinarAmount = settings.value("nAnonymizeDigiDinarAmount").toLongLong();
 
     if (!settings.contains("fShowMasternodesTab"))
         settings.setValue("fShowMasternodesTab", masternodeConfig.getCount());
@@ -177,8 +172,8 @@ void OptionsModel::Init()
         SoftSetArg("-zeromintpercentage", settings.value("nZeromintPercentage").toString().toStdString());
     if (settings.contains("nPreferredDenom"))
         SoftSetArg("-preferredDenom", settings.value("nPreferredDenom").toString().toStdString());
-    if (settings.contains("nAnonymizeDigiDinarAmount"))
-        SoftSetArg("-anonymizedigidinaramount", settings.value("nAnonymizeDigiDinarAmount").toString().toStdString());
+    if (settings.contains("nAnonymizeDigidinarAmount"))
+        SoftSetArg("-anonymizedigidinaramount", settings.value("nAnonymizeDigidinarAmount").toString().toStdString());
 
     language = settings.value("language").toString();
 }
@@ -273,8 +268,6 @@ QVariant OptionsModel::data(const QModelIndex& index, int role) const
             return QVariant(nZeromintPercentage);
         case ZeromintPrefDenom:
             return QVariant(nPreferredDenom);
-        case AnonymizeDigiDinarAmount:
-            return QVariant(nAnonymizeDigiDinarAmount);
         case Listen:
             return settings.value("fListen");
         default:
@@ -410,11 +403,6 @@ bool OptionsModel::setData(const QModelIndex& index, const QVariant& value, int 
             fHideOrphans = value.toBool();
             settings.setValue("fHideOrphans", fHideOrphans);
             emit hideOrphansChanged(fHideOrphans);
-            break;
-        case AnonymizeDigiDinarAmount:
-            nAnonymizeDigiDinarAmount = value.toInt();
-            settings.setValue("nAnonymizeDigiDinarAmount", nAnonymizeDigiDinarAmount);
-            emit anonymizeDigiDinarAmountChanged(nAnonymizeDigiDinarAmount);
             break;
         case CoinControlFeatures:
             fCoinControlFeatures = value.toBool();

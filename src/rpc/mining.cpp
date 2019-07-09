@@ -1,7 +1,7 @@
 // Copyright (c) 2010 Satoshi Nakamoto
 // Copyright (c) 2009-2014 The Bitcoin developers
 // Copyright (c) 2014-2015 The Dash developers
-// Copyright (c) 2015-2018 The PIVX developers
+// Copyright (c) 2015-2019 The PIVX developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -16,9 +16,10 @@
 #include "pow.h"
 #include "rpc/server.h"
 #include "util.h"
+#include "validationinterface.h"
 #ifdef ENABLE_WALLET
-#include "db.h"
-#include "wallet.h"
+#include "wallet/db.h"
+#include "wallet/wallet.h"
 #endif
 
 #include <stdint.h>
@@ -114,7 +115,6 @@ UniValue getgenerate(const UniValue& params, bool fHelp)
     return GetBoolArg("-gen", false);
 }
 
-
 UniValue generate(const UniValue& params, bool fHelp)
 {
     if (fHelp || params.size() < 1 || params.size() > 1)
@@ -137,51 +137,52 @@ UniValue generate(const UniValue& params, bool fHelp)
     if (!Params().MineBlocksOnDemand())
         throw JSONRPCError(RPC_METHOD_NOT_FOUND, "This method can only be used on regtest");
 
-        int nHeightStart = 0;
-        int nHeightEnd = 0;
-        int nHeight = 0;
+    int nHeightStart = 0;
+    int nHeightEnd = 0;
+    int nHeight = 0;
     int nGenerate = params[0].get_int();
-        CReserveKey reservekey(pwalletMain);
+    CReserveKey reservekey(pwalletMain);
 
-        { // Don't keep cs_main locked
-            LOCK(cs_main);
-            nHeightStart = chainActive.Height();
-            nHeight = nHeightStart;
-            nHeightEnd = nHeightStart + nGenerate;
-        }
-        unsigned int nExtraNonce = 0;
-        UniValue blockHashes(UniValue::VARR);
+    {   // Don't keep cs_main locked
+        LOCK(cs_main);
+        nHeightStart = chainActive.Height();
+        nHeight = nHeightStart;
+        nHeightEnd = nHeightStart+nGenerate;
+    }
+    unsigned int nExtraNonce = 0;
+    UniValue blockHashes(UniValue::VARR);
     bool fPoS = nHeight >= Params().LAST_POW_BLOCK();
     while (nHeight < nHeightEnd)
     {
 
-        auto_ptr<CBlockTemplate> pblocktemplate(CreateNewBlockWithKey(reservekey, pwalletMain, fPoS));
-            if (!pblocktemplate.get())
+        unique_ptr<CBlockTemplate> pblocktemplate(CreateNewBlockWithKey(reservekey, pwalletMain, fPoS));
+        if (!pblocktemplate.get())
             throw JSONRPCError(RPC_INTERNAL_ERROR, "Couldn't create new block");
-            CBlock* pblock = &pblocktemplate->block;
+        CBlock *pblock = &pblocktemplate->block;
+
         if(!fPoS){
             {
                 LOCK(cs_main);
                 IncrementExtraNonce(pblock, chainActive.Tip(), nExtraNonce);
             }
-            }
-            while (!CheckProofOfWork(pblock->GetHash(), pblock->nBits)) {
-                // Yes, there is a chance every nonce could fail to satisfy the -regtest
-                // target -- 1 in 2^(2^32). That ain't gonna happen.
-                ++pblock->nNonce;
-            }
-            CValidationState state;
-            if (!ProcessNewBlock(state, NULL, pblock))
-                throw JSONRPCError(RPC_INTERNAL_ERROR, "ProcessNewBlock, block not accepted");
-            ++nHeight;
-        fPoS = nHeight >= Params().LAST_POW_BLOCK();
-            blockHashes.push_back(pblock->GetHash().GetHex());
         }
-        return blockHashes;
+        while (!CheckProofOfWork(pblock->GetHash(), pblock->nBits)) {
+            // Yes, there is a chance every nonce could fail to satisfy the -regtest
+            // target -- 1 in 2^(2^32). That ain't gonna happen.
+            ++pblock->nNonce;
+        }
+        CValidationState state;
+        if (!ProcessNewBlock(state, NULL, pblock))
+            throw JSONRPCError(RPC_INTERNAL_ERROR, "ProcessNewBlock, block not accepted");
+        ++nHeight;
+        fPoS = nHeight >= Params().LAST_POW_BLOCK();
+        blockHashes.push_back(pblock->GetHash().GetHex());
+    }
+    return blockHashes;
 }
 
 UniValue setgenerate(const UniValue& params, bool fHelp)
-    {
+{
     if (fHelp || params.size() < 1 || params.size() > 2)
         throw runtime_error(
             "setgenerate generate ( genproclimit )\n"
@@ -216,6 +217,7 @@ UniValue setgenerate(const UniValue& params, bool fHelp)
         if (nGenProcLimit == 0)
             fGenerate = false;
     }
+
     mapArgs["-gen"] = (fGenerate ? "1" : "0");
     mapArgs["-genproclimit"] = itostr(nGenProcLimit);
     GenerateBitcoins(fGenerate, pwalletMain, nGenProcLimit);
@@ -544,7 +546,7 @@ UniValue getblocktemplate(const UniValue& params, bool fHelp)
     UniValue transactions(UniValue::VARR);
     map<uint256, int64_t> setTxIndex;
     int i = 0;
-    BOOST_FOREACH (CTransaction& tx, pblock->vtx) {
+    for (CTransaction& tx : pblock->vtx) {
         uint256 txHash = tx.GetHash();
         setTxIndex[txHash] = i++;
 
@@ -558,7 +560,7 @@ UniValue getblocktemplate(const UniValue& params, bool fHelp)
         entry.push_back(Pair("hash", txHash.GetHex()));
 
         UniValue deps(UniValue::VARR);
-        BOOST_FOREACH (const CTxIn& in, tx.vin) {
+        for (const CTxIn& in : tx.vin) {
             if (setTxIndex.count(in.prevout.hash))
                 deps.push_back(setTxIndex[in.prevout.hash]);
         }
@@ -665,7 +667,7 @@ UniValue submitblock(const UniValue& params, bool fHelp)
     CBlock block;
     if (!DecodeHexBlk(block, params[0].get_str()))
         throw JSONRPCError(RPC_DESERIALIZATION_ERROR, "Block decode failed");
-    
+
     if (block.vtx.empty() || !block.vtx[0].IsCoinBase()) {
         throw JSONRPCError(RPC_DESERIALIZATION_ERROR, "Block does not start with a coinbase");
     }

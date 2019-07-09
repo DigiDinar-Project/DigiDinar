@@ -9,6 +9,7 @@
 
 #include "bantablemodel.h"
 #include "guiconstants.h"
+#include "guiutil.h"
 #include "peertablemodel.h"
 
 #include "alert.h"
@@ -20,7 +21,7 @@
 #include "masternodeman.h"
 #include "net.h"
 #include "netbase.h"
-#include "ui_interface.h"
+#include "guiinterface.h"
 #include "util.h"
 
 #include <stdint.h>
@@ -66,7 +67,7 @@ int ClientModel::getNumConnections(unsigned int flags) const
         return vNodes.size();
 
     int nNum = 0;
-    BOOST_FOREACH (CNode* pnode, vNodes)
+    for (CNode* pnode : vNodes)
         if (flags & (pnode->fInbound ? CONNECTIONS_IN : CONNECTIONS_OUT))
             nNum++;
 
@@ -111,6 +112,15 @@ QDateTime ClientModel::getLastBlockDate() const
         return QDateTime::fromTime_t(chainActive.Tip()->GetBlockTime());
     else
         return QDateTime::fromTime_t(Params().GenesisBlock().GetBlockTime()); // Genesis block's time of current network
+}
+
+QString ClientModel::getLastBlockHash() const
+{
+    LOCK(cs_main);
+    if (chainActive.Tip())
+        return QString::fromStdString(chainActive.Tip()->GetBlockHash().ToString());
+    else
+        return QString::fromStdString(Params().GenesisBlock().GetHash().ToString()); // Genesis block's hash of current network
 }
 
 double ClientModel::getVerificationProgress() const
@@ -247,6 +257,11 @@ QString ClientModel::clientName() const
 QString ClientModel::formatClientStartupTime() const
 {
     return QDateTime::fromTime_t(nClientStartupTime).toString();
+}
+
+QString ClientModel::dataDir() const
+{
+    return GUIUtil::boostPathToQString(GetDataDir());
 }
 
 void ClientModel::updateBanlist()

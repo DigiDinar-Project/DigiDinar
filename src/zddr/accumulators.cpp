@@ -147,7 +147,7 @@ bool LoadAccumulatorValuesFromDB(const uint256 nCheckpoint)
         if (!zerocoinDB->ReadAccumulatorValue(nChecksum, bnValue)) {
             if (!count(listAccCheckpointsNoDB.begin(), listAccCheckpointsNoDB.end(), nCheckpoint))
                 listAccCheckpointsNoDB.push_back(nCheckpoint);
-            LogPrint("zero", "%s : Missing databased value for checksum %d", __func__, nChecksum);
+            LogPrint("zero", "%s : Missing databased value for checksum %d\n", __func__, nChecksum);
             return false;
         }
         mapAccumulatorValues.insert(make_pair(nChecksum, bnValue));
@@ -910,62 +910,4 @@ map<CoinDenomination, int> GetMintMaturityHeight()
         mapRet.insert(make_pair(denom, mapDenomMaturity.at(denom).second));
 
     return mapRet;
-}
-
-bool CalculateAccumulatorCheckpointWithoutDB(int nHeight, uint256& nCheckpoint, AccumulatorMap& mapAccumulators)
-{
-    if (nHeight < Params().Zerocoin_Block_V2_Start()) {
-        nCheckpoint = 0;
-        return true;
-    }
-
-//    int nHeightCheckpoint;
-    mapAccumulators.Reset();
-
-    //Whether this should filter out invalid/fraudulent outpoints
-    //bool fFilterInvalid = nHeight >= Params().Zerocoin_Block_RecalculateAccumulators();
-
-    //Accumulate all coins over the full zerocoin period
-    int nTotalMintsFound = 0;
-    CBlockIndex *pindex = chainActive[Params().Zerocoin_Block_V2_Start()];
-
-    while (pindex->nHeight < nHeight) {
-        // checking whether we should stop this process due to a shutdown request
-        if (ShutdownRequested())
-            return false;
-
-        //make sure this block is eligible for accumulation
-        if (pindex->nHeight < Params().Zerocoin_Block_V2_Start()) {        
-            pindex = chainActive[pindex->nHeight + 1];
-            continue;
-        }
-
-        //grab mints from this block
-        CBlock block;
-        if(!ReadBlockFromDisk(block, pindex))
-            return error("%s: failed to read block from disk", __func__);
-
-        std::list<PublicCoin> listPubcoins;
-        if (!BlockToPubcoinList(block, listPubcoins, true))
-            return error("%s: failed to get zerocoin mintlist from block %d", __func__, pindex->nHeight);
-
-        nTotalMintsFound += listPubcoins.size();
-        LogPrint("zero", "%s found %d mints\n", __func__, listPubcoins.size());
-
-        //add the pubcoins to accumulator
-        for (const PublicCoin pubcoin : listPubcoins) {
-            if(!mapAccumulators.Accumulate(pubcoin, true))
-                return error("%s: failed to add pubcoin to accumulator at height %d", __func__, pindex->nHeight);
-        }
-        pindex = chainActive.Next(pindex);
-    }
-
-    // if there were no new mints found, the accumulator checkpoint will be zero
-    if (nTotalMintsFound == 0)
-        nCheckpoint = 0;
-    else
-        nCheckpoint = mapAccumulators.GetCheckpoint();
-
-    LogPrint("zero", "%s checkpoint=%s\n", __func__, nCheckpoint.GetHex());
-    return true;
 }

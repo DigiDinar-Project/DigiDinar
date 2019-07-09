@@ -1,4 +1,4 @@
-// Copyright (c) 2018 The DigiDinar developers
+// Copyright (c) 2018-2019 The PIVX developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -8,7 +8,7 @@
 #include "sync.h"
 #include "main.h"
 #include "txdb.h"
-#include "walletdb.h"
+#include "wallet/walletdb.h"
 #include "zddr/accumulators.h"
 #include "zddr/zddrwallet.h"
 #include "witness.h"
@@ -460,7 +460,7 @@ bool CzDDRTracker::UpdateStatusInternal(const std::set<uint256>& setMempool, CMi
     return false;
 }
 
-std::set<CMintMeta> CzDDRTracker::ListMints(bool fUnusedOnly, bool fMatureOnly, bool fUpdateStatus, bool fWrongSeed)
+std::set<CMintMeta> CzDDRTracker::ListMints(bool fUnusedOnly, bool fMatureOnly, bool fUpdateStatus, bool fWrongSeed, bool fExcludeV1)
 {
     CWalletDB walletdb(strWalletFile);
     if (fUpdateStatus) {
@@ -473,6 +473,8 @@ std::set<CMintMeta> CzDDRTracker::ListMints(bool fUnusedOnly, bool fMatureOnly, 
 
         CzDDRWallet* zDDRWallet = new CzDDRWallet(strWalletFile);
         for (auto& dMint : listDeterministicDB) {
+            if (fExcludeV1 && dMint.GetVersion() < 2)
+                continue;
             Add(dMint, false, false, zDDRWallet);
         }
         delete zDDRWallet;

@@ -1,12 +1,13 @@
 [Desktop Entry]
-Encoding=UTF-8
-Name=DigiDinar
-Comment=DigiDinar P2P Cryptocurrency
-Comment[fr]=DigiDinar, monnaie virtuelle cryptographique pair à pair
-Comment[tr]=DigiDinar, eşten eşe kriptografik sanal para birimi
+Version=1.0
+Name=DIGIDINAR Core
+Comment=DIGIDINAR P2P Cryptocurrency
+Comment[fr]=DIGIDINAR, monnaie virtuelle cryptographique pair à pair
+Comment[tr]=DIGIDINAR, eşten eşe kriptografik sanal para birimi
 Exec=digidinar-qt %u
 Terminal=false
 Type=Application
 Icon=digidinar128
 MimeType=x-scheme-handler/digidinar;
 Categories=Office;Finance;
+StartupWMClass=Digidinar-qt

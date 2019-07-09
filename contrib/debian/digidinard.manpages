@@ -1,2 +1,2 @@
-debian/manpages/digidinard.1
-debian/manpages/digidinar.conf.5
+doc/man/digidinard.1
+doc/man/digidinar-cli.1

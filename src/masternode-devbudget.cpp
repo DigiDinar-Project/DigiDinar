@@ -22,7 +22,7 @@ bool CDevBudget::IsTransactionValid(const CTransaction& txNew, int nBlockHeight)
         return false;
     }
 
-    if(txNew.IsZerocoinSpend()){
+    if(txNew.HasZerocoinSpendInputs()){
         return true;
     }
 
@@ -32,7 +32,7 @@ bool CDevBudget::IsTransactionValid(const CTransaction& txNew, int nBlockHeight)
     bool found = false;
     int i = 0;
     if(budgetPayment > 0){
-        BOOST_FOREACH (CTxOut out, txNew.vout) {
+        for (const CTxOut& out : txNew.vout) {
             if (payee == out.scriptPubKey) {
                 if (i > 0 && out.nValue >= budgetPayment) {
                     found = true;

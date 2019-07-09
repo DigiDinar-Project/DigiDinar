@@ -1,7 +1,7 @@
 // Copyright (c) 2010 Satoshi Nakamoto
 // Copyright (c) 2009-2014 The Bitcoin developers
 // Copyright (c) 2014-2015 The Dash developers
-// Copyright (c) 2015-2018 The DigiDinar developers
+// Copyright (c) 2015-2019 The PIVX developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -23,7 +23,7 @@
 #include "utilmoneystr.h"
 #include "zddrchain.h"
 #ifdef ENABLE_WALLET
-#include "wallet.h"
+#include "wallet/wallet.h"
 #endif
 
 #include <stdint.h>
@@ -55,14 +55,18 @@ void ScriptPubKeyToJSON(const CScript& scriptPubKey, UniValue& out, bool fInclud
     out.push_back(Pair("type", GetTxnOutputType(type)));
 
     UniValue a(UniValue::VARR);
-    BOOST_FOREACH (const CTxDestination& addr, addresses)
+    for (const CTxDestination& addr : addresses)
         a.push_back(CBitcoinAddress(addr).ToString());
     out.push_back(Pair("addresses", a));
 }
 
 void TxToJSON(const CTransaction& tx, const uint256 hashBlock, UniValue& entry)
 {
-
+    // Call into TxToUniv() in bitcoin-common to decode the transaction hex.
+    //
+    // Blockchain contextual information (confirmations and blocktime) is not
+    // available to code in bitcoin-common, so we query them here and push the
+    // data into the returned UniValue.
     TxToUniv(tx, uint256(), entry);
 
     if (!hashBlock.IsNull()) {
@@ -86,9 +90,11 @@ UniValue getrawtransaction(const UniValue& params, bool fHelp)
     if (fHelp || params.size() < 1 || params.size() > 3)
         throw runtime_error(
             "getrawtransaction \"txid\" ( verbose \"blockhash\" )\n"
+
             "\nNOTE: By default this function only works sometimes. This is when the tx is in the mempool\n"
             "or there is an unspent output in the utxo for this transaction. To make it always work,\n"
             "you need to maintain a transaction index, using the -txindex command line option.\n"
+
             "\nReturn the raw transaction data.\n"
             "\nIf verbose is 'true', returns an Object with information about 'txid'.\n"
             "If verbose is 'false' or omitted, returns a string that is serialized, hex-encoded data for 'txid'.\n"
@@ -205,12 +211,12 @@ UniValue listunspent(const UniValue& params, bool fHelp)
 {
     if (fHelp || params.size() > 4)
         throw runtime_error(
-            "listunspent ( minconf maxconf  [\"address\",...] )\n"
+            "listunspent ( minconf maxconf  [\"address\",...] watchonlyconfig )\n"
             "\nReturns array of unspent transaction outputs\n"
             "with between minconf and maxconf (inclusive) confirmations.\n"
             "Optionally filter to only include txouts paid to specified addresses.\n"
             "Results are an array of Objects, each of which has:\n"
-            "{txid, vout, scriptPubKey, amount, confirmations}\n"
+            "{txid, vout, scriptPubKey, amount, confirmations, spendable}\n"
 
             "\nArguments:\n"
             "1. minconf          (numeric, optional, default=1) The minimum confirmations to filter\n"
@@ -220,18 +226,20 @@ UniValue listunspent(const UniValue& params, bool fHelp)
             "      \"address\"   (string) digidinar address\n"
             "      ,...\n"
             "    ]\n"
-            "4. watchonlyconfig  (numberic, optional, default=1) 1 = list regular unspent transactions, 2 = list only watchonly transactions,  3 = list all unspent transactions (including watchonly)\n"
+            "4. watchonlyconfig  (numeric, optional, default=1) 1 = list regular unspent transactions, 2 = list only watchonly transactions,  3 = list all unspent transactions (including watchonly)\n"
 
             "\nResult\n"
             "[                   (array of json object)\n"
             "  {\n"
-            "    \"txid\" : \"txid\",        (string) the transaction id \n"
+            "    \"txid\" : \"txid\",        (string) the transaction id\n"
             "    \"vout\" : n,               (numeric) the vout value\n"
             "    \"address\" : \"address\",  (string) the digidinar address\n"
             "    \"account\" : \"account\",  (string) The associated account, or \"\" for the default account\n"
             "    \"scriptPubKey\" : \"key\", (string) the script key\n"
+            "    \"redeemScript\" : \"key\", (string) the redeemscript key\n"
             "    \"amount\" : x.xxx,         (numeric) the transaction amount in btc\n"
-            "    \"confirmations\" : n       (numeric) The number of confirmations\n"
+            "    \"confirmations\" : n,      (numeric) The number of confirmations\n"
+            "    \"spendable\" : true|false  (boolean) Whether we have the private keys to spend this output\n"
             "  }\n"
             "  ,...\n"
             "]\n"
@@ -256,7 +264,7 @@ UniValue listunspent(const UniValue& params, bool fHelp)
             const UniValue& input = inputs[inx];
             CBitcoinAddress address(input.get_str());
             if (!address.IsValid())
-                throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, string("Invalid DIGI DINAR address: ") + input.get_str());
+                throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, string("Invalid DIGIDINAR address: ") + input.get_str());
             if (setAddress.count(address))
                 throw JSONRPCError(RPC_INVALID_PARAMETER, string("Invalid parameter, duplicated address: ") + input.get_str());
             setAddress.insert(address);
@@ -275,7 +283,7 @@ UniValue listunspent(const UniValue& params, bool fHelp)
     assert(pwalletMain != NULL);
     LOCK2(cs_main, pwalletMain->cs_wallet);
     pwalletMain->AvailableCoins(vecOutputs, false, NULL, false, ALL_COINS, false, nWatchonlyConfig);
-    BOOST_FOREACH (const COutput& out, vecOutputs) {
+    for (const COutput& out : vecOutputs) {
         if (out.nDepth < nMinDepth || out.nDepth > nMaxDepth)
             continue;
 
@@ -361,6 +369,7 @@ UniValue createrawtransaction(const UniValue& params, bool fHelp)
     UniValue sendTo = params[1].get_obj();
 
     CMutableTransaction rawTx;
+
     if (params.size() > 2 && !params[2].isNull()) {
         int64_t nLockTime = params[2].get_int64();
         if (nLockTime < 0 || nLockTime > std::numeric_limits<uint32_t>::max())
@@ -394,15 +403,16 @@ UniValue createrawtransaction(const UniValue& params, bool fHelp)
         }
 
         CTxIn in(COutPoint(txid, nOutput), CScript(), nSequence);
+
         rawTx.vin.push_back(in);
     }
 
     set<CBitcoinAddress> setAddress;
     vector<string> addrList = sendTo.getKeys();
-    BOOST_FOREACH(const string& name_, addrList) {
+    for (const string& name_ : addrList) {
         CBitcoinAddress address(name_);
         if (!address.IsValid())
-            throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, string("Invalid DIGI DINAR address: ")+name_);
+            throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, string("Invalid DIGIDINAR address: ")+name_);
 
         if (setAddress.count(address))
             throw JSONRPCError(RPC_INVALID_PARAMETER, string("Invalid parameter, duplicated address: ")+name_);
@@ -643,7 +653,7 @@ UniValue signrawtransaction(const UniValue& params, bool fHelp)
         CCoinsViewMemPool viewMempool(&viewChain, mempool);
         view.SetBackend(viewMempool); // temporarily switch cache backend to db+mempool view
 
-        BOOST_FOREACH (const CTxIn& txin, mergedTx.vin) {
+        for (const CTxIn& txin : mergedTx.vin) {
             const uint256& prevHash = txin.prevout.hash;
             CCoins coins;
             view.AccessCoins(prevHash); // this is certainly allowed to fail
@@ -756,10 +766,10 @@ UniValue signrawtransaction(const UniValue& params, bool fHelp)
                 continue;
             }
         } else {
-        if (coins == NULL || !coins->IsAvailable(txin.prevout.n)) {
-            TxInErrorToJSON(txin, vErrors, "Input not found or already spent");
-            continue;
-        }
+            if (coins == NULL || !coins->IsAvailable(txin.prevout.n)) {
+                TxInErrorToJSON(txin, vErrors, "Input not found or already spent");
+                continue;
+            }
         }
         const CScript& prevPubKey = (Params().NetworkID() == CBaseChainParams::REGTEST && mapPrevOut.count(txin.prevout) != 0 ? mapPrevOut[txin.prevout] : coins->vout[txin.prevout.n].scriptPubKey);
 
@@ -769,7 +779,7 @@ UniValue signrawtransaction(const UniValue& params, bool fHelp)
             SignSignature(keystore, prevPubKey, mergedTx, i, nHashType);
 
         // ... and merge in other signatures:
-        BOOST_FOREACH (const CMutableTransaction& txv, txVariants) {
+        for (const CMutableTransaction& txv : txVariants) {
             txin.scriptSig = CombineSignatures(prevPubKey, mergedTx, i, txin.scriptSig, txv.vin[i].scriptSig);
         }
         ScriptError serror = SCRIPT_ERR_OK;
@@ -893,13 +903,14 @@ UniValue getspentzerocoinamount(const UniValue& params, bool fHelp)
         throw JSONRPCError(RPC_INVALID_PARAMETER, "Invalid parameter for transaction input");
 
     const CTxIn& input = tx.vin[inputIndex];
-    if (!input.scriptSig.IsZerocoinSpend())
+    if (!input.IsZerocoinSpend())
         return -1;
 
     libzerocoin::CoinSpend spend = TxInToZerocoinSpend(input);
     CAmount nValue = libzerocoin::ZerocoinDenominationToAmount(spend.getDenomination());
     return FormatMoney(nValue);
 }
+
 #ifdef ENABLE_WALLET
 UniValue createrawzerocoinstake(const UniValue& params, bool fHelp)
 {
@@ -982,4 +993,68 @@ UniValue createrawzerocoinstake(const UniValue& params, bool fHelp)
     return ret;
 
 }
+
+UniValue createrawzerocoinpublicspend(const UniValue& params, bool fHelp)
+{
+    if (fHelp || params.size() < 1 || params.size() > 2)
+        throw runtime_error(
+            "createrawzerocoinpublicspend mint_input \n"
+            "\nCreates raw zDDR public spend.\n" +
+            HelpRequiringPassphrase() + "\n"
+
+            "\nArguments:\n"
+            "1. mint_input      (hex string, required) serial hash of the mint used as input\n"
+            "2. \"address\"     (string, optional, default=change) Send to specified address or to a new change address.\n"
+
+
+            "\nResult:\n"
+            "{\n"
+            "   \"hex\": \"xxx\",           (hex string) raw public spend signed transaction\n"
+            "}\n"
+            "\nExamples\n" +
+            HelpExampleCli("createrawzerocoinpublicspend", "0d8c16eee7737e3cc1e4e70dc006634182b175e039700931283b202715a0818f") +
+            HelpExampleRpc("createrawzerocoinpublicspend", "0d8c16eee7737e3cc1e4e70dc006634182b175e039700931283b202715a0818f"));
+
+
+    assert(pwalletMain != NULL);
+    LOCK2(cs_main, pwalletMain->cs_wallet);
+
+    std::string serial_hash = params[0].get_str();
+    if (!IsHex(serial_hash))
+        throw JSONRPCError(RPC_INVALID_PARAMETER, "Invalid parameter, expected hex serial hash");
+
+    std::string address_str = "";
+    CBitcoinAddress address;
+    CBitcoinAddress* addr_ptr = nullptr;
+    if (params.size() > 1) {
+        address_str = params[1].get_str();
+        address = CBitcoinAddress(address_str);
+        if(!address.IsValid())
+            throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid DIGIDINAR address");
+        addr_ptr = &address;
+    }
+
+    EnsureWalletIsUnlocked();
+
+    uint256 hashSerial(serial_hash);
+    CZerocoinMint input_mint;
+    if (!pwalletMain->GetMint(hashSerial, input_mint)) {
+        std::string strErr = "Failed to fetch mint associated with serial hash " + serial_hash;
+        throw JSONRPCError(RPC_WALLET_ERROR, strErr);
+    }
+    CAmount nAmount = input_mint.GetDenominationAsAmount();
+    vector<CZerocoinMint> vMintsSelected = vector<CZerocoinMint>(1,input_mint);
+
+    // create the spend
+    CWalletTx rawTx;
+    CZerocoinSpendReceipt receipt;
+    CReserveKey reserveKey(pwalletMain);
+    vector<CDeterministicMint> vNewMints;
+    if (!pwalletMain->CreateZerocoinSpendTransaction(nAmount, rawTx, reserveKey, receipt, vMintsSelected, vNewMints, false, true, addr_ptr, true))
+        throw JSONRPCError(RPC_WALLET_ERROR, receipt.GetStatusMessage());
+
+    // output the raw transaction
+    return EncodeHexTx(rawTx);
+}
 #endif
+

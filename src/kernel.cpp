@@ -87,7 +87,7 @@ static bool SelectBlockFromCandidates(
     bool fSelected = false;
     uint256 hashBest = 0;
     *pindexSelected = (const CBlockIndex*)0;
-    BOOST_FOREACH (const PAIRTYPE(int64_t, uint256) & item, vSortedByTimestamp) {
+    for (const PAIRTYPE(int64_t, uint256) & item : vSortedByTimestamp) {
         if (!mapBlockIndex.count(item.second))
             return error("SelectBlockFromCandidates: failed to find block index for candidate block %s", item.second.ToString().c_str());
 
@@ -225,7 +225,7 @@ bool ComputeNextStakeModifier(const CBlockIndex* pindexPrev, uint64_t& nStakeMod
                 strSelectionMap.replace(pindex->nHeight - nHeightFirstCandidate, 1, "=");
             pindex = pindex->pprev;
         }
-        BOOST_FOREACH (const PAIRTYPE(uint256, const CBlockIndex*) & item, mapSelectedBlocks) {
+        for (const std::pair<const uint256, const CBlockIndex*> &item : mapSelectedBlocks) {
             // 'S' indicates selected proof-of-stake blocks
             // 'W' indicates selected proof-of-work blocks
             strSelectionMap.replace(item.second->nHeight - nHeightFirstCandidate, 1, item.second->IsProofOfStake() ? "S" : "W");
@@ -323,7 +323,7 @@ bool Stake(CStakeInput* stakeInput, unsigned int nBits, unsigned int nTimeBlockF
     bool fSuccess = false;
     unsigned int nTryTime = 0;
     int nHeightStart = chainActive.Height();
-    int nHashDrift = 300;
+    int nHashDrift = 60;
     CDataStream ssUniqueID = stakeInput->GetUniqueness();
     CAmount nValueIn = stakeInput->GetValue();
     for (int i = 0; i < nHashDrift; i++) //iterate the hashing
@@ -333,7 +333,7 @@ bool Stake(CStakeInput* stakeInput, unsigned int nBits, unsigned int nTimeBlockF
             break;
 
         //hash this iteration
-        nTryTime = nTimeTx + (nHashDrift/2) - i;
+        nTryTime = nTimeTx + nHashDrift - i;
 
         // if stake hash does not meet the target then continue to next iteration
         if (!CheckStake(ssUniqueID, nValueIn, nStakeModifier, bnTargetPerCoinDay, nTimeBlockFrom, nTryTime, hashProofOfStake))
@@ -350,8 +350,33 @@ bool Stake(CStakeInput* stakeInput, unsigned int nBits, unsigned int nTimeBlockF
     return fSuccess;
 }
 
+bool ContextualCheckZerocoinStake(int nPreviousBlockHeight, CStakeInput* stake)
+{
+    if (nPreviousBlockHeight < Params().Zerocoin_Block_V2_Start())
+        return error("%s: zDDR stake block is less than allowed start height", __func__);
 // Check kernel hash target and coinstake signature
-bool CheckProofOfStake(const CBlock block, uint256& hashProofOfStake, std::unique_ptr<CStakeInput>& stake)
+    if (CZDdrStake* zDDR = dynamic_cast<CZDdrStake*>(stake)) {
+        CBlockIndex* pindexFrom = zDDR->GetIndexFrom();
+        if (!pindexFrom)
+            return error("%s: failed to get index associated with zDDR stake checksum", __func__);
+
+        if (chainActive.Height() - pindexFrom->nHeight < Params().Zerocoin_RequiredStakeDepth())
+            return error("%s: zDDR stake does not have required confirmation depth. Current height %d,  stakeInput height %d.", __func__, chainActive.Height(), pindexFrom->nHeight);
+
+        //The checksum needs to be the exact checksum from 200 blocks ago
+        uint256 nCheckpoint200 = chainActive[nPreviousBlockHeight - Params().Zerocoin_RequiredStakeDepth()]->nAccumulatorCheckpoint;
+        uint32_t nChecksum200 = ParseChecksum(nCheckpoint200, libzerocoin::AmountToZerocoinDenomination(zDDR->GetValue()));
+        if (nChecksum200 != zDDR->GetChecksum())
+            return error("%s: accumulator checksum is different than the block 200 blocks previous. stake=%d block200=%d", __func__, zDDR->GetChecksum(), nChecksum200);
+    } else {
+        return error("%s: dynamic_cast of stake ptr failed", __func__);
+    }
+
+    return true;
+}
+
+// Check kernel hash target and coinstake signature
+bool CheckProofOfStake(const CBlock block, uint256& hashProofOfStake, std::unique_ptr<CStakeInput>& stake, int nPreviousBlockHeight)
 {
     const CTransaction tx = block.vtx[1];
     if (!tx.IsCoinStake())
@@ -361,18 +386,21 @@ bool CheckProofOfStake(const CBlock block, uint256& hashProofOfStake, std::uniqu
     const CTxIn& txin = tx.vin[0];
 
     //Construct the stakeinput object
-    if (tx.IsZerocoinSpend()) {
+    if (txin.IsZerocoinSpend()) {
         libzerocoin::CoinSpend spend = TxInToZerocoinSpend(txin);
         if (spend.getSpendType() != libzerocoin::SpendType::STAKE)
             return error("%s: spend is using the wrong SpendType (%d)", __func__, (int)spend.getSpendType());
 
         stake = std::unique_ptr<CStakeInput>(new CZDdrStake(spend));
+        if (!ContextualCheckZerocoinStake(nPreviousBlockHeight, stake.get()))
+            return error("%s: staked zDDR fails context checks", __func__);
     } else {
         // First try finding the previous transaction in database
         uint256 hashBlock;
         CTransaction txPrev;
         if (!GetTransaction(txin.prevout.hash, txPrev, hashBlock, true))
-            return error("CheckProofOfStake() : INFO: read txPrev failed");
+            return error("CheckProofOfStake() : INFO: read txPrev failed, tx id prev: %s, block id %s",
+                         txin.prevout.hash.GetHex(), block.GetHash().GetHex());
 
         //verify signature and script
         if (!VerifyScript(txin.scriptSig, txPrev.vout[txin.prevout.n].scriptPubKey, STANDARD_SCRIPT_VERIFY_FLAGS, TransactionSignatureChecker(&tx, 0)))
@@ -383,13 +411,14 @@ bool CheckProofOfStake(const CBlock block, uint256& hashProofOfStake, std::uniqu
         stake = std::unique_ptr<CStakeInput>(ddrInput);
     }
 
-    CBlockIndex* pindex = stake->GetIndexFrom();
-    if (!pindex)
-        return error("%s: Failed to find the block index", __func__);
+    //Get the
+    CBlockIndex* pindexfrom = stake->GetIndexFrom();
+    if (!pindexfrom)
+        return error("%s: Failed to find the block index for stake origin", __func__);
 
     // Read block header
-    CBlock blockprev;
-    if (!ReadBlockFromDisk(blockprev, pindex->GetBlockPos()))
+    CBlock blockfrom;
+    if (!ReadBlockFromDisk(blockfrom, pindexfrom->GetBlockPos()))
         return error("CheckProofOfStake(): INFO: failed to find block");
 
     uint256 bnTargetPerCoinDay;
@@ -399,8 +428,14 @@ bool CheckProofOfStake(const CBlock block, uint256& hashProofOfStake, std::uniqu
     if (!stake->GetModifier(nStakeModifier))
         return error("%s failed to get modifier for stake input\n", __func__);
 
-    unsigned int nBlockFromTime = blockprev.nTime;
+    unsigned int nBlockFromTime = blockfrom.nTime;
     unsigned int nTxTime = block.nTime;
+    if (!txin.IsZerocoinSpend() && nPreviousBlockHeight >= Params().Zerocoin_Block_Public_Spend_Enabled() - 1) { //Equivalent for zDDR is checked above in ContextualCheckZerocoinStake()
+        if (nTxTime < nBlockFromTime) // Transaction timestamp nTxTime
+            return error("CheckStakeKernelHash() : nTime violation - nBlockFromTime=%d nTimeTx=%d", nBlockFromTime, nTxTime);
+        if (nBlockFromTime + nStakeMinAge > nTxTime) // Min age requirement
+            return error("CheckStakeKernelHash() : min age violation - nBlockFromTime=%d nStakeMinAge=%d nTimeTx=%d", nBlockFromTime, nStakeMinAge, nTxTime);
+    }
     if (!CheckStake(stake->GetUniqueness(), stake->GetValue(), nStakeModifier, bnTargetPerCoinDay, nBlockFromTime,
                     nTxTime, hashProofOfStake)) {
         return error("CheckProofOfStake() : INFO: check kernel failed on coinstake %s, hashProof=%s \n",
