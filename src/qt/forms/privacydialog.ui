@@ -25,22 +25,7 @@
     <height>0</height>
    </size>
   </property>
-  <property name="styleSheet">
-   <string notr="true"/>
-  </property>
   <layout class="QVBoxLayout" name="verticalLayout_1" stretch="0,0">
-   <property name="leftMargin">
-    <number>0</number>
-   </property>
-   <property name="topMargin">
-    <number>0</number>
-   </property>
-   <property name="rightMargin">
-    <number>0</number>
-   </property>
-   <property name="bottomMargin">
-    <number>0</number>
-   </property>
    <item>
     <layout class="QVBoxLayout" name="verticalLayout_Master" stretch="0,1">
      <property name="spacing">
@@ -358,7 +343,6 @@
                       <item>
                        <layout class="QHBoxLayout" name="horizontalLayout_4">
                         <item>
-
                          <spacer name="horizontalSpacer_2">
                           <property name="orientation">
                            <enum>Qt::Horizontal</enum>
@@ -411,14 +395,14 @@ font-weight: bold;</string>
                           </property>
                          </widget>
                         </item>
-                      <item>
+                        <item>
                          <widget class="QPushButton" name="pushButtonSpentReset">
                           <property name="maximumSize">
-                         <size>
+                           <size>
                             <width>80</width>
                             <height>16777215</height>
-                         </size>
-                        </property>
+                           </size>
+                          </property>
                           <property name="toolTip">
                            <string>Reset Zerocoin Wallet DB. Deletes transactions that did not make it into the blockchain.</string>
                           </property>
@@ -710,7 +694,7 @@ zDDR are mature when they have more than 20 confirmations AND more than 2 mints 
                              </size>
                             </property>
                             <property name="toolTip">
-                             <string>The Digi Dinar address to send the payment to. Creates local payment to yourself when empty.</string>
+                             <string>The DIGIDINAR address to send the payment to. Creates local payment to yourself when empty.</string>
                             </property>
                            </widget>
                           </item>

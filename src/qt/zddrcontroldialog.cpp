@@ -1,4 +1,4 @@
-// Copyright (c) 2017-2018 The DIGIDINAR developers
+// Copyright (c) 2017-2019 The DIGIDINAR developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -9,8 +9,6 @@
 #include "main.h"
 #include "walletmodel.h"
 
-using namespace std;
-using namespace libzerocoin;
 
 std::set<std::string> ZDdrControlDialog::setSelectedMints;
 std::set<CMintMeta> ZDdrControlDialog::setMints;
@@ -60,7 +58,7 @@ void ZDdrControlDialog::updateList()
 
     // add a top level item for each denomination
     QFlags<Qt::ItemFlag> flgTristate = Qt::ItemIsEnabled | Qt::ItemIsUserCheckable | Qt::ItemIsTristate;
-    map<libzerocoin::CoinDenomination, int> mapDenomPosition;
+    std::map<libzerocoin::CoinDenomination, int> mapDenomPosition;
     for (auto denom : libzerocoin::zerocoinDenomList) {
         CZDdrControlWidgetItem* itemDenom(new CZDdrControlWidgetItem);
         ui->treeWidget->addTopLevelItem(itemDenom);
@@ -108,7 +106,7 @@ void ZDdrControlDialog::updateList()
 
         itemMint->setText(COLUMN_CONFIRMATIONS, QString::number(nConfirmations));
         itemMint->setData(COLUMN_CONFIRMATIONS, Qt::UserRole, QVariant((qlonglong) nConfirmations));
-        
+
         {
             LOCK(pwalletMain->zddrTracker->cs_spendcache);
 
@@ -123,7 +121,10 @@ void ZDdrControlDialog::updateList()
         }
 
         // check for maturity
+        // Always mature, public spends doesn't require any new accumulation.
         bool isMature = true;
+        //if (mapMaturityHeight.count(mint.denom))
+        //    isMature = mint.nHeight < mapMaturityHeight.at(denom);
 
         // disable selecting this mint if it is not spendable - also display a reason why
         bool fSpendable = isMature && nConfirmations >= Params().Zerocoin_MintRequiredConfirmations() && mint.isSeedCorrect;
@@ -135,7 +136,7 @@ void ZDdrControlDialog::updateList()
             if (setSelectedMints.count(strPubCoinHash))
                 setSelectedMints.erase(strPubCoinHash);
 
-            string strReason = "";
+            std::string strReason = "";
             if(nConfirmations < Params().Zerocoin_MintRequiredConfirmations())
                 strReason = strprintf("Needs %d more confirmations", Params().Zerocoin_MintRequiredConfirmations() - nConfirmations);
             else if (model->getEncryptionStatus() == WalletModel::EncryptionStatus::Locked)

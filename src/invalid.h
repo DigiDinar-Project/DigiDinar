@@ -1,11 +1,11 @@
-// Copyright (c) 2018 The PIVX developers
+// Copyright (c) 2018 The DIGIDINAR developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef DDR_INVALID_H
-#define DDR_INVALID_H
+#ifndef DIGIDINAR_INVALID_H
+#define DIGIDINAR_INVALID_H
 
-#endif //DDR_INVALID_H
+#endif //DIGIDINAR_INVALID_H
 
 #include <libzerocoin/bignum.h>
 #include <univalue/include/univalue.h>

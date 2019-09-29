@@ -1,11 +1,11 @@
-// Copyright (c) 2018 The PIVX developers
+// Copyright (c) 2018 The DIGIDINAR developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 
 
-#ifndef DDR_INVALID_SERIALS_JSON_H
-#define DDR_INVALID_SERIALS_JSON_H
+#ifndef DIGIDINAR_INVALID_SERIALS_JSON_H
+#define DIGIDINAR_INVALID_SERIALS_JSON_H
 
 #include <string>
 
@@ -1189,4 +1189,4 @@ std::string LoadInvalidSerials()
     return str;
 }
 
-#endif //DDR_INVALID_SERIALS_JSON_H
+#endif //DIGIDINAR_INVALID_SERIALS_JSON_H

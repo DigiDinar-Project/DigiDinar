@@ -1,9 +1,9 @@
-// Copyright (c) 2017-2018 The DigiDinar developers
+// Copyright (c) 2017-2019 The DIGIDINAR developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef PIVX_ZEROCOIN_H
-#define PIVX_ZEROCOIN_H
+#ifndef DIGIDINAR_ZEROCOIN_H
+#define DIGIDINAR_ZEROCOIN_H
 
 #include <amount.h>
 #include <limits.h>
@@ -104,6 +104,7 @@ public:
     CPrivKey GetPrivKey() const { return this->privkey; }
     void SetPrivKey(const CPrivKey& privkey) { this->privkey = privkey; }
     bool GetKeyPair(CKey& key) const;
+
     int GetOutputIndex() { return this->outputIndex; }
     void SetOutputIndex(int index) { this->outputIndex = index; }
 
@@ -262,4 +263,4 @@ int GetWrapppedSerialInflation(libzerocoin::CoinDenomination denom);
 
 int64_t GetWrapppedSerialInflationAmount();
 
-#endif //DigiDinar_ZEROCOIN_H
+#endif //DIGIDINAR_ZEROCOIN_H

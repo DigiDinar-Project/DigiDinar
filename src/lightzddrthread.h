@@ -1,11 +1,10 @@
-//
-// Copyright (c) 2015-2018 The DigiDinar developers
+// Copyright (c) 2015-2019 The DIGIDINAR developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 //
 
-#ifndef DDR_LIGHTZDDRTHREAD_H
-#define DDR_LIGHTZDDRTHREAD_H
+#ifndef DIGIDINAR_LIGHTZDDRTHREAD_H
+#define DIGIDINAR_LIGHTZDDRTHREAD_H
 
 #include <atomic>
 #include "genwit.h"
@@ -68,4 +67,4 @@ private:
 
 };
 
-#endif //DDR_LIGHTZDDRTHREAD_H
+#endif //DIGIDINAR_LIGHTZDDRTHREAD_H

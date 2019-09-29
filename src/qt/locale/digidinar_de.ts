@@ -2716,7 +2716,7 @@ Bitte haben Sie etwas Geduld...</translation>
         <translation>Keine "Pay To"-Adresse zur Verfügung. Erstelle lokale Zahlung</translation>
     </message>
     <message>
-        <source>Invalid Digidinar Address</source>
+        <source>Invalid DigiDinar Address</source>
         <translation>Ungültige DIGIDINAR-Adresse </translation>
     </message>
     <message>

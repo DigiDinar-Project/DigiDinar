@@ -2734,7 +2734,7 @@ Vær tålmodig...</translation>
         <translation>Ingen 'Betal til' adresse, der er oprettet, skaber lokal betaling</translation>
     </message>
     <message>
-        <source>Invalid Digidinar Address</source>
+        <source>Invalid DigiDinar Address</source>
         <translation> Ugyldig DIGIDINAR adresse</translation>
     </message>
     <message>

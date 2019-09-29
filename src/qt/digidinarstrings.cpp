@@ -36,7 +36,7 @@ QT_TRANSLATE_NOOP("digidinar-core", ""
 "running."),
 QT_TRANSLATE_NOOP("digidinar-core", ""
 "Change automatic finalized budget voting behavior. mode=auto: Vote for only "
-"exact finalized budget match to my generated budget. (string, default: auto)"),
+"exact finalized budget match to my generated budget. (std::string, default: auto)"),
 QT_TRANSLATE_NOOP("digidinar-core", ""
 "Continuously rate-limit free transactions to <n>*1000 bytes per minute "
 "(default:%u)"),
@@ -212,9 +212,9 @@ QT_TRANSLATE_NOOP("digidinar-core", ""
 "Unable to locate enough Obfuscation denominated funds for this transaction."),
 QT_TRANSLATE_NOOP("digidinar-core", ""
 "Unable to locate enough Obfuscation non-denominated funds for this "
-"transaction that are not equal 25000 DDR."),
+"transaction that are not equal 10000 DDR."),
 QT_TRANSLATE_NOOP("digidinar-core", ""
-"Unable to locate enough funds for this transaction that are not equal 25000 "
+"Unable to locate enough funds for this transaction that are not equal 10000 "
 "DDR."),
 QT_TRANSLATE_NOOP("digidinar-core", ""
 "Use separate SOCKS5 proxy to reach peers via Tor hidden services (default: "
@@ -282,7 +282,7 @@ QT_TRANSLATE_NOOP("digidinar-core", "Connect to a node to retrieve peer addresse
 QT_TRANSLATE_NOOP("digidinar-core", "Connection options:"),
 QT_TRANSLATE_NOOP("digidinar-core", "Copyright (C) 2009-%i The Bitcoin Core Developers"),
 QT_TRANSLATE_NOOP("digidinar-core", "Copyright (C) 2014-%i The Dash Core Developers"),
-QT_TRANSLATE_NOOP("digidinar-core", "Copyright (C) 2015-%i The DIGIDINAR Core Developers"),
+QT_TRANSLATE_NOOP("digidinar-core", "Copyright (C) 2015-%i The PIVX Core Developers"),
 QT_TRANSLATE_NOOP("digidinar-core", "Corrupted block database detected"),
 QT_TRANSLATE_NOOP("digidinar-core", "Could not parse masternode.conf"),
 QT_TRANSLATE_NOOP("digidinar-core", "Couldn't generate the accumulator witness"),

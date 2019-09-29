@@ -1,10 +1,9 @@
-// Copyright (c) 2017 The PIVX developers
-// Copyright (c) 2019 The DigiDinar developers
+// Copyright (c) 2017 The DIGIDINAR developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef DDR_CSPORKDB_H
-#define DDR_CSPORKDB_H
+#ifndef DIGIDINAR_CSPORKDB_H
+#define DIGIDINAR_CSPORKDB_H
 
 #include <boost/filesystem/path.hpp>
 #include "leveldbwrapper.h"
@@ -26,4 +25,4 @@ public:
 };
 
 
-#endif //DDR_CSPORKDB_H
+#endif //DIGIDINAR_CSPORKDB_H

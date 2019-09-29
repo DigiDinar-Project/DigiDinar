@@ -1,9 +1,9 @@
-// Copyright (c) 2017-2018 The DigiDinar developers
+// Copyright (c) 2017-2018 The DIGIDINAR developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef DDR_MINTPOOL_H
-#define DDR_MINTPOOL_H
+#ifndef DIGIDINAR_MINTPOOL_H
+#define DIGIDINAR_MINTPOOL_H
 
 #include <map>
 #include <list>
@@ -50,4 +50,4 @@ public:
 };
 
 
-#endif //PIVX_MINTPOOL_H
+#endif //DIGIDINAR_MINTPOOL_H

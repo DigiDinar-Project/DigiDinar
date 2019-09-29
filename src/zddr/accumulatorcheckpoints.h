@@ -2,8 +2,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef DDR_ACCUMULATORCHECKPOINTS_H
-#define DDR_ACCUMULATORCHECKPOINTS_H
+#ifndef DIGIDINAR_ACCUMULATORCHECKPOINTS_H
+#define DIGIDINAR_ACCUMULATORCHECKPOINTS_H
 
 #include <libzerocoin/bignum.h>
 #include <univalue/include/univalue.h>
@@ -18,4 +18,4 @@ namespace AccumulatorCheckpoints
     Checkpoint GetClosestCheckpoint(const int& nHeight, int& nHeightCheckpoint);
 }
 
-#endif //DDR_ACCUMULATORCHECKPOINTS_H
+#endif //DIGIDINAR_ACCUMULATORCHECKPOINTS_H

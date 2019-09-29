@@ -1,6 +1,5 @@
 // Copyright (c) 2014-2016 The Dash developers
-// Copyright (c) 2016-2018 The PIVX developers
-// Copyright (c) 2019-2019 The DigiDinar developers
+// Copyright (c) 2016-2018 The DIGIDINAR developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -15,8 +14,6 @@
 #include "sporkdb.h"
 #include "util.h"
 
-using namespace std;
-using namespace boost;
 
 class CSporkMessage;
 class CSporkManager;
@@ -26,7 +23,7 @@ CSporkManager sporkManager;
 std::map<uint256, CSporkMessage> mapSporks;
 std::map<int, CSporkMessage> mapSporksActive;
 
-// Digi Dinar: on startup load spork values from previous session if they exist in the sporkDB
+// DIGIDINAR: on startup load spork values from previous session if they exist in the sporkDB
 void LoadSporksFromDB()
 {
     for (int i = SPORK_START; i <= SPORK_END; ++i) {
@@ -101,7 +98,7 @@ void ProcessSpork(CNode* pfrom, std::string& strCommand, CDataStream& vRecv)
         mapSporksActive[spork.nSporkID] = spork;
         sporkManager.Relay(spork);
 
-        // Digi Dinar: add to spork database.
+        // DIGIDINAR: add to spork database.
         pSporkDB->WriteSpork(spork.nSporkID, spork);
     }
     if (strCommand == "getsporks") {
@@ -181,7 +178,7 @@ void ReprocessBlocks(int nBlocks)
     }
 }
 
-bool CSporkManager::CheckSignature(CSporkMessage& spork, bool fCheckSigner)
+bool CSporkManager::CheckSignature(CSporkMessage& spork, bool fRequireNew)
 {
     //note: need to investigate why this is failing
     std::string strMessage = std::to_string(spork.nSporkID) + std::to_string(spork.nValue) + std::to_string(spork.nTimeSigned);
@@ -190,7 +187,7 @@ bool CSporkManager::CheckSignature(CSporkMessage& spork, bool fCheckSigner)
 
     bool fValidWithNewKey = obfuScationSigner.VerifyMessage(pubkeynew, spork.vchSig,strMessage, errorMessage);
 
-    if (fCheckSigner && !fValidWithNewKey)
+    if (fRequireNew && !fValidWithNewKey)
         return false;
 
     return fValidWithNewKey;

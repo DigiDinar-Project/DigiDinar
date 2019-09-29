@@ -1,9 +1,9 @@
-// Copyright (c) 2017-2018 The DigiDinar developers
+// Copyright (c) 2017-2018 The DIGIDINAR developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef PIVX_ZDDRWALLET_H
-#define PIVX_ZDDRWALLET_H
+#ifndef DIGIDINAR_ZDDRWALLET_H
+#define DIGIDINAR_ZDDRWALLET_H
 
 #include <map>
 #include "libzerocoin/Coin.h"
@@ -46,4 +46,4 @@ private:
     uint512 GetZerocoinSeed(uint32_t n);
 };
 
-#endif //PIVX_ZDDRWALLET_H
+#endif //DIGIDINAR_ZDDRWALLET_H

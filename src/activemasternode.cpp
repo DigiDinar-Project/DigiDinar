@@ -1,6 +1,5 @@
 // Copyright (c) 2014-2016 The Dash developers
-// Copyright (c) 2015-2018 The PIVX developers
-// Copyright (c) 2019-2019 The Digi Dinar developers
+// Copyright (c) 2015-2019 The DIGIDINAR developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -13,7 +12,7 @@
 #include "spork.h"
 
 //
-// Bootup the Masternode, look for a 10000 Digi Dinar input and register on the network
+// Bootup the Masternode, look for a 10000 DIGIDINAR input and register on the network
 //
 void CActiveMasternode::ManageStatus()
 {
@@ -185,7 +184,7 @@ bool CActiveMasternode::SendMasternodePing(std::string& errorMessage)
         }
 
         pmn->lastPing = mnp;
-        mnodeman.mapSeenMasternodePing.insert(make_pair(mnp.GetHash(), mnp));
+        mnodeman.mapSeenMasternodePing.insert(std::make_pair(mnp.GetHash(), mnp));
 
         //mnodeman.mapSeenMasternodeBroadcast.lastPing is probably outdated, so we'll update it
         CMasternodeBroadcast mnb(*pmn);
@@ -351,7 +350,7 @@ bool CActiveMasternode::GetMasterNodeVin(CTxIn& vin, CPubKey& pubkey, CKey& secr
     TRY_LOCK(pwalletMain->cs_wallet, fWallet);
     if (!fWallet) return false;
 
-    vector<COutput> possibleCoins = SelectCoinsMasternode();
+    std::vector<COutput> possibleCoins = SelectCoinsMasternode();
     COutput* selectedOutput;
 
     // Find the vin
@@ -424,11 +423,11 @@ bool CActiveMasternode::GetVinFromOutput(COutput out, CTxIn& vin, CPubKey& pubke
 }
 
 // get all possible outputs for running Masternode
-vector<COutput> CActiveMasternode::SelectCoinsMasternode()
+std::vector<COutput> CActiveMasternode::SelectCoinsMasternode()
 {
-    vector<COutput> vCoins;
-    vector<COutput> filteredCoins;
-    vector<COutPoint> confLockedCoins;
+    std::vector<COutput> vCoins;
+    std::vector<COutput> filteredCoins;
+    std::vector<COutPoint> confLockedCoins;
 
     // Temporary unlock MN coins from masternode.conf
     if (GetBoolArg("-mnconflock", true)) {

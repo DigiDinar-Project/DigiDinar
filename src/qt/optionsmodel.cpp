@@ -1,7 +1,6 @@
 // Copyright (c) 2011-2014 The Bitcoin developers
 // Copyright (c) 2014-2015 The Dash developers
 // Copyright (c) 2015-2018 The PIVX developers
-// Copyright (c) 2018-2019 The Digi Dinar developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -172,8 +171,8 @@ void OptionsModel::Init()
         SoftSetArg("-zeromintpercentage", settings.value("nZeromintPercentage").toString().toStdString());
     if (settings.contains("nPreferredDenom"))
         SoftSetArg("-preferredDenom", settings.value("nPreferredDenom").toString().toStdString());
-    if (settings.contains("nAnonymizeDigidinarAmount"))
-        SoftSetArg("-anonymizedigidinaramount", settings.value("nAnonymizeDigidinarAmount").toString().toStdString());
+    if (settings.contains("nAnonymizeDigiDinarAmount"))
+        SoftSetArg("-anonymizedigidinaramount", settings.value("nAnonymizeDigiDinarAmount").toString().toStdString());
 
     language = settings.value("language").toString();
 }

@@ -2864,8 +2864,8 @@ S'il vous plaît soyez patient ...</translation>
         <translation>Aucune adresse 'Payer à' de fournie, création d'un paiement local</translation>
     </message>
     <message>
-        <source>Invalid Digidinar Address</source>
-        <translation>Adresse Digidinar incorrecte</translation>
+        <source>Invalid DigiDinar Address</source>
+        <translation>Adresse DigiDinar incorrecte</translation>
     </message>
     <message>
         <source>Invalid Send Amount</source>

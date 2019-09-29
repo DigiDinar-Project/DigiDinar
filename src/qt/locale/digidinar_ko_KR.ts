@@ -2721,7 +2721,7 @@ Please be patient...</source>
         <translation>주소를 입력하지 않아, 신규 주소를 생성합니다.</translation>
     </message>
     <message>
-        <source>Invalid Digidinar Address</source>
+        <source>Invalid DigiDinar Address</source>
         <translation>잘못된 DIGIDINAR 주소</translation>
     </message>
     <message>

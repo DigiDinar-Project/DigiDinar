@@ -1,6 +1,5 @@
 // Copyright (c) 2014-2016 The Dash Developers
 // Copyright (c) 2016-2018 The PIVX developers
-// Copyright (c) 2019-2019 The Digi Dinar developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 

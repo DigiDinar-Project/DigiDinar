@@ -1,6 +1,6 @@
 // Copyright (c) 2011-2014 The Bitcoin developers
 // Copyright (c) 2014-2015 The Dash developers
-// Copyright (c) 2015-2018 The DIGIDINAR developers
+// Copyright (c) 2015-2019 The DIGIDINAR developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -26,7 +26,6 @@
 #include <QSet>
 #include <QTimer>
 
-using namespace std;
 
 WalletModel::WalletModel(CWallet* wallet, OptionsModel* optionsModel, QObject* parent) : QObject(parent), wallet(wallet), optionsModel(optionsModel), addressTableModel(0),
                                                                                          transactionTableModel(0),
@@ -164,7 +163,7 @@ void WalletModel::pollBalanceChanged()
 void WalletModel::emitBalanceChanged()
 {
     // Force update of UI elements even when no values have changed
-    emit balanceChanged(cachedBalance, cachedUnconfirmedBalance, cachedImmatureBalance, 
+    emit balanceChanged(cachedBalance, cachedUnconfirmedBalance, cachedImmatureBalance,
                         cachedZerocoinBalance, cachedUnconfirmedZerocoinBalance, cachedImmatureZerocoinBalance,
                         cachedWatchOnlyBalance, cachedWatchUnconfBalance, cachedWatchImmatureBalance);
 }
@@ -203,7 +202,7 @@ void WalletModel::checkBalanceChanged()
         cachedWatchOnlyBalance = newWatchOnlyBalance;
         cachedWatchUnconfBalance = newWatchUnconfBalance;
         cachedWatchImmatureBalance = newWatchImmatureBalance;
-        emit balanceChanged(newBalance, newUnconfirmedBalance, newImmatureBalance, 
+        emit balanceChanged(newBalance, newUnconfirmedBalance, newImmatureBalance,
                             newZerocoinBalance, newUnconfirmedZerocoinBalance, newImmatureZerocoinBalance,
                             newWatchOnlyBalance, newWatchUnconfBalance, newWatchImmatureBalance);
     }
@@ -245,7 +244,7 @@ bool WalletModel::validateAddress(const QString& address)
     return addressParsed.IsValid();
 }
 
-void WalletModel::updateAddressBookLabels(const CTxDestination& dest, const string& strName, const string& strPurpose)
+void WalletModel::updateAddressBookLabels(const CTxDestination& dest, const std::string& strName, const std::string& strPurpose)
 {
     LOCK(wallet->cs_wallet);
 
@@ -381,10 +380,10 @@ WalletModel::SendCoinsReturn WalletModel::sendCoins(WalletModelTransaction& tran
                 std::string key("PaymentRequest");
                 std::string value;
                 rcp.paymentRequest.SerializeToString(&value);
-                newTx->vOrderForm.push_back(make_pair(key, value));
+                newTx->vOrderForm.push_back(std::make_pair(key, value));
             } else if (!rcp.message.isEmpty()) // Message from normal digidinar:URI (digidinar:XyZ...?message=example)
             {
-                newTx->vOrderForm.push_back(make_pair("Message", rcp.message.toStdString()));
+                newTx->vOrderForm.push_back(std::make_pair("Message", rcp.message.toStdString()));
             }
         }
 
@@ -532,7 +531,7 @@ static std::vector<std::pair<uint256, ChangeType> > vQueueNotifications;
 static void NotifyTransactionChanged(WalletModel* walletmodel, CWallet* wallet, const uint256& hash, ChangeType status)
 {
     if (fQueueNotifications) {
-        vQueueNotifications.push_back(make_pair(hash, status));
+        vQueueNotifications.push_back(std::make_pair(hash, status));
         return;
     }
 
@@ -582,10 +581,10 @@ static void NotifyzDDRReset(WalletModel* walletmodel)
     QMetaObject::invokeMethod(walletmodel, "checkBalanceChanged", Qt::QueuedConnection);
 }
 
-static void NotifyWalletBacked(WalletModel* model, const bool& fSuccess, const string& filename)
+static void NotifyWalletBacked(WalletModel* model, const bool& fSuccess, const std::string& filename)
 {
-    string message;
-    string title = "Backup ";
+    std::string message;
+    std::string title = "Backup ";
     CClientUIInterface::MessageBoxFlags method;
 
     if (fSuccess) {

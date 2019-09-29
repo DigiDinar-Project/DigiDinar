@@ -1,11 +1,10 @@
 //
-// Copyright (c) 2015-2018 The PIVX developers
-// Copyright (c) 2019-2019 The DigiDinar developers
+// Copyright (c) 2015-2018 The DIGIDINAR developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef DDR_CONCURRENTQUEUE_H
-#define DDR_CONCURRENTQUEUE_H
+#ifndef DIGIDINAR_CONCURRENTQUEUE_H
+#define DIGIDINAR_CONCURRENTQUEUE_H
 
 
 #include <mutex>
@@ -49,4 +48,4 @@ public:
     }
 };
 
-#endif //DDR_CONCURRENTQUEUE_H
+#endif //DIGIDINAR_CONCURRENTQUEUE_H

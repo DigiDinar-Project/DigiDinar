@@ -1,6 +1,6 @@
 // Copyright (c) 2009-2014 The Bitcoin developers
 // Copyright (c) 2014-2015 The Dash developers
-// Copyright (c) 2015-2018 The DIGIDINAR developers
+// Copyright (c) 2015-2019 The DIGIDINAR developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -587,7 +587,7 @@ int main(int argc, char* argv[])
 
 #ifdef ENABLE_WALLET
     /// 7a. parse masternode.conf
-    string strErr;
+    std::string strErr;
     if (!masternodeConfig.read(strErr)) {
         QMessageBox::critical(0, QObject::tr("DIGIDINAR Core"),
             QObject::tr("Error reading masternode configuration file: %1").arg(strErr.c_str()));

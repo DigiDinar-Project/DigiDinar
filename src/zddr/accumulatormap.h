@@ -1,9 +1,9 @@
-// Copyright (c) 2017-2018 The DigiDinar developers
+// Copyright (c) 2017-2018 The DIGIDINAR developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef DDR_ACCUMULATORMAP_H
-#define DDR_ACCUMULATORMAP_H
+#ifndef DIGIDINAR_ACCUMULATORMAP_H
+#define DIGIDINAR_ACCUMULATORMAP_H
 
 #include "libzerocoin/Accumulator.h"
 #include "libzerocoin/Coin.h"
@@ -26,4 +26,4 @@ public:
     void Reset();
     void Reset(libzerocoin::ZerocoinParams* params2);
 };
-#endif //DDR_ACCUMULATORMAP_H
+#endif //DIGIDINAR_ACCUMULATORMAP_H

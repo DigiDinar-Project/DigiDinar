@@ -1,4 +1,4 @@
-// Copyright (c) 2018 The DIGI DINAR developers
+// Copyright (c) 2018 The DIGIDINAR developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -51,4 +51,4 @@ private Q_SLOTS:
     void proposalLink_clicked(const QString &link);
 };
 
-#endif //PIVX_QT_PROPOSALFRAME_H
+#endif //DIGIDINAR_QT_PROPOSALFRAME_H

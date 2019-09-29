@@ -2196,7 +2196,7 @@ To enable AutoMint change 'enablezeromint=0' to 'enablezeromint=1' in digidinar.
     </message>
     <message>
         <source>Cannot start digidinar: click-to-pay handler</source>
-        <translation>Digidinar başlatılamıyor: tıkla ve ödeme işleyicisi</translation>
+        <translation>DigiDinar başlatılamıyor: tıkla ve ödeme işleyicisi</translation>
     </message>
     <message>
         <source>URI cannot be parsed! This can be caused by an invalid DIGIDINAR address or malformed URI parameters.</source>
@@ -2611,8 +2611,8 @@ Lütfen sabırlı olun...</translation>
         <translation>Sağlanan 'Ödeme Yapmak İçin' adresi yok, yerel ödeme oluşturun</translation>
     </message>
     <message>
-        <source>Invalid Digidinar Address</source>
-        <translation>Geçersiz Digidinar Adresi</translation>
+        <source>Invalid DigiDinar Address</source>
+        <translation>Geçersiz DigiDinar Adresi</translation>
     </message>
     <message>
         <source>Invalid Send Amount</source>

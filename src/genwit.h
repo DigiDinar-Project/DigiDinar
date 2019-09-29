@@ -1,9 +1,9 @@
-// Copyright (c) 2015-2018 The PIVX developers
+// Copyright (c) 2015-2018 The DIGIDINAR developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef DDR_GENWIT_H
-#define DDR_GENWIT_H
+#ifndef DIGIDINAR_GENWIT_H
+#define DIGIDINAR_GENWIT_H
 
 
 #include <iostream>
@@ -58,4 +58,4 @@ private:
 };
 
 
-#endif //DDR_GENWIT_H
+#endif //DIGIDINAR_GENWIT_H

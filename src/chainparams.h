@@ -1,7 +1,7 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2014 The Bitcoin developers
 // Copyright (c) 2014-2015 The Dash developers
-// Copyright (c) 2015-2018 The DigiDinar developers
+// Copyright (c) 2015-2019 The DIGIDINAR developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -73,7 +73,18 @@ public:
     /** Make standard checks */
     bool RequireStandard() const { return fRequireStandard; }
     int64_t TargetSpacing() const { return nTargetSpacing; }
+
+    /** returns the coinbase maturity **/
     int COINBASE_MATURITY() const { return nMaturity; }
+
+    /** returns the coinstake maturity (min depth required) **/
+    int COINSTAKE_MIN_DEPTH() const { return nStakeMinDepth; }
+    bool HasStakeMinAgeOrDepth(const int contextHeight, const uint32_t contextTime, const int utxoFromBlockHeight, const uint32_t utxoFromBlockTime) const;
+
+    /** returns the max future time (and drift in seconds) allowed for a block in the future **/
+    int FutureBlockTimeDrift(const bool isPoS) const { return isPoS ? nFutureTimeDriftPoS : nFutureTimeDriftPoW; }
+    uint32_t MaxFutureBlockTime(uint32_t time, const bool isPoS) const { return time + FutureBlockTimeDrift(isPoS); }
+
     CAmount MaxMoneyOut() const { return nMaxMoneyOut; }
     /** Make miner stop after a block is found. In RPC, don't return until nGenProcLimit blocks are generated */
     bool MineBlocksOnDemand() const { return fMineBlocksOnDemand; }
@@ -89,7 +100,7 @@ public:
     /** Return the number of blocks in a budget cycle */
     int GetBudgetCycleBlocks() const { return nBudgetCycleBlocks; }
     int64_t GetProposalEstablishmentTime() const { return nProposalEstablishmentTime; }
-    
+
     virtual CAmount StakeInputMinimal(int height) const = 0;
 
     /** Spork key and Masternode Handling **/
@@ -115,9 +126,12 @@ public:
     /** Height or Time Based Activations **/
     int ModifierUpgradeBlock() const { return nModifierUpdateBlock; }
     int LAST_POW_BLOCK() const { return nLastPOWBlock; }
+    int DigiDinarBadBlockTime() const { return nDigiDinarBadBlockTime; }
+    int DigiDinarBadBlocknBits() const { return nDigiDinarBadBlocknBits; }
     int Zerocoin_StartHeight() const { return nZerocoinStartHeight; }
     int Zerocoin_StartTime() const { return nZerocoinStartTime; }
     int Zerocoin_Block_V2_Start() const { return nBlockZerocoinV2; }
+    bool IsStakeModifierV2(const int nHeight) const { return nHeight >= nBlockStakeModifierlV2; }
 
     // fake serial attack
     int Zerocoin_Block_EndFakeSerial() const { return nFakeSerialBlockheightEnd; }
@@ -147,10 +161,16 @@ protected:
     int nEnforceBlockUpgradeMajority;
     int nRejectBlockOutdatedMajority;
     int nToCheckBlockUpgradeMajority;
-    int64_t nTargetTimespan;
     int64_t nTargetSpacing;
     int nLastPOWBlock;
+    int64_t nDigiDinarBadBlockTime;
+    unsigned int nDigiDinarBadBlocknBits;
+    int nMasternodeCountDrift;
     int nMaturity;
+    int nStakeMinDepth;
+    int nFutureTimeDriftPoW;
+    int nFutureTimeDriftPoS;
+
     int nModifierUpdateBlock;
     CAmount nMaxMoneyOut;
     int nMinerThreads;
@@ -177,7 +197,7 @@ protected:
     int nMaxZerocoinSpendsPerTransaction;
     int nMaxZerocoinPublicSpendsPerTransaction;
     CAmount nMinZerocoinMintFee;
-    int nMintRequiredConfirmations;
+   int nMintRequiredConfirmations;
     int nRequiredAccumulation;
     int nDefaultSecurityLevel;
     int nZerocoinHeaderVersion;
@@ -189,6 +209,7 @@ protected:
 
     int nBlockZerocoinV2;
     int nPublicZCSpends;
+    int nBlockStakeModifierlV2;
 
     int nSubsidyHalvingBlock;
     int nMasternodeCollateral;

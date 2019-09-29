@@ -9,7 +9,7 @@
  * @copyright  Copyright 2013 Ian Miers, Christina Garman and Matthew Green
  * @license    This project is released under the MIT license.
  **/
-// Copyright (c) 2017-2018 The DigiDinar developers
+// Copyright (c) 2017-2019 The DIGIDINAR developers
 
 #include <stdexcept>
 #include <iostream>
@@ -40,7 +40,7 @@ PublicCoin::PublicCoin(const ZerocoinParams* p, const CBigNum& coin, const CoinD
 		if(denom == d)
 			denomination = d;
 	}
-    if(denomination == 0){
+    if (denomination == 0) {
 		std::cout << "denom does not exist\n";
 		throw std::runtime_error("Denomination does not exist");
 	}
@@ -104,7 +104,7 @@ PrivateCoin::PrivateCoin(const ZerocoinParams* p, const CoinDenomination denomin
 bool PrivateCoin::IsValid()
 {
     if (!IsValidSerial(params, serialNumber)) {
-        cout << "Serial not valid\n";
+        std::cout << "Serial not valid\n";
         return false;
     }
 
@@ -150,7 +150,7 @@ const CPubKey PrivateCoin::getPubKey() const
 	return key.GetPubKey();
 }
 
-bool PrivateCoin::sign(const uint256& hash, vector<unsigned char>& vchSig) const
+bool PrivateCoin::sign(const uint256& hash, std::vector<unsigned char>& vchSig) const
 {
 	CKey key;
 	key.SetPrivKey(privkey, true);
@@ -258,13 +258,13 @@ int ExtractVersionFromSerial(const CBigNum& bnSerial)
         uint256 nMark = bnSerial.getuint256() >> (256 - PrivateCoin::V2_BITSHIFT);
         if (nMark == 0xf)
             return PrivateCoin::PUBKEY_VERSION;
-    }catch (std::range_error &e){
+    } catch (std::range_error &e) {
         //std::cout << "ExtractVersionFromSerial(): " << e.what() << std::endl;
         // Only serial version 2 appeared with this range error..
         return 2;
     }
 
-    return 1;
+	return 1;
 }
 
 //Remove the first four bits for V2 serials
@@ -292,8 +292,11 @@ bool IsValidSerial(const ZerocoinParams* params, const CBigNum& bnSerial)
     return bnSerial.bitSize() <= 256;
 }
 
+
 bool IsValidCommitmentToCoinRange(const ZerocoinParams* params, const CBigNum& bnCommitment)
 {
     return bnCommitment > CBigNum(0) && bnCommitment < params->serialNumberSoKCommitmentGroup.modulus;
 }
+
+
 } /* namespace libzerocoin */

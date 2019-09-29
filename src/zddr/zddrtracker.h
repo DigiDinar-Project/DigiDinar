@@ -1,9 +1,9 @@
-// Copyright (c) 2018 The DigiDinar developers
+// Copyright (c) 2018-2019 The DIGIDINAR developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef PIVX_ZDDRTRACKER_H
-#define PIVX_ZDDRTRACKER_H
+#ifndef DIGIDINAR_ZDDRTRACKER_H
+#define DIGIDINAR_ZDDRTRACKER_H
 
 #include "zerocoin.h"
 #include "witness.h"
@@ -55,4 +55,4 @@ public:
     void Clear();
 };
 
-#endif //PIVX_ZDDRTRACKER_H
+#endif //DIGIDINAR_ZDDRTRACKER_H

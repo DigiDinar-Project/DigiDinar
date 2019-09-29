@@ -2860,8 +2860,8 @@ Proszę być cierpliwym...</translation>
         <translation>Nie podano adresu "Zapłać do", tworząc płatność lokalną</translation>
     </message>
     <message>
-        <source>Invalid Digidinar Address</source>
-        <translation>Nieprawidłowy adres Digidinar</translation>
+        <source>Invalid DigiDinar Address</source>
+        <translation>Nieprawidłowy adres DigiDinar</translation>
     </message>
     <message>
         <source>Invalid Send Amount</source>

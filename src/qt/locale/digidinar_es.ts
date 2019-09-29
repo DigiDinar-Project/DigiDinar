@@ -2767,7 +2767,7 @@ Por favor espere...</translation>
         <translation>No se especificó drección 'Pagar A', por lo que asumimos un pago local</translation>
     </message>
     <message>
-        <source>Invalid Digidinar Address</source>
+        <source>Invalid DigiDinar Address</source>
         <translation>Dirección DIGIDINAR Inválida</translation>
     </message>
     <message>

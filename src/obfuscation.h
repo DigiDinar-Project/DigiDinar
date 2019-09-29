@@ -1,5 +1,5 @@
 // Copyright (c) 2014-2015 The Dash developers
-// Copyright (c) 2015-2019 The PIVX developers
+// Copyright (c) 2015-2019 The DIGIDINAR developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -53,7 +53,7 @@ extern CObfuscationPool obfuScationPool;
 extern CObfuScationSigner obfuScationSigner;
 extern std::vector<CObfuscationQueue> vecObfuscationQueue;
 extern std::string strMasterNodePrivKey;
-extern map<uint256, CObfuscationBroadcastTx> mapObfuscationBroadcastTxes;
+extern std::map<uint256, CObfuscationBroadcastTx> mapObfuscationBroadcastTxes;
 extern CActiveMasternode activeMasternode;
 
 /** Holds an Obfuscation input
@@ -194,7 +194,7 @@ class CObfuscationBroadcastTx
 public:
     CTransaction tx;
     CTxIn vin;
-    vector<unsigned char> vchSig;
+    std::vector<unsigned char> vchSig;
     int64_t sigTime;
 };
 

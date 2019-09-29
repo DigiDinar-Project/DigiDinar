@@ -1,5 +1,4 @@
-// Copyright (c) 2017-2018 The PIVX developers
-// Copyright (c) 2018-2019 The Digi Dinar developers
+// Copyright (c) 2017-2019 The DIGIDINAR developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -37,11 +36,11 @@ PrivacyDialog::PrivacyDialog(QWidget* parent) : QDialog(parent, Qt::WindowSystem
 
     // "Spending 999999 zDDR ought to be enough for anybody." - Bill Gates, 2017
     ui->zDDRpayAmount->setValidator( new QDoubleValidator(0.0, 21000000.0, 20, this) );
-    //ui->labelMintAmountValue->setValidator( new QIntValidator(0, 999999, this) );
+    //ui->labelMintAmountValue->setValidator( new QIntValidator(0, 999999, this) );     // disable MINT
 
     // Default texts for (mini-) coincontrol
-    //ui->labelCoinControlQuantity->setText (tr("Coins automatically selected"));
-    //ui->labelCoinControlAmount->setText (tr("Coins automatically selected"));
+    //ui->labelCoinControlQuantity->setText (tr("Coins automatically selected"));       // disable MINT
+    //ui->labelCoinControlAmount->setText (tr("Coins automatically selected"));         // disable MINT
     ui->labelzDDRSyncStatus->setText("(" + tr("out of sync") + ")");
 
     // Sunken frame for minting messages
@@ -88,7 +87,6 @@ PrivacyDialog::PrivacyDialog(QWidget* parent) : QDialog(parent, Qt::WindowSystem
 
     // DIGIDINAR settings
     QSettings settings;
-
     if (!settings.contains("fMinimizeChange")){
         fMinimizeChange = false;
         settings.setValue("fMinimizeChange", fMinimizeChange);
@@ -113,6 +111,7 @@ PrivacyDialog::PrivacyDialog(QWidget* parent) : QDialog(parent, Qt::WindowSystem
     if(!settings.contains("fDenomsSectionMinimized"))
         settings.setValue("fDenomsSectionMinimized", true);
     minimizeDenomsSection(settings.value("fDenomsSectionMinimized").toBool());
+
     ui->checkBoxMintChange->setVisible(false);
 }
 
@@ -158,7 +157,6 @@ void PrivacyDialog::on_addressBookButton_clicked()
         ui->zDDRpayAmount->setFocus();
     }
 }
-
 /* disable MINT
  *
 void PrivacyDialog::on_pushButtonMintzDDR_clicked()
@@ -202,8 +200,8 @@ void PrivacyDialog::on_pushButtonMintzDDR_clicked()
     int64_t nTime = GetTimeMillis();
 
     CWalletTx wtx;
-    vector<CDeterministicMint> vMints;
-    string strError = pwalletMain->MintZerocoin(nAmount, wtx, vMints, CoinControlDialog::coinControl);
+    std::vector<CDeterministicMint> vMints;
+    std::string strError = pwalletMain->MintZerocoin(nAmount, wtx, vMints, CoinControlDialog::coinControl);
 
     // Return if something went wrong during minting
     if (strError != ""){
@@ -241,7 +239,6 @@ void PrivacyDialog::on_pushButtonMintzDDR_clicked()
 
     return;
 }
-
 */
 void PrivacyDialog::on_pushButtonMintReset_clicked()
 {
@@ -249,7 +246,7 @@ void PrivacyDialog::on_pushButtonMintReset_clicked()
     ui->TEMintStatus->repaint ();
 
     int64_t nTime = GetTimeMillis();
-    string strResetMintResult = pwalletMain->ResetMintZerocoin();
+    std::string strResetMintResult = pwalletMain->ResetMintZerocoin();
     double fDuration = (double)(GetTimeMillis() - nTime)/1000.0;
     ui->TEMintStatus->setPlainText(QString::fromStdString(strResetMintResult) + tr("Duration: ") + QString::number(fDuration) + tr(" sec.\n"));
     ui->TEMintStatus->repaint ();
@@ -264,7 +261,7 @@ void PrivacyDialog::on_pushButtonSpentReset_clicked()
     ui->TEMintStatus->setPlainText(tr("Starting ResetSpentZerocoin: "));
     ui->TEMintStatus->repaint ();
     int64_t nTime = GetTimeMillis();
-    string strResetSpentResult = pwalletMain->ResetSpentZerocoin();
+    std::string strResetSpentResult = pwalletMain->ResetSpentZerocoin();
     double fDuration = (double)(GetTimeMillis() - nTime)/1000.0;
     ui->TEMintStatus->setPlainText(QString::fromStdString(strResetSpentResult) + tr("Duration: ") + QString::number(fDuration) + tr(" sec.\n"));
     ui->TEMintStatus->repaint ();
@@ -379,8 +376,6 @@ void PrivacyDialog::sendzDDR()
         }
     }
 
-// Spend confirmation message box
-
     // Spend confirmation message box
 
     // Add address info if available
@@ -417,8 +412,8 @@ void PrivacyDialog::sendzDDR()
     ui->TEMintStatus->repaint();
 
     // use mints from zDDR selector if applicable
-    vector<CMintMeta> vMintsToFetch;
-    vector<CZerocoinMint> vMintsSelected;
+    std::vector<CMintMeta> vMintsToFetch;
+    std::vector<CZerocoinMint> vMintsSelected;
     if (!ZDdrControlDialog::setSelectedMints.empty()) {
         vMintsToFetch = ZDdrControlDialog::GetSelectedMints();
 
@@ -448,7 +443,6 @@ void PrivacyDialog::sendzDDR()
 
     // Display errors during spend
     if (!fSuccess) {
-
         /*
         int nNeededSpends = receipt.GetNeededSpends(); // Number of spends we would need for this transaction
         const int nMaxSpends = Params().Zerocoin_MaxSpendsPerTransaction(); // Maximum possible spends for one zDDR transaction
@@ -460,8 +454,8 @@ void PrivacyDialog::sendzDDR()
         }
         else {
          */
-            QMessageBox::warning(this, tr("Spend Zerocoin"), receipt.GetStatusMessage().c_str(), QMessageBox::Ok, QMessageBox::Ok);
-            ui->TEMintStatus->setPlainText(tr("Spend Zerocoin failed with status = ") +QString::number(receipt.GetStatus(), 10) + "\n" + "Message: " + QString::fromStdString(receipt.GetStatusMessage()));
+        QMessageBox::warning(this, tr("Spend Zerocoin"), receipt.GetStatusMessage().c_str(), QMessageBox::Ok, QMessageBox::Ok);
+        ui->TEMintStatus->setPlainText(tr("Spend Zerocoin failed with status = ") +QString::number(receipt.GetStatus(), 10) + "\n" + "Message: " + QString::fromStdString(receipt.GetStatusMessage()));
         //}
         ui->zDDRpayAmount->setFocus();
         ui->TEMintStatus->repaint();
@@ -530,6 +524,7 @@ void PrivacyDialog::on_payTo_textChanged(const QString& address)
 {
     updateLabel(address);
 }
+
 /* DISABLE MINTs: no need for coinCointrol
 
 // Coin Control: copy label "Quantity" to clipboard
@@ -573,7 +568,6 @@ void PrivacyDialog::coinControlUpdateLabels()
         ui->labelCoinControlAmount->setText (tr("Coins automatically selected"));
     }
 }
-
 */
 
 void PrivacyDialog::on_pushButtonShowDenoms_clicked()
@@ -631,13 +625,13 @@ void PrivacyDialog::setBalance(const CAmount& balance, const CAmount& unconfirme
     std::map<libzerocoin::CoinDenomination, int> mapUnconfirmed;
     std::map<libzerocoin::CoinDenomination, int> mapImmature;
     for (const auto& denom : libzerocoin::zerocoinDenomList){
-        mapDenomBalances.insert(make_pair(denom, 0));
-        mapUnconfirmed.insert(make_pair(denom, 0));
-        mapImmature.insert(make_pair(denom, 0));
+        mapDenomBalances.insert(std::make_pair(denom, 0));
+        mapUnconfirmed.insert(std::make_pair(denom, 0));
+        mapImmature.insert(std::make_pair(denom, 0));
     }
 
     std::vector<CMintMeta> vMints = pwalletMain->zddrTracker->GetMints(false);
-    map<libzerocoin::CoinDenomination, int> mapMaturityHeights = GetMintMaturityHeight();
+    std::map<libzerocoin::CoinDenomination, int> mapMaturityHeights = GetMintMaturityHeight();
     for (auto& meta : vMints){
         // All denominations
         mapDenomBalances.at(meta.denom)++;
@@ -720,7 +714,6 @@ void PrivacyDialog::setBalance(const CAmount& balance, const CAmount& unconfirme
     ui->labelzAvailableAmount->setText(QString::number(zerocoinBalance/COIN) + QString(" zDDR "));
     ui->labelzAvailableAmount_2->setText(QString::number(matureZerocoinBalance/COIN) + QString(" zDDR "));
     ui->labelzAvailableAmount_4->setText(QString::number(zerocoinBalance/COIN) + QString(" zDDR "));
-    //ui->labelzDDRAmountValue->setText(BitcoinUnits::floorHtmlWithUnit(nDisplayUnit, balance - immatureBalance - nLockedBalance, false, BitcoinUnits::separatorAlways));
 
     // Display AutoMint status
     updateAutomintStatus();
@@ -812,6 +805,7 @@ void PrivacyDialog::updateAutomintStatus()
 void PrivacyDialog::updateSPORK16Status()
 {
     // Update/enable labels, buttons and tooltips depending on the current SPORK_16 status
+    //bool fButtonsEnabled =  ui->pushButtonMintzDDR->isEnabled();
     bool fButtonsEnabled = false;
     bool fMaintenanceMode = GetAdjustedTime() > GetSporkValue(SPORK_16_ZEROCOIN_MAINTENANCE_MODE);
     if (fMaintenanceMode && fButtonsEnabled) {

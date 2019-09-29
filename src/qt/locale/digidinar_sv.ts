@@ -2896,8 +2896,8 @@ Ha lite tålamod...</translation>
         <translation>Ingen 'Betala Till' adress inmatad, skapar lokal betalning</translation>
     </message>
     <message>
-        <source>Invalid Digidinar Address</source>
-        <translation>Ogiltig Digidinar Adress</translation>
+        <source>Invalid DigiDinar Address</source>
+        <translation>Ogiltig DigiDinar Adress</translation>
     </message>
     <message>
         <source>Invalid Send Amount</source>

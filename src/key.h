@@ -1,11 +1,11 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2014 The Bitcoin developers
-// Copyright (c) 2015-2018 The PIVX developers
+// Copyright (c) 2015-2018 The DIGIDINAR developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef DDR_KEY_H
-#define DDR_KEY_H
+#ifndef DIGIDINAR_KEY_H
+#define DIGIDINAR_KEY_H
 
 #include "allocators.h"
 #include "serialize.h"
@@ -181,4 +181,4 @@ void ECC_Stop(void);
 /** Check that required EC support is available at runtime. */
 bool ECC_InitSanityCheck(void);
 
-#endif // DDR_KEY_H
+#endif // DIGIDINAR_KEY_H

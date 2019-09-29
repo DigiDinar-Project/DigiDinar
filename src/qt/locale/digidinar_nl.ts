@@ -2847,8 +2847,8 @@ Wees alsjeblieft geduldig...</translation>
         <translation>Geen 'Betaal aan' adres verstrekt, lokale betaling wordt gemaakt</translation>
     </message>
     <message>
-        <source>Invalid Digidinar Address</source>
-        <translation>Ongeldig Digidinar addres</translation>
+        <source>Invalid DigiDinar Address</source>
+        <translation>Ongeldig DigiDinar addres</translation>
     </message>
     <message>
         <source>Invalid Send Amount</source>

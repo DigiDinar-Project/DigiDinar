@@ -1894,8 +1894,8 @@ Nematura: konfirmita, sed malpli ol 1 minto el la samo nomado post ĝin estis mi
         <translation>&lt;b&gt;malebligita&lt;/b&gt;.</translation>
     </message>
     <message>
-        <source>Invalid Digidinar Address</source>
-        <translation>Nevalida Digidinar adreso</translation>
+        <source>Invalid DigiDinar Address</source>
+        <translation>Nevalida DigiDinar adreso</translation>
     </message>
     <message>
         <source>Confirm send coins</source>

@@ -2,7 +2,6 @@
 // Copyright (c) 2009-2014 The Bitcoin developers
 // Copyright (c) 2014-2015 The Dash developers
 // Copyright (c) 2015-2018 The PIVX developers
-// Copyright (c) 2019-2019 The DigiDinar developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -15,9 +14,8 @@
 #include <assert.h>
 
 #include <boost/assign/list_of.hpp>
+#include <limits>
 
-using namespace std;
-using namespace boost::assign;
 
 struct SeedSpec6 {
     uint8_t addr[16];
@@ -101,6 +99,17 @@ libzerocoin::ZerocoinParams* CChainParams::Zerocoin_Params(bool useModulusV1) co
     return &ZCParamsDec;
 }
 
+bool CChainParams::HasStakeMinAgeOrDepth(const int contextHeight, const uint32_t contextTime,
+        const int utxoFromBlockHeight, const uint32_t utxoFromBlockTime) const
+{
+    // before stake modifier V2, the age required was 6 * 60 * 60 (1 hour) / not required on regtest
+    if (!IsStakeModifierV2(contextHeight))
+        return (NetworkID() == CBaseChainParams::REGTEST || (utxoFromBlockTime + 6 * 3600 <= contextTime));
+
+    // after stake modifier V2, we require the utxo to be nStakeMinDepth deep in the chain
+    return (contextHeight - utxoFromBlockHeight >= nStakeMinDepth);
+}
+
 class CMainParams : public CChainParams
 {
 public:
@@ -129,19 +138,24 @@ public:
         nMinerThreads = 0;
         nTargetSpacing = 1 * 60;  // Digi Dinar: 1 minute
         nMaturity = 100;
+        nStakeMinDepth = 600;
+        nFutureTimeDriftPoW = 7200;
+        nFutureTimeDriftPoS = 180;
         nMaxMoneyOut = 120000000 * COIN;
 
         nMasternodeCollateral = 25000;
         strDevFeeAddress = "D5wVvyFg9t3TQGszyAkQ3G11QPJoS6Ldm3";
         nStakeInputMinimal = 6 * COIN;
-
         /** Height or Time Based Activations **/
         nLastPOWBlock = 300;
+	nDigiDinarBadBlockTime = 1471401614; // Skip nBit validation of Block 259201 per PR #915
+        nDigiDinarBadBlocknBits = 0x1c056dac; // Skip nBit validation of Block 259201 per PR #915
         nModifierUpdateBlock = 0;
         nZerocoinStartHeight = 0;
         nZerocoinStartTime = 1550792244; // Genesis time
         nBlockZerocoinV2 = 20;
 
+        nBlockStakeModifierlV2 = 90000;
         // Public coin spend enforcement
         nPublicZCSpends = 58700;
 
@@ -163,7 +177,7 @@ public:
         CMutableTransaction txNew;
         txNew.vin.resize(1);
         txNew.vout.resize(1);
-        txNew.vin[0].scriptSig = CScript() << 486604799 << CScriptNum(4) << vector<unsigned char>((const unsigned char*)pszTimestamp, (const unsigned char*)pszTimestamp + strlen(pszTimestamp));
+        txNew.vin[0].scriptSig = CScript() << 486604799 << CScriptNum(4) << std::vector<unsigned char>((const unsigned char*)pszTimestamp, (const unsigned char*)pszTimestamp + strlen(pszTimestamp));
         txNew.vout[0].nValue = 0 * COIN;
         txNew.vout[0].scriptPubKey = CScript() << ParseHex("04870b8a9e2339021a1830d1f7f4b3ead77c8a62a3df36e55d96589bee35cdf9ca5719160669892536d7298e25dc892106c1786f8aefa72151799f86e4214686fc") << OP_CHECKSIG;
         genesis.vtx.push_back(txNew);
@@ -266,12 +280,16 @@ public:
         nMinerThreads = 0;
         nTargetSpacing = 1 * 60;  // Digi Dinar: 1 minute
         nLastPOWBlock = 200;
+        nDigiDinarBadBlockTime = 1489001494; // Skip nBit validation of Block 259201 per PR #915
+        nDigiDinarBadBlocknBits = 0x1e0a20bd; // Skip nBit validation of Block 201 per PR #915
         nMaturity = 100;
+        nStakeMinDepth = 100;
         nModifierUpdateBlock = 0;
         nMaxMoneyOut = 120000000 * COIN;
         nZerocoinStartHeight = 15;
         nZerocoinStartTime = 1550792244;
         nBlockZerocoinV2 = 15;
+        nBlockStakeModifierlV2 = 1214000;
 
         // Public coin spend enforcement
         nPublicZCSpends = 0;
@@ -298,7 +316,9 @@ public:
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1, 19);  // Testnet digidinar script addresses start with '8' or '9'
         base58Prefixes[SECRET_KEY] = std::vector<unsigned char>(1, 128+98);     // Testnet private keys start with '9' or 'c' (Bitcoin defaults)
         base58Prefixes[EXT_PUBLIC_KEY] = boost::assign::list_of(0x3a)(0x80)(0x61)(0xa0).convert_to_container<std::vector<unsigned char> >();
+        // Testnet digidinar BIP32 prvkeys start with 'DRKP'
         base58Prefixes[EXT_SECRET_KEY] = boost::assign::list_of(0x3a)(0x80)(0x58)(0x37).convert_to_container<std::vector<unsigned char> >();
+        // Testnet digidinar BIP44 coin type is '1' (All coin's testnet default)
         base58Prefixes[EXT_COIN_TYPE] = boost::assign::list_of(0x80)(0x00)(0x00)(0x01).convert_to_container<std::vector<unsigned char> >();
 
         convertSeed6(vFixedSeeds, pnSeed6_test, ARRAYLEN(pnSeed6_test));
@@ -312,11 +332,11 @@ public:
 
         nPoolMaxTransactions = 2;
 	nBudgetCycleBlocks = 144; //!< Ten cycles per day on testnet
-        
         strSporkKey = "042f3ee3fd6b795c7176f61e967fd7923d4c43f09d68720dfc05239f64b4765471f9a0049e1508f663c13bb454706e73947fae169c0ea41ddb6a97c4fa5b38690e";
         strObfuscationPoolDummyAddress = "y57cqfGRkekRyDRNeJiLtYVEbvhXrNbmox";
         nStartMasternodePayments = 1547119740 + 500 * 120; 
         nBudget_Fee_Confirmations = 3; // Number of confirmations for the finalization fee. We have to make this very short
+                                       // here because we only have a 8 block finalization window on testnet
                                        // here because we only have a 8 block finalization window on testnet
         nProposalEstablishmentTime = 60 * 5; // Proposals must be at least 5 mns old to make it into a test budget
     }
@@ -349,16 +369,30 @@ public:
         pchMessageStart[1] = 0xcf;
         pchMessageStart[2] = 0x7e;
         pchMessageStart[3] = 0xac;
+        nDefaultPort = 43001;
         nMinerThreads = 1;
         nTargetSpacing = 1 * 60;
         nDefaultPort = 43001;
         bnProofOfWorkLimit = ~uint256(0) >> 1;
-        genesis.nTime = 1547119739;
-        genesis.nBits = 0x207fffff;
-        genesis.nNonce = 12345;
+        nLastPOWBlock = 250;
+        nMaturity = 100;
+        nStakeMinDepth = 0;
+        nModifierUpdateBlock = 0; //approx Mon, 17 Apr 2017 04:00:00 GMT
+        nMaxMoneyOut = 43199500 * COIN;
+        nZerocoinStartHeight = 300;
+        nBlockZerocoinV2 = 300;
+        nZerocoinStartTime = 1501776000;
+        nBlockStakeModifierlV2 = std::numeric_limits<int>::max(); // max integer value (never switch on regtest)
+        // Public coin spend enforcement
+        nPublicZCSpends = 350;
 
         // Fake Serial Attack
         nFakeSerialBlockheightEnd = -1;
+
+	//! Modify the regtest genesis block so the timestamp is valid for a later start.        
+        genesis.nTime = 1547119739;
+        genesis.nBits = 0x207fffff;
+        genesis.nNonce = 12345;
 
         hashGenesisBlock = genesis.GetHash();
         assert(hashGenesisBlock == uint256("0x7ca3e82de950df19c22b5391ec18d16ffa3d2ba77bf5ee130324ba181d59d66b"));
@@ -425,7 +459,6 @@ public:
     virtual void setSkipProofOfWorkCheck(bool afSkipProofOfWorkCheck) { fSkipProofOfWorkCheck = afSkipProofOfWorkCheck; }
 };
 static CUnitTestParams unitTestParams;
-
 
 static CChainParams* pCurrentParams = 0;
 

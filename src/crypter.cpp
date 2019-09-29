@@ -1,5 +1,5 @@
 // Copyright (c) 2009-2013 The Bitcoin developers
-// Copyright (c) 2017-2019 The PIVX developers
+// Copyright (c) 2017-2019 The DIGIDINAR developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -375,14 +375,14 @@ bool CCryptoKeyStore::EncryptKeys(CKeyingMaterial& vMasterKeyIn)
 bool CCryptoKeyStore::AddDeterministicSeed(const uint256& seed)
 {
     CWalletDB db(pwalletMain->strWalletFile);
-    string strErr;
+    std::string strErr;
     uint256 hashSeed = Hash(seed.begin(), seed.end());
 
     if(IsCrypted()) {
         if (!IsLocked()) { //if we have password
 
             CKeyingMaterial kmSeed(seed.begin(), seed.end());
-            vector<unsigned char> vchSeedSecret;
+            std::vector<unsigned char> vchSeedSecret;
 
 
             //attempt encrypt
@@ -410,11 +410,11 @@ bool CCryptoKeyStore::GetDeterministicSeed(const uint256& hashSeed, uint256& see
 {
 
     CWalletDB db(pwalletMain->strWalletFile);
-    string strErr;
+    std::string strErr;
     if (IsCrypted()) {
         if(!IsLocked()) { //if we have password
 
-            vector<unsigned char> vchCryptedSeed;
+            std::vector<unsigned char> vchCryptedSeed;
             //read encrypted seed
             if (db.ReadZDDRSeed(hashSeed, vchCryptedSeed)) {
                 uint256 seedRetrieved = uint256(ReverseEndianString(HexStr(vchCryptedSeed)));
@@ -435,7 +435,7 @@ bool CCryptoKeyStore::GetDeterministicSeed(const uint256& hashSeed, uint256& see
             } else { strErr = "read seed from wallet"; }
         } else { strErr = "read seed; wallet is locked"; }
     } else {
-        vector<unsigned char> vchSeed;
+        std::vector<unsigned char> vchSeed;
         // wallet not crypted
         if (db.ReadZDDRSeed(hashSeed, vchSeed)) {
             seedOut = uint256(ReverseEndianString(HexStr(vchSeed)));

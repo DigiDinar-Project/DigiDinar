@@ -80,4 +80,4 @@ std::string GetRegTestCheckpoints() {
     return strRegTestCheckpoints;
 }
 
-#endif //DDR_ACCUMULATORCHECKPOINTS_JSON_H
+#endif //DIGIDINAR_ACCUMULATORCHECKPOINTS_JSON_H

@@ -1,6 +1,5 @@
 // Copyright (c) 2014-2015 The Dash developers
-// Copyright (c) 2015-2018 The PIVX developers
-// Copyright (c) 2019-2019 The Digi Dinar developers
+// Copyright (c) 2015-2019 The DIGIDINAR developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -83,7 +82,7 @@ CMasternodePaymentDB::ReadResult CMasternodePaymentDB::Read(CMasternodePayments&
     // Don't try to resize to a negative number if file is small
     if (dataSize < 0)
         dataSize = 0;
-    vector<unsigned char> vchData;
+    std::vector<unsigned char> vchData;
     vchData.resize(dataSize);
     uint256 hashIn;
 
@@ -254,9 +253,10 @@ bool IsBlockPayeeValid(const CBlock& block, int nBlockHeight)
     }
 
     // Check devfee payment
-    if (!devbudget.IsTransactionValid(txNew, nBlockHeight)) {
+    
+    bool devbudgetValid = devbudget.IsTransactionValid(txNew, nBlockHeight);
+    if (!devbudgetValid) {
         LogPrint("masternode","Invalid dev budget payment detected %s\n", txNew.ToString().c_str());
-        return false;
     }
 
     // If we end here the transaction was either TrxValidationStatus::InValid and Budget enforcement is disabled, or
@@ -265,11 +265,14 @@ bool IsBlockPayeeValid(const CBlock& block, int nBlockHeight)
     // In all cases a masternode will get the payment for this block
 
     //check for masternode payee
-    if (masternodePayments.IsTransactionValid(txNew, nBlockHeight))
-        return true;
-    LogPrint("masternode","Invalid mn payment detected %s\n", txNew.ToString().c_str());
 
-    if (IsSporkActive(SPORK_8_MASTERNODE_PAYMENT_ENFORCEMENT))
+    //check for masternode payee
+    bool masternodePaymentsValid = masternodePayments.IsTransactionValid(txNew, nBlockHeight);
+    if (!masternodePaymentsValid){
+         LogPrint("masternode","Invalid mn payment detected %s\n", txNew.ToString().c_str());
+    }
+
+    if ((!devbudgetValid || !masternodePaymentsValid) && IsSporkActive(SPORK_8_MASTERNODE_PAYMENT_ENFORCEMENT))
         return false;
     LogPrint("masternode","Masternode payment enforcement is disabled, accepting block\n");
 
@@ -286,7 +289,6 @@ void FillBlockPayee(CMutableTransaction& txNew, CAmount nFees, bool fProofOfStak
         budget.FillBlockPayee(txNew, nFees, fProofOfStake);
     } else {
         masternodePayments.FillBlockPayee(txNew, nFees, fProofOfStake, fZDDRStake);
-        devbudget.FillBlockPayee(txNew, nFees, fProofOfStake);
     }
 }
 
@@ -306,9 +308,10 @@ void CMasternodePayments::FillBlockPayee(CMutableTransaction& txNew, int64_t nFe
 
     bool hasPayment = true;
     CScript payee;
+    const int nTargetHeight = pindexPrev->nHeight + 1;
 
     //spork
-    if (!masternodePayments.GetBlockPayee(pindexPrev->nHeight + 1, payee)) {
+    if (!masternodePayments.GetBlockPayee(nTargetHeight, payee)) {
         //no masternode detected
         CMasternode* winningNode = mnodeman.GetCurrentMasterNode(1);
         if (winningNode) {
@@ -319,8 +322,9 @@ void CMasternodePayments::FillBlockPayee(CMutableTransaction& txNew, int64_t nFe
         }
     }
 
-    CAmount blockValue = GetBlockValue(pindexPrev->nHeight);
-    CAmount masternodePayment = GetMasternodePayment(pindexPrev->nHeight, blockValue, fZDDRStake);
+    CAmount blockValue = GetBlockValue(nTargetHeight);
+    CAmount masternodePayment = GetMasternodePayment(nTargetHeight, blockValue, fZDDRStake);
+    CAmount devPayment = GetDevelopersPayment(nTargetHeight, blockValue);
 
     if (hasPayment) {
         if (fProofOfStake) {
@@ -335,8 +339,25 @@ void CMasternodePayments::FillBlockPayee(CMutableTransaction& txNew, int64_t nFe
             txNew.vout[i].nValue = masternodePayment;
 
             //subtract mn payment from the stake reward
-            if (!txNew.vout[1].IsZerocoinMint())
-                txNew.vout[i - 1].nValue -= masternodePayment;
+            if (!txNew.vout[1].IsZerocoinMint()) {
+                if (i == 2) {
+                    // Majority of cases; do it quick and move on
+                    txNew.vout[i - 1].nValue -= (masternodePayment + devPayment);
+                } else if (i > 2) {
+                    // special case, stake is split between (i-1) outputs
+                    unsigned int outputs = i-1;
+                    CAmount mnPaymentSplit = (masternodePayment + devPayment) / outputs;
+                    CAmount mnPaymentRemainder = (masternodePayment + devPayment) - (mnPaymentSplit * outputs);
+                    for (unsigned int j=1; j<=outputs; j++) {
+                        txNew.vout[j].nValue -= mnPaymentSplit;
+                    }
+                    // in case it's not an even division, take the last bit of dust from the last one
+                    txNew.vout[outputs].nValue -= mnPaymentRemainder;
+		}
+		// dev payment
+            	CBitcoinAddress devbaddress = CBitcoinAddress(Params().DevRewardAddress());
+            	txNew.vout.push_back(CTxOut(devPayment, GetScriptForDestination(devbaddress.Get())));
+           }
         } else {
             txNew.vout.resize(2);
             txNew.vout[1].scriptPubKey = payee;
@@ -348,7 +369,7 @@ void CMasternodePayments::FillBlockPayee(CMutableTransaction& txNew, int64_t nFe
         ExtractDestination(payee, address1);
         CBitcoinAddress address2(address1);
 
-        LogPrint("masternode","Masternode payment of %s to %s\n", FormatMoney(masternodePayment).c_str(), address2.ToString().c_str());
+         LogPrintf("%s: Masternode payment of %s to %s devPayment:%s nHeigh:%d\n", __func__, FormatMoney(masternodePayment).c_str(), address2.ToString().c_str(), FormatMoney(devPayment).c_str(),  nTargetHeight);
     }
     else {
         if (!fProofOfStake) {
@@ -546,8 +567,7 @@ bool CMasternodeBlockPayees::IsTransactionValid(const CTransaction& txNew)
 
     CAmount nReward = GetBlockValue(nBlockHeight);
 
-    CAmount requiredMasternodePayment = GetMasternodePayment(nBlockHeight, nReward, txNew.HasZerocoinSpendInputs()) - GetDevelopersPayment(nBlockHeight, nReward);
-
+    CAmount requiredMasternodePayment = GetMasternodePayment(nBlockHeight, nReward, txNew.HasZerocoinSpendInputs());
 
     //require at least 6 signatures
     for (CMasternodePayee& payee : vecPayments)

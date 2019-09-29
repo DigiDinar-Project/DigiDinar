@@ -16,8 +16,8 @@ BEGIN
     BEGIN
         BLOCK "040904E4" // U.S. English - multilingual (hex)
         BEGIN
-            VALUE "CompanyName",        "DigiDinar"
-            VALUE "FileDescription",    "digidinar-tx (CLI Digi Dinar transaction editor utility)"
+            VALUE "CompanyName",        "DIGIDINAR"
+            VALUE "FileDescription",    "digidinar-tx (CLI DIGIDINAR transaction editor utility)"
             VALUE "FileVersion",        VER_FILEVERSION_STR
             VALUE "InternalName",       "digidinar-tx"
             VALUE "LegalCopyright",     COPYRIGHT_STR

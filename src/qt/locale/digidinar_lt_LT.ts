@@ -255,7 +255,7 @@
     </message>
     <message>
         <source>Enter a DIGIDINAR Address that you would like to encrypt using BIP 38. Enter a passphrase in the middle box. Press encrypt to compute the encrypted private key.</source>
-        <translation>Įveskite Digidinar adresą, kurį norėtumėte užšifruoti naudojant BIP 38. Vidiniame laukelyje įrašykite slaptą frazę. Paspauskite užšifruoti, jei norite gauti užšifruotą privatųjį raktą.</translation>
+        <translation>Įveskite DigiDinar adresą, kurį norėtumėte užšifruoti naudojant BIP 38. Vidiniame laukelyje įrašykite slaptą frazę. Paspauskite užšifruoti, jei norite gauti užšifruotą privatųjį raktą.</translation>
     </message>
     <message>
         <source>The DIGIDINAR address to encrypt</source>
@@ -2446,8 +2446,8 @@ Nesubrendusios: patvirtintos, bet mažiau nei 1 konvertacijos to pačio nominalo
         <translation>Nomin. &lt;b&gt;5000&lt;/b&gt;:</translation>
     </message>
     <message>
-        <source>Invalid Digidinar Address</source>
-        <translation>Netinkamas Digidinar Adresas</translation>
+        <source>Invalid DigiDinar Address</source>
+        <translation>Netinkamas DigiDinar Adresas</translation>
     </message>
     <message>
         <source>Invalid Send Amount</source>

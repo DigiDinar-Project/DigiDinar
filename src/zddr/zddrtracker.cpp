@@ -1,4 +1,4 @@
-// Copyright (c) 2018-2019 The PIVX developers
+// Copyright (c) 2018-2019 The DIGIDINAR developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -13,7 +13,6 @@
 #include "zddr/zddrwallet.h"
 #include "witness.h"
 
-using namespace std;
 
 CzDDRTracker::CzDDRTracker(std::string strWalletFile)
 {
@@ -136,7 +135,7 @@ bool CzDDRTracker::ClearSpendCache()
 
 std::vector<uint256> CzDDRTracker::GetSerialHashes()
 {
-    vector<uint256> vHashes;
+    std::vector<uint256> vHashes;
     for (auto it : mapSerialHashes) {
         if (it.second.isArchived)
             continue;
@@ -154,7 +153,7 @@ CAmount CzDDRTracker::GetBalance(bool fConfirmedOnly, bool fUnconfirmedOnly) con
     //! zerocoin specific fields
     std::map<libzerocoin::CoinDenomination, unsigned int> myZerocoinSupply;
     for (auto& denom : libzerocoin::zerocoinDenomList) {
-        myZerocoinSupply.insert(make_pair(denom, 0));
+        myZerocoinSupply.insert(std::make_pair(denom, 0));
     }
 
     {
@@ -187,7 +186,7 @@ CAmount CzDDRTracker::GetUnconfirmedBalance() const
 
 std::vector<CMintMeta> CzDDRTracker::GetMints(bool fConfirmedOnly) const
 {
-    vector<CMintMeta> vMints;
+    std::vector<CMintMeta> vMints;
     for (auto& it : mapSerialHashes) {
         CMintMeta mint = it.second;
         if (mint.isArchived || mint.isUsed)
@@ -353,7 +352,7 @@ void CzDDRTracker::SetPubcoinUsed(const uint256& hashPubcoin, const uint256& txi
         return;
     CMintMeta meta = GetMetaFromPubcoin(hashPubcoin);
     meta.isUsed = true;
-    mapPendingSpends.insert(make_pair(meta.hashSerial, txid));
+    mapPendingSpends.insert(std::make_pair(meta.hashSerial, txid));
     UpdateState(meta);
 }
 

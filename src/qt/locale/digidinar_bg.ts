@@ -255,7 +255,7 @@
     </message>
     <message>
         <source>Enter a DIGIDINAR Address that you would like to encrypt using BIP 38. Enter a passphrase in the middle box. Press encrypt to compute the encrypted private key.</source>
-        <translation>Въведете Digidinar адрес, който искате да криптиране с BIP 38. Въведете парола в средното поле. Натиснете 'криптирай', за да се изчисли криптирания таен ключ. </translation>
+        <translation>Въведете DigiDinar адрес, който искате да криптиране с BIP 38. Въведете парола в средното поле. Натиснете 'криптирай', за да се изчисли криптирания таен ключ. </translation>
     </message>
     <message>
         <source>The DIGIDINAR address to encrypt</source>
@@ -2709,7 +2709,7 @@ Please be patient...</source>
         <translation>Без 'Плати На' адрес, плащането е локално</translation>
     </message>
     <message>
-        <source>Invalid Digidinar Address</source>
+        <source>Invalid DigiDinar Address</source>
         <translation>Невалиден DIGIDINAR адрес</translation>
     </message>
     <message>

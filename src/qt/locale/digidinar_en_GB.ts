@@ -2812,8 +2812,8 @@ Please be patient...</translation>
         <translation>No 'Pay To' address provided, creating local payment</translation>
     </message>
     <message>
-        <source>Invalid Digidinar Address</source>
-        <translation>Invalid Digidinar Address</translation>
+        <source>Invalid DigiDinar Address</source>
+        <translation>Invalid DigiDinar Address</translation>
     </message>
     <message>
         <source>Invalid Send Amount</source>

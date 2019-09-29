@@ -2719,7 +2719,7 @@ Please be patient...</source>
         <translation>Не предоставляется адрес «Pay To», создающий местный платеж</translation>
     </message>
     <message>
-        <source>Invalid Digidinar Address</source>
+        <source>Invalid DigiDinar Address</source>
         <translation>неправильный DIGIDINAR адрес</translation>
     </message>
     <message>

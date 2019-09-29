@@ -2718,8 +2718,8 @@ Please be patient...</source>
         <translation>Nije dodijeljena adresa "Plati", stvarajući lokalnu uplatu</translation>
     </message>
     <message>
-        <source>Invalid Digidinar Address</source>
-        <translation>Nevažeća Digidinar Adresa</translation>
+        <source>Invalid DigiDinar Address</source>
+        <translation>Nevažeća DigiDinar Adresa</translation>
     </message>
     <message>
         <source>Invalid Send Amount</source>
