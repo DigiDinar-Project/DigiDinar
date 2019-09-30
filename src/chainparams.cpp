@@ -155,7 +155,7 @@ public:
         nZerocoinStartTime = 1550792244; // Genesis time
         nBlockZerocoinV2 = 20;
 
-        nBlockStakeModifierlV2 = 90000;
+        nBlockStakeModifierlV2 = 95000;
         // Public coin spend enforcement
         nPublicZCSpends = 58700;
 
