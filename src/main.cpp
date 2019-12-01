@@ -1991,16 +1991,23 @@ int64_t GetBlockValue(int nHeight)
 
     if (nHeight < 10) {
         ret = COIN * 500000;
-    } else if (nHeight < Params().LAST_POW_BLOCK()) {
+    } 
+    else if (nHeight < Params().LAST_POW_BLOCK()) 
+    {
         ret = COIN * 1.0;
-    }
-    if (nHeight < 60000)
+    } 
+    else if (nHeight < 60000)
+    {
+         ret = COIN * 5.0;
+    } 
+    else if (nHeight < 135000)
     {
          ret = COIN * 5.0;
     }
-    else {
-        ret = COIN * 3.0;
-}
+    else 
+    {
+        ret = COIN * 0.2;
+    }
 
     return ret;
     }

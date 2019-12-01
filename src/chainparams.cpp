@@ -143,7 +143,7 @@ public:
         nFutureTimeDriftPoS = 180;
         nMaxMoneyOut = 120000000 * COIN;
 
-        nMasternodeCollateral = 25000;
+        nMasternodeCollateral = 1000;
         strDevFeeAddress = "D5wVvyFg9t3TQGszyAkQ3G11QPJoS6Ldm3";
         nStakeInputMinimal = 6 * COIN;
         /** Height or Time Based Activations **/
@@ -252,10 +252,10 @@ public:
     {
         if (nTargetHeight < 60000 )
             return nStakeInputMinimal; 
-        else if (nTargetHeight < 150000 )
+        else if (nTargetHeight < 135000 )
             return nStakeInputMinimal * 30; 
         else
-            return nStakeInputMinimal * 60;
+            return nStakeInputMinimal * 5;
     }
     
 };
