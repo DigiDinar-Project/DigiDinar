@@ -2002,7 +2002,7 @@ int64_t GetBlockValue(int nHeight)
     } 
     else if (nHeight < 135000)
     {
-         ret = COIN * 5.0;
+         ret = COIN * 3.0;
     }
     else 
     {
