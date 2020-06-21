@@ -658,3 +658,6 @@ TRANSLATIONS += src/qt/locale/digidinar_bg.ts \
                 src/qt/locale/digidinar_vi.ts \
                 src/qt/locale/digidinar_zh_CN.ts \
                 src/qt/locale/digidinar_zh_TW.ts
+
+DISTFILES += \
+    README.md

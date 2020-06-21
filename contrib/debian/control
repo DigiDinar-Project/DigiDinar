@@ -61,4 +61,4 @@ Description: peer-to-peer network based digital currency - Qt GUI
  Full transaction history is stored locally at each client.  This
  requires 10+ GB of space, slowly growing.
  .
- This package provides DigiDinar-Qt, a GUI for DIGIDINAR based on Qt.
+ This package provides Digidinar-Qt, a GUI for DIGIDINAR based on Qt.

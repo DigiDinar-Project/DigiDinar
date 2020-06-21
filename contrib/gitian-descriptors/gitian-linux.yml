@@ -1,5 +1,5 @@
 ---
-name: "digidinar-linux-3.4"
+name: "digidinar-linux-4.1"
 enable_cache: true
 distro: "ubuntu"
 suites:

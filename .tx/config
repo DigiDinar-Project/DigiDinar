@@ -1,0 +1,7 @@
+[main]
+host = https://www.transifex.com
+
+[digidinar-project-translations.qt-translation-41x]
+file_filter = src/qt/locale/digidinar_<lang>.ts
+source_file = src/qt/locale/digidinar_en.ts
+source_lang = en

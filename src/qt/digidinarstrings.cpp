@@ -30,13 +30,11 @@ QT_TRANSLATE_NOOP("digidinar-core", ""
 "notation for IPv6. This option can be specified multiple times (default: "
 "bind to all interfaces)"),
 QT_TRANSLATE_NOOP("digidinar-core", ""
-"Calculated accumulator checkpoint is not what is recorded by block index"),
-QT_TRANSLATE_NOOP("digidinar-core", ""
 "Cannot obtain a lock on data directory %s. DIGIDINAR Core is probably already "
 "running."),
 QT_TRANSLATE_NOOP("digidinar-core", ""
 "Change automatic finalized budget voting behavior. mode=auto: Vote for only "
-"exact finalized budget match to my generated budget. (std::string, default: auto)"),
+"exact finalized budget match to my generated budget. (string, default: auto)"),
 QT_TRANSLATE_NOOP("digidinar-core", ""
 "Continuously rate-limit free transactions to <n>*1000 bytes per minute "
 "(default:%u)"),
@@ -58,10 +56,7 @@ QT_TRANSLATE_NOOP("digidinar-core", ""
 QT_TRANSLATE_NOOP("digidinar-core", ""
 "Enable SwiftX, show confirmations for locked transactions (bool, default: %s)"),
 QT_TRANSLATE_NOOP("digidinar-core", ""
-"Enable automatic Zerocoin minting from specific addresses (0-1, default: %u)"),
-QT_TRANSLATE_NOOP("digidinar-core", ""
-"Enable automatic wallet backups triggered after each zDDR minting (0-1, "
-"default: %u)"),
+"Enable cold staking functionality (0-1, default: %u). Disabled if staking=0"),
 QT_TRANSLATE_NOOP("digidinar-core", ""
 "Enable or disable staking functionality for DDR inputs (0-1, default: %u)"),
 QT_TRANSLATE_NOOP("digidinar-core", ""
@@ -80,13 +75,14 @@ QT_TRANSLATE_NOOP("digidinar-core", ""
 "in your wallet were already spent, such as if you used a copy of wallet.dat "
 "and coins were spent in the copy but not marked as spent here."),
 QT_TRANSLATE_NOOP("digidinar-core", ""
-"Error: This transaction requires a transaction fee of at least %s because of "
-"its amount, complexity, or use of recently received funds!"),
-QT_TRANSLATE_NOOP("digidinar-core", ""
 "Error: Unsupported argument -checklevel found. Checklevel must be level 4."),
 QT_TRANSLATE_NOOP("digidinar-core", ""
 "Error: Unsupported argument -socks found. Setting SOCKS version isn't "
 "possible anymore, only SOCKS5 proxies are supported."),
+QT_TRANSLATE_NOOP("digidinar-core", ""
+"Exclude debugging information for a category. Can be used in conjunction "
+"with -debug=1 to output debug logs for all categories except one or more "
+"specified categories."),
 QT_TRANSLATE_NOOP("digidinar-core", ""
 "Execute command when a relevant alert is received or we see a really long "
 "fork (%s in cmd is replaced by message)"),
@@ -146,13 +142,10 @@ QT_TRANSLATE_NOOP("digidinar-core", ""
 QT_TRANSLATE_NOOP("digidinar-core", ""
 "Number of seconds to keep misbehaving peers from reconnecting (default: %u)"),
 QT_TRANSLATE_NOOP("digidinar-core", ""
-"Obfuscation uses exact denominated amounts to send funds, you might simply "
-"need to anonymize some more coins."),
-QT_TRANSLATE_NOOP("digidinar-core", ""
 "Output debugging information (default: %u, supplying <category> is optional)"),
 QT_TRANSLATE_NOOP("digidinar-core", ""
-"Preferred Denomination for automatically minted Zerocoin  "
-"(1/5/10/50/100/500/1000/5000), 0 for no preference. default: %u)"),
+"Please check that your computer's date and time are correct! If your clock "
+"is wrong DIGIDINAR Core will not work properly."),
 QT_TRANSLATE_NOOP("digidinar-core", ""
 "Query for peer addresses via DNS lookup, if low on addresses (default: 1 "
 "unless -connect)"),
@@ -166,9 +159,6 @@ QT_TRANSLATE_NOOP("digidinar-core", ""
 QT_TRANSLATE_NOOP("digidinar-core", ""
 "Set maximum size of high-priority/low-fee transactions in bytes (default: %d)"),
 QT_TRANSLATE_NOOP("digidinar-core", ""
-"Set the number of included blocks to precompute per cycle. (minimum: %d) "
-"(maximum: %d) (default: %d)"),
-QT_TRANSLATE_NOOP("digidinar-core", ""
 "Set the number of script verification threads (%u to %d, 0 = auto, <0 = "
 "leave that many cores free, default: %d)"),
 QT_TRANSLATE_NOOP("digidinar-core", ""
@@ -178,14 +168,12 @@ QT_TRANSLATE_NOOP("digidinar-core", ""
 "Show N confirmations for a successfully locked transaction (0-9999, default: "
 "%u)"),
 QT_TRANSLATE_NOOP("digidinar-core", ""
-"Specify custom backup path to add a copy of any automatic zDDR backup. If "
-"set as dir, every backup generates a timestamped file. If set as file, will "
-"rewrite to that file every backup. If backuppath is set as well, 4 backups "
-"will happen"),
-QT_TRANSLATE_NOOP("digidinar-core", ""
 "Specify custom backup path to add a copy of any wallet backup. If set as "
 "dir, every backup generates a timestamped file. If set as file, will rewrite "
 "to that file every backup."),
+QT_TRANSLATE_NOOP("digidinar-core", ""
+"Specify location of debug log file: this can be an absolute path or a path "
+"relative to the data directory (default: %s)"),
 QT_TRANSLATE_NOOP("digidinar-core", ""
 "Support filtering of blocks and transaction with bloom filters (default: %u)"),
 QT_TRANSLATE_NOOP("digidinar-core", ""
@@ -208,14 +196,6 @@ QT_TRANSLATE_NOOP("digidinar-core", ""
 "Reduce the number or size of uacomments."),
 QT_TRANSLATE_NOOP("digidinar-core", ""
 "Unable to bind to %s on this computer. DIGIDINAR Core is probably already running."),
-QT_TRANSLATE_NOOP("digidinar-core", ""
-"Unable to locate enough Obfuscation denominated funds for this transaction."),
-QT_TRANSLATE_NOOP("digidinar-core", ""
-"Unable to locate enough Obfuscation non-denominated funds for this "
-"transaction that are not equal 10000 DDR."),
-QT_TRANSLATE_NOOP("digidinar-core", ""
-"Unable to locate enough funds for this transaction that are not equal 10000 "
-"DDR."),
 QT_TRANSLATE_NOOP("digidinar-core", ""
 "Use separate SOCKS5 proxy to reach peers via Tor hidden services (default: "
 "%s)"),
@@ -259,7 +239,6 @@ QT_TRANSLATE_NOOP("digidinar-core", "Accept command line and JSON-RPC commands")
 QT_TRANSLATE_NOOP("digidinar-core", "Accept connections from outside (default: 1 if no -proxy or -connect)"),
 QT_TRANSLATE_NOOP("digidinar-core", "Accept public REST requests (default: %u)"),
 QT_TRANSLATE_NOOP("digidinar-core", "Add a node to connect to and attempt to keep the connection open"),
-QT_TRANSLATE_NOOP("digidinar-core", "Adding Wrapped Serials supply..."),
 QT_TRANSLATE_NOOP("digidinar-core", "Allow DNS lookups for -addnode, -seednode and -connect"),
 QT_TRANSLATE_NOOP("digidinar-core", "Always query for peer addresses via DNS lookup (default: %u)"),
 QT_TRANSLATE_NOOP("digidinar-core", "Append comment to the user agent string"),
@@ -267,25 +246,19 @@ QT_TRANSLATE_NOOP("digidinar-core", "Attempt to force blockchain corruption reco
 QT_TRANSLATE_NOOP("digidinar-core", "Attempt to recover private keys from a corrupt wallet.dat"),
 QT_TRANSLATE_NOOP("digidinar-core", "Automatically create Tor hidden service (default: %d)"),
 QT_TRANSLATE_NOOP("digidinar-core", "Block creation options:"),
-QT_TRANSLATE_NOOP("digidinar-core", "Calculating missing accumulators..."),
 QT_TRANSLATE_NOOP("digidinar-core", "Cannot create public spend input"),
 QT_TRANSLATE_NOOP("digidinar-core", "Cannot downgrade wallet"),
-QT_TRANSLATE_NOOP("digidinar-core", "Cannot resolve -bind address: '%s'"),
-QT_TRANSLATE_NOOP("digidinar-core", "Cannot resolve -externalip address: '%s'"),
-QT_TRANSLATE_NOOP("digidinar-core", "Cannot resolve -whitebind address: '%s'"),
-QT_TRANSLATE_NOOP("digidinar-core", "Cannot write default address"),
-QT_TRANSLATE_NOOP("digidinar-core", "CoinSpend: Accumulator witness does not verify"),
-QT_TRANSLATE_NOOP("digidinar-core", "CoinSpend: failed check"),
+QT_TRANSLATE_NOOP("digidinar-core", "Cannot resolve -%s address: '%s'"),
+QT_TRANSLATE_NOOP("digidinar-core", "Cannot upgrade to HD wallet (already running HD support). Version: %d"),
 QT_TRANSLATE_NOOP("digidinar-core", "Connect only to the specified node(s)"),
 QT_TRANSLATE_NOOP("digidinar-core", "Connect through SOCKS5 proxy"),
 QT_TRANSLATE_NOOP("digidinar-core", "Connect to a node to retrieve peer addresses, and disconnect"),
 QT_TRANSLATE_NOOP("digidinar-core", "Connection options:"),
 QT_TRANSLATE_NOOP("digidinar-core", "Copyright (C) 2009-%i The Bitcoin Core Developers"),
 QT_TRANSLATE_NOOP("digidinar-core", "Copyright (C) 2014-%i The Dash Core Developers"),
-QT_TRANSLATE_NOOP("digidinar-core", "Copyright (C) 2015-%i The PIVX Core Developers"),
+QT_TRANSLATE_NOOP("digidinar-core", "Copyright (C) 2015-%i The DIVX Core Developers"),
 QT_TRANSLATE_NOOP("digidinar-core", "Corrupted block database detected"),
 QT_TRANSLATE_NOOP("digidinar-core", "Could not parse masternode.conf"),
-QT_TRANSLATE_NOOP("digidinar-core", "Couldn't generate the accumulator witness"),
 QT_TRANSLATE_NOOP("digidinar-core", "Debugging/Testing options:"),
 QT_TRANSLATE_NOOP("digidinar-core", "Delete blockchain folders and resync from scratch"),
 QT_TRANSLATE_NOOP("digidinar-core", "Disable OS notifications for incoming transactions (default: %u)"),
@@ -296,8 +269,6 @@ QT_TRANSLATE_NOOP("digidinar-core", "Display verbose coin stake messages in the 
 QT_TRANSLATE_NOOP("digidinar-core", "Do not load the wallet and disable wallet RPC calls"),
 QT_TRANSLATE_NOOP("digidinar-core", "Do you want to rebuild the block database now?"),
 QT_TRANSLATE_NOOP("digidinar-core", "Done loading"),
-QT_TRANSLATE_NOOP("digidinar-core", "Enable automatic Zerocoin minting (0-1, default: %u)"),
-QT_TRANSLATE_NOOP("digidinar-core", "Enable precomputation of zDDR spends and stakes (0-1, default %u)"),
 QT_TRANSLATE_NOOP("digidinar-core", "Enable publish hash block in <address>"),
 QT_TRANSLATE_NOOP("digidinar-core", "Enable publish hash transaction (locked via SwiftX) in <address>"),
 QT_TRANSLATE_NOOP("digidinar-core", "Enable publish hash transaction in <address>"),
@@ -314,17 +285,15 @@ QT_TRANSLATE_NOOP("digidinar-core", "Error loading wallet.dat: Wallet corrupted"
 QT_TRANSLATE_NOOP("digidinar-core", "Error loading wallet.dat: Wallet requires newer version of DIGIDINAR Core"),
 QT_TRANSLATE_NOOP("digidinar-core", "Error opening block database"),
 QT_TRANSLATE_NOOP("digidinar-core", "Error reading from database, shutting down."),
-QT_TRANSLATE_NOOP("digidinar-core", "Error recovering public key."),
 QT_TRANSLATE_NOOP("digidinar-core", "Error writing zerocoinDB to disk"),
 QT_TRANSLATE_NOOP("digidinar-core", "Error"),
+QT_TRANSLATE_NOOP("digidinar-core", "Error: "),
 QT_TRANSLATE_NOOP("digidinar-core", "Error: A fatal internal error occured, see debug.log for details"),
 QT_TRANSLATE_NOOP("digidinar-core", "Error: A fatal internal error occurred, see debug.log for details"),
 QT_TRANSLATE_NOOP("digidinar-core", "Error: Disk space is low!"),
 QT_TRANSLATE_NOOP("digidinar-core", "Error: No valid utxo!"),
 QT_TRANSLATE_NOOP("digidinar-core", "Error: Unsupported argument -tor found, use -onion."),
 QT_TRANSLATE_NOOP("digidinar-core", "Error: Wallet locked, unable to create transaction!"),
-QT_TRANSLATE_NOOP("digidinar-core", "Failed to calculate accumulator checkpoint"),
-QT_TRANSLATE_NOOP("digidinar-core", "Failed to create mint"),
 QT_TRANSLATE_NOOP("digidinar-core", "Failed to find Zerocoins in wallet.dat"),
 QT_TRANSLATE_NOOP("digidinar-core", "Failed to listen on any port. Use -listen=0 if you want this."),
 QT_TRANSLATE_NOOP("digidinar-core", "Failed to parse host:port string"),
@@ -347,49 +316,46 @@ QT_TRANSLATE_NOOP("digidinar-core", "Initialization sanity check failed. DIGIDIN
 QT_TRANSLATE_NOOP("digidinar-core", "Insufficient funds"),
 QT_TRANSLATE_NOOP("digidinar-core", "Insufficient funds."),
 QT_TRANSLATE_NOOP("digidinar-core", "Invalid -onion address or hostname: '%s'"),
-QT_TRANSLATE_NOOP("digidinar-core", "Invalid amount for -maxtxfee=<amount>: '%s'"),
-QT_TRANSLATE_NOOP("digidinar-core", "Invalid amount for -minrelaytxfee=<amount>: '%s'"),
-QT_TRANSLATE_NOOP("digidinar-core", "Invalid amount for -mintxfee=<amount>: '%s'"),
+QT_TRANSLATE_NOOP("digidinar-core", "Invalid amount for -%s=<amount>: '%s'"),
 QT_TRANSLATE_NOOP("digidinar-core", "Invalid amount for -paytxfee=<amount>: '%s' (must be at least %s)"),
-QT_TRANSLATE_NOOP("digidinar-core", "Invalid amount for -paytxfee=<amount>: '%s'"),
-QT_TRANSLATE_NOOP("digidinar-core", "Invalid amount for -reservebalance=<amount>"),
 QT_TRANSLATE_NOOP("digidinar-core", "Invalid amount"),
 QT_TRANSLATE_NOOP("digidinar-core", "Invalid masternodeprivkey. Please see documenation."),
 QT_TRANSLATE_NOOP("digidinar-core", "Invalid netmask specified in -whitelist: '%s'"),
 QT_TRANSLATE_NOOP("digidinar-core", "Invalid port detected in masternode.conf"),
-QT_TRANSLATE_NOOP("digidinar-core", "Invalid private key."),
 QT_TRANSLATE_NOOP("digidinar-core", "Keep at most <n> unconnectable transactions in memory (default: %u)"),
 QT_TRANSLATE_NOOP("digidinar-core", "Limit size of signature cache to <n> entries (default: %u)"),
 QT_TRANSLATE_NOOP("digidinar-core", "Line: %d"),
 QT_TRANSLATE_NOOP("digidinar-core", "Listen for JSON-RPC connections on <port> (default: %u or testnet: %u)"),
 QT_TRANSLATE_NOOP("digidinar-core", "Listen for connections on <port> (default: %u or testnet: %u)"),
 QT_TRANSLATE_NOOP("digidinar-core", "Loading addresses..."),
+QT_TRANSLATE_NOOP("digidinar-core", "Loading banlist..."),
 QT_TRANSLATE_NOOP("digidinar-core", "Loading block index..."),
 QT_TRANSLATE_NOOP("digidinar-core", "Loading budget cache..."),
 QT_TRANSLATE_NOOP("digidinar-core", "Loading masternode cache..."),
 QT_TRANSLATE_NOOP("digidinar-core", "Loading masternode payment cache..."),
 QT_TRANSLATE_NOOP("digidinar-core", "Loading sporks..."),
-QT_TRANSLATE_NOOP("digidinar-core", "Loading wallet... (%3.2f %%)"),
 QT_TRANSLATE_NOOP("digidinar-core", "Loading wallet..."),
 QT_TRANSLATE_NOOP("digidinar-core", "Location of the auth cookie (default: data dir)"),
 QT_TRANSLATE_NOOP("digidinar-core", "Lock masternodes from masternode configuration file (default: %u)"),
 QT_TRANSLATE_NOOP("digidinar-core", "Lookup(): Invalid -proxy address or hostname: '%s'"),
+QT_TRANSLATE_NOOP("digidinar-core", "MNs synchronization pending..."),
 QT_TRANSLATE_NOOP("digidinar-core", "Maintain at most <n> connections to peers (default: %u)"),
 QT_TRANSLATE_NOOP("digidinar-core", "Masternode options:"),
 QT_TRANSLATE_NOOP("digidinar-core", "Maximum per-connection receive buffer, <n>*1000 bytes (default: %u)"),
 QT_TRANSLATE_NOOP("digidinar-core", "Maximum per-connection send buffer, <n>*1000 bytes (default: %u)"),
 QT_TRANSLATE_NOOP("digidinar-core", "Mint did not make it into blockchain"),
-QT_TRANSLATE_NOOP("digidinar-core", "Need address because change is not exact"),
+QT_TRANSLATE_NOOP("digidinar-core", "Need destination or change address because change is not exact"),
 QT_TRANSLATE_NOOP("digidinar-core", "Need to specify a port with -whitebind: '%s'"),
 QT_TRANSLATE_NOOP("digidinar-core", "Node relay options:"),
 QT_TRANSLATE_NOOP("digidinar-core", "Not enough file descriptors available."),
 QT_TRANSLATE_NOOP("digidinar-core", "Number of automatic wallet backups (default: 10)"),
 QT_TRANSLATE_NOOP("digidinar-core", "Number of custom location backups to retain (default: %d)"),
+QT_TRANSLATE_NOOP("digidinar-core", "On first run, create a legacy wallet instead of a HD wallet"),
 QT_TRANSLATE_NOOP("digidinar-core", "Only accept block chain matching built-in checkpoints (default: %u)"),
 QT_TRANSLATE_NOOP("digidinar-core", "Only connect to nodes in network <net> (ipv4, ipv6 or onion)"),
 QT_TRANSLATE_NOOP("digidinar-core", "Options:"),
 QT_TRANSLATE_NOOP("digidinar-core", "Password for JSON-RPC connections"),
-QT_TRANSLATE_NOOP("digidinar-core", "Percentage of automatically minted Zerocoin  (1-100, default: %u)"),
+QT_TRANSLATE_NOOP("digidinar-core", "Peers are being disconnected due time differences."),
 QT_TRANSLATE_NOOP("digidinar-core", "Preparing for resync..."),
 QT_TRANSLATE_NOOP("digidinar-core", "Prepend debug output with timestamp (default: %u)"),
 QT_TRANSLATE_NOOP("digidinar-core", "Print version and exit"),
@@ -399,11 +365,7 @@ QT_TRANSLATE_NOOP("digidinar-core", "Randomly drop 1 of every <n> network messag
 QT_TRANSLATE_NOOP("digidinar-core", "Randomly fuzz 1 of every <n> network messages"),
 QT_TRANSLATE_NOOP("digidinar-core", "Rebuild block chain index from current blk000??.dat files"),
 QT_TRANSLATE_NOOP("digidinar-core", "Recalculating DDR supply..."),
-QT_TRANSLATE_NOOP("digidinar-core", "Recalculating minted ZDDR..."),
-QT_TRANSLATE_NOOP("digidinar-core", "Recalculating spent ZDDR..."),
-QT_TRANSLATE_NOOP("digidinar-core", "Receive and display P2P network alerts (default: %u)"),
 QT_TRANSLATE_NOOP("digidinar-core", "Reindex the DDR and zDDR money supply statistics"),
-QT_TRANSLATE_NOOP("digidinar-core", "Reindex the accumulator database"),
 QT_TRANSLATE_NOOP("digidinar-core", "Reindexing zerocoin database..."),
 QT_TRANSLATE_NOOP("digidinar-core", "Reindexing zerocoin failed"),
 QT_TRANSLATE_NOOP("digidinar-core", "Relay and mine data carrier transactions (default: %u)"),
@@ -416,7 +378,6 @@ QT_TRANSLATE_NOOP("digidinar-core", "Run a thread to flush wallet periodically (
 QT_TRANSLATE_NOOP("digidinar-core", "Run in the background as a daemon and accept commands"),
 QT_TRANSLATE_NOOP("digidinar-core", "Selected coins value is less than payment target"),
 QT_TRANSLATE_NOOP("digidinar-core", "Send transactions as zero-fee transactions if possible (default: %u)"),
-QT_TRANSLATE_NOOP("digidinar-core", "Session timed out."),
 QT_TRANSLATE_NOOP("digidinar-core", "Set database cache size in megabytes (%d to %d, default: %d)"),
 QT_TRANSLATE_NOOP("digidinar-core", "Set external address:port to get to this masternode (example: %s)"),
 QT_TRANSLATE_NOOP("digidinar-core", "Set key pool size to <n> (default: %u)"),
@@ -428,8 +389,6 @@ QT_TRANSLATE_NOOP("digidinar-core", "Set the number of threads to service RPC ca
 QT_TRANSLATE_NOOP("digidinar-core", "Sets the DB_PRIVATE flag in the wallet db environment (default: %u)"),
 QT_TRANSLATE_NOOP("digidinar-core", "Show all debugging options (usage: --help -help-debug)"),
 QT_TRANSLATE_NOOP("digidinar-core", "Shrink debug.log file on client startup (default: 1 when no -debug)"),
-QT_TRANSLATE_NOOP("digidinar-core", "Signing failed."),
-QT_TRANSLATE_NOOP("digidinar-core", "Signing timed out."),
 QT_TRANSLATE_NOOP("digidinar-core", "Signing transaction failed"),
 QT_TRANSLATE_NOOP("digidinar-core", "Specify configuration file (default: %s)"),
 QT_TRANSLATE_NOOP("digidinar-core", "Specify connection timeout in milliseconds (minimum: 1, default: %d)"),
@@ -442,18 +401,14 @@ QT_TRANSLATE_NOOP("digidinar-core", "Spend Valid"),
 QT_TRANSLATE_NOOP("digidinar-core", "Spend unconfirmed change when sending transactions (default: %u)"),
 QT_TRANSLATE_NOOP("digidinar-core", "Staking options:"),
 QT_TRANSLATE_NOOP("digidinar-core", "Stop running after importing blocks from disk (default: %u)"),
-QT_TRANSLATE_NOOP("digidinar-core", "Support the zerocoin light node protocol (default: %u)"),
 QT_TRANSLATE_NOOP("digidinar-core", "SwiftX options:"),
 QT_TRANSLATE_NOOP("digidinar-core", "Synchronization failed"),
 QT_TRANSLATE_NOOP("digidinar-core", "Synchronization finished"),
-QT_TRANSLATE_NOOP("digidinar-core", "Synchronization pending..."),
 QT_TRANSLATE_NOOP("digidinar-core", "Synchronizing budgets..."),
 QT_TRANSLATE_NOOP("digidinar-core", "Synchronizing masternode winners..."),
 QT_TRANSLATE_NOOP("digidinar-core", "Synchronizing masternodes..."),
 QT_TRANSLATE_NOOP("digidinar-core", "Synchronizing sporks..."),
 QT_TRANSLATE_NOOP("digidinar-core", "Syncing zDDR wallet..."),
-QT_TRANSLATE_NOOP("digidinar-core", "The coin spend has been used"),
-QT_TRANSLATE_NOOP("digidinar-core", "The transaction did not verify"),
 QT_TRANSLATE_NOOP("digidinar-core", "This help message"),
 QT_TRANSLATE_NOOP("digidinar-core", "This is experimental software."),
 QT_TRANSLATE_NOOP("digidinar-core", "This is intended for regression testing tools and app development."),
@@ -471,9 +426,12 @@ QT_TRANSLATE_NOOP("digidinar-core", "Trying to spend an already spent serial #, 
 QT_TRANSLATE_NOOP("digidinar-core", "Unable to bind to %s on this computer (bind returned error %s)"),
 QT_TRANSLATE_NOOP("digidinar-core", "Unable to find transaction containing mint %s"),
 QT_TRANSLATE_NOOP("digidinar-core", "Unable to find transaction containing mint, txHash: %s"),
+QT_TRANSLATE_NOOP("digidinar-core", "Unable to generate initial key"),
+QT_TRANSLATE_NOOP("digidinar-core", "Unable to generate keys"),
 QT_TRANSLATE_NOOP("digidinar-core", "Unable to sign spork message, wrong key?"),
 QT_TRANSLATE_NOOP("digidinar-core", "Unable to start HTTP server. See debug log for details."),
 QT_TRANSLATE_NOOP("digidinar-core", "Unknown network specified in -onlynet: '%s'"),
+QT_TRANSLATE_NOOP("digidinar-core", "Unsupported logging category %s=%s."),
 QT_TRANSLATE_NOOP("digidinar-core", "Upgrade wallet to latest format"),
 QT_TRANSLATE_NOOP("digidinar-core", "Use UPnP to map the listening port (default: %u)"),
 QT_TRANSLATE_NOOP("digidinar-core", "Use UPnP to map the listening port (default: 1 when listening)"),
@@ -497,8 +455,8 @@ QT_TRANSLATE_NOOP("digidinar-core", "You don't have enough Zerocoins in your wal
 QT_TRANSLATE_NOOP("digidinar-core", "You need to rebuild the database using -reindex to change -txindex"),
 QT_TRANSLATE_NOOP("digidinar-core", "Zapping all transactions from wallet..."),
 QT_TRANSLATE_NOOP("digidinar-core", "ZeroMQ notification options:"),
+QT_TRANSLATE_NOOP("digidinar-core", "Zerocoin minting available only on regtest"),
 QT_TRANSLATE_NOOP("digidinar-core", "Zerocoin options:"),
-QT_TRANSLATE_NOOP("digidinar-core", "could not get lock on cs_spendcache"),
 QT_TRANSLATE_NOOP("digidinar-core", "isValid(): Invalid -proxy address or hostname: '%s'"),
 QT_TRANSLATE_NOOP("digidinar-core", "on startup"),
 QT_TRANSLATE_NOOP("digidinar-core", "wallet.dat corrupt, salvage failed"),

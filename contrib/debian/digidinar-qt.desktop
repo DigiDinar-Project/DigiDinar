@@ -10,4 +10,4 @@ Type=Application
 Icon=digidinar128
 MimeType=x-scheme-handler/digidinar;
 Categories=Office;Finance;
-StartupWMClass=DigiDinar-qt
+StartupWMClass=Digidinar-qt

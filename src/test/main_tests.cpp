@@ -1,6 +1,6 @@
 // Copyright (c) 2014 The Bitcoin Core developers
 // Copyright (c) 2014-2015 The Dash developers
-// Copyright (c) 2015-2017 The DIGIDINAR developers
+// Copyright (c) 2015-2020 The DIVX developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -42,7 +42,7 @@ BOOST_AUTO_TEST_CASE(subsidy_limit_test)
         /* PoW Phase Two */
         CAmount nSubsidy = GetBlockValue(nHeight);
         BOOST_CHECK(nSubsidy <= 45 * COIN);
-        BOOST_CHECK(MoneyRange(nSubsidy));
+        BOOST_CHECK(Params().GetConsensus().MoneyRange(nSubsidy));
         nSum += nSubsidy;
         BOOST_CHECK(nSum > 0 && nSum <= nMoneySupplyPoWEnd);
     }

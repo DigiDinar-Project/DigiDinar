@@ -1,0 +1,15 @@
+QT_TS = \
+  qt/locale/digidinar_de.ts \
+  qt/locale/digidinar_en.ts \
+  qt/locale/digidinar_en_US.ts \
+  qt/locale/digidinar_es.ts \
+  qt/locale/digidinar_es_ES.ts \
+  qt/locale/digidinar_fr_FR.ts \
+  qt/locale/digidinar_hr_HR.ts \
+  qt/locale/digidinar_it.ts \
+  qt/locale/digidinar_ko_KR.ts \
+  qt/locale/digidinar_nl.ts \
+  qt/locale/digidinar_pl.ts \
+  qt/locale/digidinar_ru.ts \
+  qt/locale/digidinar_tr.ts \
+  qt/locale/digidinar_zh_CN.ts

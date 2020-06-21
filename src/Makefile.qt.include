@@ -6,121 +6,160 @@ bin_PROGRAMS += qt/digidinar-qt
 EXTRA_LIBRARIES += qt/libbitcoinqt.a
 
 # digidinar qt core #
-QT_TS = \
-  qt/locale/digidinar_bg.ts \
-  qt/locale/digidinar_ca.ts \
-  qt/locale/digidinar_cs.ts \
-  qt/locale/digidinar_da.ts \
-  qt/locale/digidinar_de.ts \
-  qt/locale/digidinar_en.ts \
-  qt/locale/digidinar_en_GB.ts \
-  qt/locale/digidinar_en_US.ts \
-  qt/locale/digidinar_eo.ts \
-  qt/locale/digidinar_es.ts \
-  qt/locale/digidinar_es_ES.ts \
-  qt/locale/digidinar_fi.ts \
-  qt/locale/digidinar_fr_FR.ts \
-  qt/locale/digidinar_hi_IN.ts \
-  qt/locale/digidinar_hr.ts \
-  qt/locale/digidinar_hr_HR.ts \
-  qt/locale/digidinar_it.ts \
-  qt/locale/digidinar_ja.ts \
-  qt/locale/digidinar_ko_KR.ts \
-  qt/locale/digidinar_lt_LT.ts \
-  qt/locale/digidinar_nl.ts \
-  qt/locale/digidinar_pl.ts \
-  qt/locale/digidinar_pt.ts \
-  qt/locale/digidinar_pt_BR.ts \
-  qt/locale/digidinar_ro_RO.ts \
-  qt/locale/digidinar_ru.ts \
-  qt/locale/digidinar_sk.ts \
-  qt/locale/digidinar_sv.ts \
-  qt/locale/digidinar_tr.ts \
-  qt/locale/digidinar_uk.ts \
-  qt/locale/digidinar_vi.ts \
-  qt/locale/digidinar_zh_CN.ts \
-  qt/locale/digidinar_zh_TW.ts
+include Makefile.qt_locale.include
 
 QT_FORMS_UI = \
   qt/forms/addressbookpage.ui \
   qt/forms/askpassphrasedialog.ui \
-  qt/forms/bip38tooldialog.ui \
   qt/forms/coincontroldialog.ui \
-  qt/forms/blockexplorer.ui \
   qt/forms/editaddressdialog.ui \
-  qt/forms/governancepage.ui \
   qt/forms/helpmessagedialog.ui \
   qt/forms/intro.ui \
-  qt/forms/masternodelist.ui \
-  qt/forms/multisenddialog.ui \
-  qt/forms/multisigdialog.ui\
   qt/forms/openuridialog.ui \
   qt/forms/optionsdialog.ui \
-  qt/forms/overviewpage.ui \
-  qt/forms/receivecoinsdialog.ui \
-  qt/forms/privacydialog.ui \
-  qt/forms/receiverequestdialog.ui \
   qt/forms/rpcconsole.ui \
-  qt/forms/sendcoinsdialog.ui \
-  qt/forms/sendcoinsentry.ui \
-  qt/forms/signverifymessagedialog.ui \
-  qt/forms/transactiondescdialog.ui \
-  qt/forms/zddrcontroldialog.ui
+  qt/digidinar/forms/loadingdialog.ui \
+  qt/forms/zddrcontroldialog.ui \
+  qt/digidinar/forms/snackbar.ui \
+  qt/digidinar/forms/navmenuwidget.ui \
+  qt/digidinar/forms/lockunlock.ui \
+  qt/digidinar/forms/expandablebutton.ui \
+  qt/digidinar/forms/receivedialog.ui \
+  qt/digidinar/forms/topbar.ui \
+  qt/digidinar/forms/txrow.ui \
+  qt/digidinar/forms/dashboardwidget.ui \
+  qt/digidinar/forms/addresslabelrow.ui \
+  qt/digidinar/forms/contactdropdownrow.ui \
+  qt/digidinar/forms/mninfodialog.ui \
+  qt/digidinar/forms/optionbutton.ui \
+  qt/digidinar/forms/masternodewizarddialog.ui \
+  qt/digidinar/forms/mnrow.ui \
+  qt/digidinar/forms/masternodeswidget.ui \
+  qt/digidinar/forms/myaddressrow.ui \
+  qt/digidinar/forms/csrow.ui \
+  qt/digidinar/forms/sendchangeaddressdialog.ui \
+  qt/digidinar/forms/sendconfirmdialog.ui \
+  qt/digidinar/forms/sendcustomfeedialog.ui \
+  qt/digidinar/forms/sendchangeaddressdialog.ui \
+  qt/digidinar/forms/sendmultirow.ui \
+  qt/digidinar/forms/send.ui \
+  qt/digidinar/forms/addnewaddressdialog.ui \
+  qt/digidinar/forms/addnewcontactdialog.ui \
+  qt/digidinar/forms/requestdialog.ui \
+  qt/digidinar/forms/receivewidget.ui \
+  qt/digidinar/forms/tooltipmenu.ui \
+  qt/digidinar/forms/addresseswidget.ui \
+  qt/digidinar/forms/defaultdialog.ui \
+  qt/digidinar/forms/privacywidget.ui \
+  qt/digidinar/forms/coldstakingwidget.ui \
+  qt/digidinar/settings/forms/settingsbackupwallet.ui \
+  qt/digidinar/settings/forms/settingsexportcsv.ui \
+  qt/digidinar/settings/forms/settingsbittoolwidget.ui \
+  qt/digidinar/settings/forms/settingsconsolewidget.ui \
+  qt/digidinar/settings/forms/settingsdisplayoptionswidget.ui \
+  qt/digidinar/settings/forms/settingsfaqwidget.ui \
+  qt/digidinar/settings/forms/settingsinformationwidget.ui \
+  qt/digidinar/settings/forms/settingsmainoptionswidget.ui \
+  qt/digidinar/settings/forms/settingsmultisenddialog.ui \
+  qt/digidinar/settings/forms/settingsmultisendwidget.ui \
+  qt/digidinar/settings/forms/settingssignmessagewidgets.ui \
+  qt/digidinar/settings/forms/settingswalletoptionswidget.ui \
+  qt/digidinar/settings/forms/settingswalletrepairwidget.ui \
+  qt/digidinar/settings/forms/settingswidget.ui \
+  qt/digidinar/forms/welcomecontentwidget.ui \
+  qt/digidinar/forms/splash.ui
 
 QT_MOC_CPP = \
   qt/moc_addressbookpage.cpp \
   qt/moc_addresstablemodel.cpp \
   qt/moc_askpassphrasedialog.cpp \
   qt/moc_bantablemodel.cpp \
-  qt/moc_bip38tooldialog.cpp \
   qt/moc_bitcoinaddressvalidator.cpp \
   qt/moc_bitcoinamountfield.cpp \
-  qt/moc_bitcoingui.cpp \
+  qt/digidinar/moc_digidinargui.cpp \
   qt/moc_bitcoinunits.cpp \
-  qt/moc_blockexplorer.cpp \
   qt/moc_clientmodel.cpp \
   qt/moc_coincontroldialog.cpp \
   qt/moc_coincontroltreewidget.cpp \
   qt/moc_csvmodelwriter.cpp \
   qt/moc_editaddressdialog.cpp \
-  qt/moc_governancepage.cpp \
   qt/moc_guiutil.cpp \
   qt/moc_intro.cpp \
   qt/moc_macdockiconhandler.cpp \
   qt/moc_macnotificationhandler.cpp \
-  qt/moc_masternodelist.cpp \
-  qt/moc_multisenddialog.cpp \
-  qt/moc_multisigdialog.cpp\
   qt/moc_notificator.cpp \
   qt/moc_openuridialog.cpp \
   qt/moc_optionsdialog.cpp \
   qt/moc_optionsmodel.cpp \
-  qt/moc_overviewpage.cpp \
   qt/moc_peertablemodel.cpp \
   qt/moc_paymentserver.cpp \
   qt/moc_qvalidatedlineedit.cpp \
   qt/moc_qvaluecombobox.cpp \
-  qt/moc_receivecoinsdialog.cpp \
-  qt/moc_privacydialog.cpp \
-  qt/moc_proposalframe.cpp \
-  qt/moc_receiverequestdialog.cpp \
   qt/moc_recentrequeststablemodel.cpp \
   qt/moc_rpcconsole.cpp \
-  qt/moc_sendcoinsdialog.cpp \
-  qt/moc_sendcoinsentry.cpp \
-  qt/moc_signverifymessagedialog.cpp \
   qt/moc_splashscreen.cpp \
   qt/moc_trafficgraphwidget.cpp \
   qt/moc_transactiondesc.cpp \
-  qt/moc_transactiondescdialog.cpp \
   qt/moc_transactionfilterproxy.cpp \
   qt/moc_transactiontablemodel.cpp \
-  qt/moc_transactionview.cpp \
   qt/moc_utilitydialog.cpp \
-  qt/moc_walletframe.cpp \
   qt/moc_walletmodel.cpp \
-  qt/moc_walletview.cpp \
-  qt/moc_zddrcontroldialog.cpp
+  qt/digidinar/moc_loadingdialog.cpp \
+  qt/moc_zddrcontroldialog.cpp \
+  qt/digidinar/moc_pwidget.cpp \
+  qt/digidinar/moc_snackbar.cpp \
+  qt/digidinar/moc_navmenuwidget.cpp \
+  qt/digidinar/moc_lockunlock.cpp \
+  qt/digidinar/moc_expandablebutton.cpp \
+  qt/digidinar/moc_furabstractlistitemdelegate.cpp \
+  qt/digidinar/moc_receivedialog.cpp \
+  qt/digidinar/moc_pfborderimage.cpp \
+  qt/digidinar/moc_topbar.cpp \
+  qt/digidinar/moc_txrow.cpp \
+  qt/digidinar/moc_dashboardwidget.cpp \
+  qt/digidinar/moc_addresslabelrow.cpp \
+  qt/digidinar/moc_contactdropdownrow.cpp \
+  qt/digidinar/moc_mninfodialog.cpp \
+  qt/digidinar/moc_optionbutton.cpp \
+  qt/digidinar/moc_coldstakingmodel.cpp \
+  qt/digidinar/moc_mnmodel.cpp \
+  qt/digidinar/moc_masternodewizarddialog.cpp \
+  qt/digidinar/moc_mnrow.cpp \
+  qt/digidinar/moc_masternodeswidget.cpp \
+  qt/digidinar/moc_myaddressrow.cpp \
+  qt/digidinar/moc_csrow.cpp \
+  qt/digidinar/moc_contactsdropdown.cpp \
+  qt/digidinar/moc_sendchangeaddressdialog.cpp \
+  qt/digidinar/moc_sendconfirmdialog.cpp \
+  qt/digidinar/moc_sendcustomfeedialog.cpp \
+  qt/digidinar/moc_sendchangeaddressdialog.cpp \
+  qt/digidinar/moc_sendmultirow.cpp \
+  qt/digidinar/moc_send.cpp \
+  qt/digidinar/moc_addnewaddressdialog.cpp \
+  qt/digidinar/moc_addnewcontactdialog.cpp \
+  qt/digidinar/moc_requestdialog.cpp \
+  qt/digidinar/moc_receivewidget.cpp \
+  qt/digidinar/moc_tooltipmenu.cpp \
+  qt/digidinar/moc_addresseswidget.cpp \
+  qt/digidinar/moc_defaultdialog.cpp \
+  qt/digidinar/moc_privacywidget.cpp \
+  qt/digidinar/moc_coldstakingwidget.cpp \
+  qt/digidinar/settings/moc_settingsbackupwallet.cpp \
+  qt/digidinar/settings/moc_settingsexportcsv.cpp \
+  qt/digidinar/settings/moc_settingsbittoolwidget.cpp \
+  qt/digidinar/settings/moc_settingsconsolewidget.cpp \
+  qt/digidinar/settings/moc_settingsdisplayoptionswidget.cpp \
+  qt/digidinar/settings/moc_settingsfaqwidget.cpp \
+  qt/digidinar/settings/moc_settingsinformationwidget.cpp \
+  qt/digidinar/settings/moc_settingsmainoptionswidget.cpp \
+  qt/digidinar/settings/moc_settingsmultisenddialog.cpp \
+  qt/digidinar/settings/moc_settingsmultisendwidget.cpp \
+  qt/digidinar/settings/moc_settingssignmessagewidgets.cpp \
+  qt/digidinar/settings/moc_settingswalletoptionswidget.cpp \
+  qt/digidinar/settings/moc_settingswalletrepairwidget.cpp \
+  qt/digidinar/settings/moc_settingswidget.cpp \
+  qt/digidinar/moc_welcomecontentwidget.cpp \
+  qt/digidinar/moc_splash.cpp
 
 BITCOIN_MM = \
   qt/macdockiconhandler.mm \
@@ -130,8 +169,8 @@ QT_MOC = \
   qt/digidinar.moc \
   qt/bitcoinamountfield.moc \
   qt/intro.moc \
-  qt/overviewpage.moc \
-  qt/rpcconsole.moc
+  qt/rpcconsole.moc \
+  qt/digidinar/settings/moc_settingsconsolewidget.cpp
 
 QT_QRC_CPP = qt/qrc_digidinar.cpp
 QT_QRC = qt/digidinar.qrc
@@ -147,68 +186,110 @@ BITCOIN_QT_H = \
   qt/addresstablemodel.h \
   qt/askpassphrasedialog.h \
   qt/bantablemodel.h \
-  qt/bip38tooldialog.h \
   qt/bitcoinaddressvalidator.h \
   qt/bitcoinamountfield.h \
-  qt/bitcoingui.h \
+  qt/digidinar/digidinargui.h \
   qt/bitcoinunits.h \
-  qt/blockexplorer.h \
   qt/clientmodel.h \
   qt/coincontroldialog.h \
   qt/coincontroltreewidget.h \
   qt/csvmodelwriter.h \
   qt/editaddressdialog.h \
-  qt/governancepage.h \
   qt/guiconstants.h \
   qt/guiutil.h \
   qt/intro.h \
   qt/macdockiconhandler.h \
   qt/macnotificationhandler.h \
-  qt/masternodelist.h \
-  qt/multisenddialog.h \
-  qt/multisigdialog.h\
   qt/networkstyle.h \
   qt/notificator.h \
   qt/openuridialog.h \
   qt/optionsdialog.h \
   qt/optionsmodel.h \
-  qt/overviewpage.h \
   qt/paymentrequestplus.h \
   qt/paymentserver.h \
   qt/peertablemodel.h \
   qt/platformstyle.h \
-  qt/proposalframe.h \
   qt/qvalidatedlineedit.h \
   qt/qvaluecombobox.h \
-  qt/receivecoinsdialog.h \
-  qt/privacydialog.h \
-  qt/receiverequestdialog.h \
   qt/recentrequeststablemodel.h \
   qt/rpcconsole.h \
-  qt/sendcoinsdialog.h \
-  qt/sendcoinsentry.h \
-  qt/signverifymessagedialog.h \
   qt/splashscreen.h \
   qt/trafficgraphwidget.h \
   qt/transactiondesc.h \
-  qt/transactiondescdialog.h \
   qt/transactionfilterproxy.h \
   qt/transactionrecord.h \
   qt/transactiontablemodel.h \
-  qt/transactionview.h \
   qt/utilitydialog.h \
-  qt/walletframe.h \
   qt/walletmodel.h \
   qt/walletmodeltransaction.h \
-  qt/walletview.h \
+  qt/digidinar/prunnable.h \
+  qt/digidinar/pfborderimage.h \
+  qt/digidinar/loadingdialog.h \
   qt/winshutdownmonitor.h \
-  qt/zddrcontroldialog.h
+  qt/zddrcontroldialog.h \
+  qt/digidinar/pwidget.h \
+  qt/digidinar/guitransactionsutils.h \
+  qt/digidinar/snackbar.h \
+  qt/digidinar/navmenuwidget.h \
+  qt/digidinar/lockunlock.h \
+  qt/digidinar/receivedialog.h \
+  qt/digidinar/furlistrow.h \
+  qt/digidinar/furabstractlistitemdelegate.h \
+  qt/digidinar/txviewholder.h \
+  qt/digidinar/qtutils.h \
+  qt/digidinar/expandablebutton.h \
+  qt/digidinar/topbar.h \
+  qt/digidinar/txrow.h \
+  qt/digidinar/addressholder.h \
+  qt/digidinar/addressfilterproxymodel.h \
+  qt/digidinar/dashboardwidget.h \
+  qt/digidinar/addresslabelrow.h \
+  qt/digidinar/contactdropdownrow.h \
+  qt/digidinar/mninfodialog.h \
+  qt/digidinar/optionbutton.h \
+  qt/digidinar/coldstakingmodel.h \
+  qt/digidinar/mnmodel.h \
+  qt/digidinar/masternodewizarddialog.h \
+  qt/digidinar/mnrow.h \
+  qt/digidinar/masternodeswidget.h \
+  qt/digidinar/myaddressrow.h \
+  qt/digidinar/csrow.h \
+  qt/digidinar/contactsdropdown.h \
+  qt/digidinar/sendchangeaddressdialog.h \
+  qt/digidinar/sendconfirmdialog.h \
+  qt/digidinar/sendcustomfeedialog.h \
+  qt/digidinar/sendchangeaddressdialog.h \
+  qt/digidinar/sendmultirow.h \
+  qt/digidinar/send.h \
+  qt/digidinar/addnewaddressdialog.h \
+  qt/digidinar/addnewcontactdialog.h \
+  qt/digidinar/requestdialog.h \
+  qt/digidinar/receivewidget.h \
+  qt/digidinar/tooltipmenu.h \
+  qt/digidinar/addresseswidget.h \
+  qt/digidinar/defaultdialog.h \
+  qt/digidinar/privacywidget.h \
+  qt/digidinar/coldstakingwidget.h \
+  qt/digidinar/settings/settingsbackupwallet.h \
+  qt/digidinar/settings/settingsexportcsv.h \
+  qt/digidinar/settings/settingsbittoolwidget.h \
+  qt/digidinar/settings/settingsconsolewidget.h \
+  qt/digidinar/settings/settingsdisplayoptionswidget.h \
+  qt/digidinar/settings/settingsfaqwidget.h \
+  qt/digidinar/settings/settingsinformationwidget.h \
+  qt/digidinar/settings/settingsmainoptionswidget.h \
+  qt/digidinar/settings/settingsmultisenddialog.h \
+  qt/digidinar/settings/settingsmultisendwidget.h \
+  qt/digidinar/settings/settingssignmessagewidgets.h \
+  qt/digidinar/settings/settingswalletoptionswidget.h \
+  qt/digidinar/settings/settingswalletrepairwidget.h \
+  qt/digidinar/settings/settingswidget.h \
+  qt/digidinar/welcomecontentwidget.h \
+  qt/digidinar/splash.h
 
 RES_ICONS = \
   qt/res/icons/add.png \
   qt/res/icons/address-book.png \
-  qt/res/icons/automint_active.png \
-  qt/res/icons/automint_inactive.png \
   qt/res/icons/bitcoin.ico \
   qt/res/icons/bitcoin.png \
   qt/res/icons/bitcoin_testnet.ico \
@@ -264,6 +345,10 @@ RES_ICONS = \
   qt/res/icons/tx_input.png \
   qt/res/icons/tx_output.png \
   qt/res/icons/tx_mined.png \
+  qt/res/icons/ic-transaction-received.svg \
+  qt/res/icons/ic-transaction-mint.svg \
+  qt/res/icons/ic-transaction-sent.svg \
+  qt/res/icons/ic-transaction-staked.svg \
   qt/res/icons/unit_digidinar.png \
   qt/res/icons/unit_mdigidinar.png \
   qt/res/icons/unit_udigidinar.png \
@@ -272,20 +357,225 @@ RES_ICONS = \
   qt/res/icons/unit_tudigidinar.png \
   qt/res/icons/yesvote.png \
   qt/res/icons/novote.png \
-  qt/res/icons/abstainvote.png
+  qt/res/icons/abstainvote.png \
+  qt/digidinar/res/img/bg-dashboard-banner.png \
+  qt/digidinar/res/img/bg-multi-number-dark.svg \
+  qt/digidinar/res/img/ic-check-locked.svg \
+  qt/digidinar/res/img/ic-nav-address.svg \
+  qt/digidinar/res/img/ic-update.svg \
+  qt/digidinar/res/img/bg-multi-number.svg \
+  qt/digidinar/res/img/ic-check-mint-off.svg \
+  qt/digidinar/res/img/ic-nav-cold-staking.svg \
+  qt/digidinar/res/img/ic-nav-cold-staking-active.svg \
+  qt/digidinar/res/img/ic-nav-dashboard-active.svg \
+  qt/digidinar/res/img/ic-wallet-status-locked.svg \
+  qt/digidinar/res/img/bg-splash.svg \
+  qt/digidinar/res/img/bg-splash.png \
+  qt/digidinar/res/img/ic-check-mint.svg \
+  qt/digidinar/res/img/ic-nav-dashboard-hover.svg \
+  qt/digidinar/res/img/ic-wallet-status-staking.svg \
+  qt/digidinar/res/img/ic-check-peers-off.svg \
+  qt/digidinar/res/img/ic-nav-dashboard.svg \
+  qt/digidinar/res/img/ic-wallet-status-unlocked.svg \
+  qt/digidinar/res/img/ic-check-peers.svg \
+  qt/digidinar/res/img/ic-nav-master-active.svg \
+  qt/digidinar/res/img/ic-watch-password-white.svg \
+  qt/digidinar/res/img/bg-welcome-container.jpg \
+  qt/digidinar/res/img/bg-welcome-container.png \
+  qt/digidinar/res/img/bg-welcome-container.svg \
+  qt/digidinar/res/img/bg-welcome-container@2x.png \
+  qt/digidinar/res/img/bg-welcome-container@3x.png \
+  qt/digidinar/res/img/ic-check-staking-off.svg \
+  qt/digidinar/res/img/ic-nav-master-hover.svg \
+  qt/digidinar/res/img/ic-watch-password.svg \
+  qt/digidinar/res/img/bg-welcome.jpg \
+  qt/digidinar/res/img/bg-welcome.svg \
+  qt/digidinar/res/img/bg-welcome@2x.jpg \
+  qt/digidinar/res/img/bg-welcome@3x.jpg \
+  qt/digidinar/res/img/bg-welcome.png \
+  qt/digidinar/res/img/ic-check-staking.svg \
+  qt/digidinar/res/img/ic-nav-master.svg \
+  qt/digidinar/res/img/img-dashboard-banner.jpg \
+  qt/digidinar/res/img/btn-radio-active.svg \
+  qt/digidinar/res/img/ic-check-sync-off.svg \
+  qt/digidinar/res/img/ic-nav-privacy-active.svg \
+  qt/digidinar/res/img/img-empty-contacts.svg \
+  qt/digidinar/res/img/btn-radio-off.svg \
+  qt/digidinar/res/img/ic-check-sync.png \
+  qt/digidinar/res/img/ic-nav-privacy-hover.svg \
+  qt/digidinar/res/img/img-empty-dark-contacts.svg \
+  qt/digidinar/res/img/ic-contact-arrow-down.svg \
+  qt/digidinar/res/img/ic-contact-arrow-down-white.svg \
+  qt/digidinar/res/img/ic-check-sync.svg \
+  qt/digidinar/res/img/ic-check-faq.svg \
+  qt/digidinar/res/img/ic-nav-privacy.svg \
+  qt/digidinar/res/img/img-empty-dark-error.svg \
+  qt/digidinar/res/img/ic-add-label.svg \
+  qt/digidinar/res/img/ic-pending.svg \
+  qt/digidinar/res/img/ic-check-theme-dark.svg \
+  qt/digidinar/res/img/ic-nav-receive-active.svg \
+  qt/digidinar/res/img/img-empty-dark-masternode.svg \
+  qt/digidinar/res/img/ic-add-liliac.svg \
+  qt/digidinar/res/img/ic-check-theme-light.svg \
+  qt/digidinar/res/img/ic-nav-receive-hover.svg \
+  qt/digidinar/res/img/img-empty-dark-multisend.svg \
+  qt/digidinar/res/img/ic-add-purple.svg \
+  qt/digidinar/res/img/ic-check-white.svg \
+  qt/digidinar/res/img/ic-nav-receive.svg \
+  qt/digidinar/res/img/img-empty-dark-peers.svg \
+  qt/digidinar/res/img/ic-add.svg \
+  qt/digidinar/res/img/ic-check.svg \
+  qt/digidinar/res/img/ic-nav-send-active.svg \
+  qt/digidinar/res/img/img-empty-dark-staking-off.svg \
+  qt/digidinar/res/img/img-empty-dark-staking-on.svg \
+  qt/digidinar/res/img/ic-address-book-grey.svg \
+  qt/digidinar/res/img/ic-chevron-left.svg \
+  qt/digidinar/res/img/ic-nav-send-hover.svg \
+  qt/digidinar/res/img/img-empty-dark-transactions.svg \
+  qt/digidinar/res/img/ic-address-book-white.svg \
+  qt/digidinar/res/img/ic-chevron-right.svg \
+  qt/digidinar/res/img/ic-nav-send.svg \
+  qt/digidinar/res/img/img-empty-error.svg \
+  qt/digidinar/res/img/ic-address-book.svg \
+  qt/digidinar/res/img/ic-clear-liliac.svg \
+  qt/digidinar/res/img/ic-nav-settings-active.svg \
+  qt/digidinar/res/img/img-empty-masternode.svg \
+  qt/digidinar/res/img/ic-address-send-white.svg \
+  qt/digidinar/res/img/ic-clear-purple.svg \
+  qt/digidinar/res/img/ic-nav-settings-hover.svg \
+  qt/digidinar/res/img/img-empty-multisend.svg \
+  qt/digidinar/res/img/ic-address-send.svg \
+  qt/digidinar/res/img/ic-close-white.svg \
+  qt/digidinar/res/img/ic-nav-settings.svg \
+  qt/digidinar/res/img/img-empty-peers.svg \
+  qt/digidinar/res/img/img-empty-privacy.svg \
+  qt/digidinar/res/img/img-empty-privacy-dark.svg \
+  qt/digidinar/res/img/ic-arrow-drop-down-white.svg \
+  qt/digidinar/res/img/ic-close.svg \
+  qt/digidinar/res/img/ic-radio-liliac-on.svg \
+  qt/digidinar/res/img/img-empty-staking-off.svg \
+  qt/digidinar/res/img/ic-arrow-drop-down.svg \
+  qt/digidinar/res/img/ic-coin-ddr.svg \
+  qt/digidinar/res/img/ic-receive-off.svg \
+  qt/digidinar/res/img/img-empty-staking-on.svg \
+  qt/digidinar/res/img/ic-arrow-drop-up-white.svg \
+  qt/digidinar/res/img/ic-coin-zddr.png \
+  qt/digidinar/res/img/ic-receive-on.svg \
+  qt/digidinar/res/img/img-empty-transactions.svg \
+  qt/digidinar/res/img/ic-arrow-drop-up.svg \
+  qt/digidinar/res/img/ic-coin-zddr.svg \
+  qt/digidinar/res/img/ic-received.svg \
+  qt/digidinar/res/img/img-logo-digidinar.png \
+  qt/digidinar/res/img/ic-arrow-drop-white-down.svg \
+  qt/digidinar/res/img/ic-combo-box.svg \
+  qt/digidinar/res/img/ic-send.svg \
+  qt/digidinar/res/img/img-logo-digidinar@2x.png \
+  qt/digidinar/res/img/ic-arrow-purple-down.svg \
+  qt/digidinar/res/img/ic-connect.svg \
+  qt/digidinar/res/img/ic-submenu-lock.svg \
+  qt/digidinar/res/img/img-logo-digidinar@3x.png \
+  qt/digidinar/res/img/img-logo-digidinar.svg \
+  qt/digidinar/res/img/ic-arrow-right-white.svg \
+  qt/digidinar/res/img/ic-arrow-left-white.svg \
+  qt/digidinar/res/img/ic-arrow-left.svg \
+  qt/digidinar/res/img/ic-copy-liliac.svg \
+  qt/digidinar/res/img/ic-submenu-staking.svg \
+  qt/digidinar/res/img/img-nav-logo-digidinar.png \
+  qt/digidinar/res/img/ic-arrow-right.svg \
+  qt/digidinar/res/img/ic-copy.svg \
+  qt/digidinar/res/img/ic-copy-big.svg \
+  qt/digidinar/res/img/ic-copy-big-white.svg \
+  qt/digidinar/res/img/ic-submenu-unlock.svg \
+  qt/digidinar/res/img/img-nav-logo.png \
+  qt/digidinar/res/img/ic-arrow-white-left.svg \
+  qt/digidinar/res/img/ic-exit.svg \
+  qt/digidinar/res/img/ic-switch-liliac-on.svg \
+  qt/digidinar/res/img/img-nav-logo.svg \
+  qt/digidinar/res/img/ic-arrow-white-right.svg \
+  qt/digidinar/res/img/ic-expand.svg \
+  qt/digidinar/res/img/ic-switch-off.svg \
+  qt/digidinar/res/img/img-qr-test-big.png \
+  qt/digidinar/res/img/ic-check-active.svg \
+  qt/digidinar/res/img/ic-folder.svg \
+  qt/digidinar/res/img/ic-switch-on.svg \
+  qt/digidinar/res/img/img-qr-test.png \
+  qt/digidinar/res/img/ic-check-box.svg \
+  qt/digidinar/res/img/ic-check-box-dark-active.svg \
+  qt/digidinar/res/img/ic-check-box-indeterminate.svg \
+  qt/digidinar/res/img/ic-check-box-liliac-indeterminate.svg \
+  qt/digidinar/res/img/ic-label-liliac.svg \
+  qt/digidinar/res/img/ic-transaction-warning.svg \
+  qt/digidinar/res/img/ic-transaction-mint.svg \
+  qt/digidinar/res/img/ic-transaction-mint-inactive.svg \
+  qt/digidinar/res/img/ic-check-cold-staking.svg \
+  qt/digidinar/res/img/ic-check-cold-staking-off.svg \
+  qt/digidinar/res/img/ic-check-cold-staking-enabled.svg \
+  qt/digidinar/res/img/dark/ic-transaction-cs-contract.svg \
+  qt/digidinar/res/img/dark/ic-transaction-cs-contract-inactive.svg \
+  qt/digidinar/res/img/img-qr.svg \
+  qt/digidinar/res/img/ic-check-connect-off.svg \
+  qt/digidinar/res/img/ic-check-tor-off.svg \
+  qt/digidinar/res/img/ic-check-tor.svg \
+  qt/digidinar/res/img/ic-label.svg \
+  qt/digidinar/res/img/ic-transaction-received.svg \
+  qt/digidinar/res/img/dark/ic-transaction-received.svg \
+  qt/digidinar/res/img/dark/ic-transaction-warning.svg \
+  qt/digidinar/res/img/dark/ic-transaction-mint.svg \
+  qt/digidinar/res/img/dark/ic-transaction-mint-inactive.svg \
+  qt/digidinar/res/img/ic-transaction-received-inactive.svg \
+  qt/digidinar/res/img/dark/ic-transaction-received-inactive.svg \
+  qt/digidinar/res/img/img-welcome-step1.png \
+  qt/digidinar/res/img/ic-check-connect.svg \
+  qt/digidinar/res/img/ic-menu-hover.svg \
+  qt/digidinar/res/img/ic-transaction-sent.svg \
+  qt/digidinar/res/img/ic-transaction-sent-inactive.svg \
+  qt/digidinar/res/img/dark/ic-transaction-sent.svg \
+  qt/digidinar/res/img/dark/ic-transaction-sent-inactive.svg \
+  qt/digidinar/res/img/img-welcome-step2.png \
+  qt/digidinar/res/img/ic-check-dark.svg \
+  qt/digidinar/res/img/ic-mint.svg \
+  qt/digidinar/res/img/ic-transaction-staked.svg \
+  qt/digidinar/res/img/ic-transaction-staked-inactive.svg \
+  qt/digidinar/res/img/dark/ic-transaction-staked.svg \
+  qt/digidinar/res/img/dark/ic-transaction-staked-inactive.svg \
+  qt/digidinar/res/img/img-welcome-step3.png \
+  qt/digidinar/res/img/ic-check-liliac-on.svg \
+  qt/digidinar/res/img/ic-nav-address-active.svg \
+  qt/digidinar/res/img/ic-unlock-staking.svg \
+  qt/digidinar/res/img/img-welcome-step4.png \
+  qt/digidinar/res/img/ic-check-locked-off.svg \
+  qt/digidinar/res/img/ic-nav-address-hover.svg \
+  qt/digidinar/res/img/ic-update-liliac.svg \
+  qt/digidinar/res/img/ic-arrow-drop-down-purple.svg \
+  qt/digidinar/res/img/ic-arrow-drop-up-purple.svg \
+  qt/digidinar/res/img/ic-check-liliac-indeterminate.svg \
+  qt/digidinar/res/img/ic-check-box-liliac-indeterminate.svg \
+  qt/digidinar/res/img/ic-transaction-stake-delegated.svg \
+  qt/digidinar/res/img/ic-transaction-stake-delegated-inactive.svg \
+  qt/digidinar/res/img/ic-transaction-stake-hot.svg \
+  qt/digidinar/res/img/ic-transaction-stake-hot-inactive.svg \
+  qt/digidinar/res/img/dark/ic-transaction-stake-hot.svg \
+  qt/digidinar/res/img/dark/ic-transaction-stake-hot-inactive.svg \
+  qt/digidinar/res/img/dark/ic-transaction-stake-delegated.svg \
+  qt/digidinar/res/img/dark/ic-transaction-stake-delegated-inactive.svg \
+  qt/digidinar/res/img/ic-transaction-cs-contract.svg \
+  qt/digidinar/res/img/ic-transaction-cs-contract-inactive.svg \
+  qt/digidinar/res/img/ic-check-box-indeterminate.svg \
+  qt/digidinar/res/img/ani-loading-dark.gif \
+  qt/digidinar/res/img/ani-loading.gif
+
+
 
 BITCOIN_QT_BASE_CPP = \
   qt/bantablemodel.cpp \
   qt/bitcoinaddressvalidator.cpp \
   qt/bitcoinamountfield.cpp \
-  qt/bitcoingui.cpp \
+  qt/digidinar/digidinargui.cpp \
   qt/bitcoinunits.cpp \
-  qt/blockexplorer.cpp \
   qt/clientmodel.cpp \
   qt/csvmodelwriter.cpp \
   qt/guiutil.cpp \
   qt/intro.cpp \
-  qt/masternodelist.cpp \
   qt/networkstyle.cpp \
   qt/notificator.cpp \
   qt/optionsdialog.cpp \
@@ -305,38 +595,80 @@ BITCOIN_QT_WALLET_CPP = \
   qt/addressbookpage.cpp \
   qt/addresstablemodel.cpp \
   qt/askpassphrasedialog.cpp \
-  qt/bip38tooldialog.cpp \
-  qt/blockexplorer.cpp \
   qt/coincontroldialog.cpp \
   qt/coincontroltreewidget.cpp \
   qt/editaddressdialog.cpp \
-  qt/governancepage.cpp \
-  qt/masternodelist.cpp \
-  qt/multisenddialog.cpp \
-  qt/multisigdialog.cpp\
   qt/openuridialog.cpp \
-  qt/overviewpage.cpp \
   qt/paymentrequestplus.cpp \
   qt/paymentserver.cpp \
-  qt/receivecoinsdialog.cpp \
-  qt/privacydialog.cpp \
-  qt/proposalframe.cpp \
-  qt/receiverequestdialog.cpp \
   qt/recentrequeststablemodel.cpp \
-  qt/sendcoinsdialog.cpp \
-  qt/sendcoinsentry.cpp \
-  qt/signverifymessagedialog.cpp \
   qt/transactiondesc.cpp \
-  qt/transactiondescdialog.cpp \
   qt/transactionfilterproxy.cpp \
   qt/transactionrecord.cpp \
   qt/transactiontablemodel.cpp \
-  qt/transactionview.cpp \
-  qt/walletframe.cpp \
   qt/walletmodel.cpp \
   qt/walletmodeltransaction.cpp \
-  qt/walletview.cpp \
-  qt/zddrcontroldialog.cpp
+  qt/digidinar/loadingdialog.cpp \
+  qt/zddrcontroldialog.cpp \
+  qt/digidinar/pwidget.cpp \
+  qt/digidinar/guitransactionsutils.cpp \
+  qt/digidinar/snackbar.cpp \
+  qt/digidinar/navmenuwidget.cpp \
+  qt/digidinar/lockunlock.cpp \
+  qt/digidinar/receivedialog.cpp \
+  qt/digidinar/furabstractlistitemdelegate.cpp \
+  qt/digidinar/txviewholder.cpp \
+  qt/digidinar/qtutils.cpp \
+  qt/digidinar/expandablebutton.cpp \
+  qt/digidinar/topbar.cpp \
+  qt/digidinar/txrow.cpp \
+  qt/digidinar/addressholder.cpp \
+  qt/digidinar/addressfilterproxymodel.cpp \
+  qt/digidinar/dashboardwidget.cpp \
+  qt/digidinar/addresslabelrow.cpp \
+  qt/digidinar/contactdropdownrow.cpp \
+  qt/digidinar/contactsdropdown.cpp \
+  qt/digidinar/optionbutton.cpp \
+  qt/digidinar/mninfodialog.cpp \
+  qt/digidinar/coldstakingmodel.cpp \
+  qt/digidinar/mnmodel.cpp \
+  qt/digidinar/masternodewizarddialog.cpp \
+  qt/digidinar/mnrow.cpp \
+  qt/digidinar/masternodeswidget.cpp \
+  qt/digidinar/myaddressrow.cpp \
+  qt/digidinar/csrow.cpp \
+  qt/digidinar/sendchangeaddressdialog.cpp \
+  qt/digidinar/sendconfirmdialog.cpp \
+  qt/digidinar/sendcustomfeedialog.cpp \
+  qt/digidinar/sendchangeaddressdialog.cpp \
+  qt/digidinar/sendmultirow.cpp \
+  qt/digidinar/send.cpp \
+  qt/digidinar/addnewaddressdialog.cpp \
+  qt/digidinar/addnewcontactdialog.cpp \
+  qt/digidinar/requestdialog.cpp \
+  qt/digidinar/receivewidget.cpp \
+  qt/digidinar/tooltipmenu.cpp \
+  qt/digidinar/addresseswidget.cpp \
+  qt/digidinar/defaultdialog.cpp \
+  qt/digidinar/privacywidget.cpp \
+  qt/digidinar/coldstakingwidget.cpp \
+  qt/digidinar/settings/settingsbackupwallet.cpp \
+  qt/digidinar/settings/settingsexportcsv.cpp \
+  qt/digidinar/settings/settingsbittoolwidget.cpp \
+  qt/digidinar/settings/settingsconsolewidget.cpp \
+  qt/digidinar/settings/settingsdisplayoptionswidget.cpp \
+  qt/digidinar/settings/settingsfaqwidget.cpp \
+  qt/digidinar/settings/settingsinformationwidget.cpp \
+  qt/digidinar/settings/settingsmainoptionswidget.cpp \
+  qt/digidinar/settings/settingsmultisenddialog.cpp \
+  qt/digidinar/settings/settingsmultisendwidget.cpp \
+  qt/digidinar/settings/settingssignmessagewidgets.cpp \
+  qt/digidinar/settings/settingswalletoptionswidget.cpp \
+  qt/digidinar/settings/settingswalletrepairwidget.cpp \
+  qt/digidinar/settings/settingswidget.cpp \
+  qt/digidinar/welcomecontentwidget.cpp \
+  qt/digidinar/splash.cpp
+
 
 BITCOIN_QT_CPP = $(BITCOIN_QT_BASE_CPP)
 if TARGET_WINDOWS
@@ -359,22 +691,22 @@ RES_IMAGES = \
   qt/res/images/upArrow_small.png \
   qt/res/images/leftArrow_small_dark.png \
   qt/res/images/rightArrow_small_dark.png \
-  qt/res/images/qtreeview_selected.png \
-  qt/res/images/walletFrame.png \
-  qt/res/images/walletFrame_bg.png
+  qt/res/images/qtreeview_selected.png
 
 RES_CSS = \
-  qt/res/css/default.css
+  qt/res/css/default.css \
+  qt/digidinar/res/css/style_dark.css \
+  qt/digidinar/res/css/style_light.css
 
 RES_MOVIES = $(wildcard $(srcdir)/qt/res/movies/spinner-*.png)
 
 BITCOIN_RC = qt/res/digidinar-qt-res.rc
 
 BITCOIN_QT_INCLUDES = -I$(builddir)/qt -I$(srcdir)/qt -I$(srcdir)/qt/forms \
-  -I$(builddir)/qt/forms
+  -I$(builddir)/qt/forms -DQT_NO_KEYWORDS
 
 qt_libbitcoinqt_a_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES) $(BITCOIN_QT_INCLUDES) \
-  $(QT_INCLUDES) $(QT_DBUS_INCLUDES) $(PROTOBUF_CFLAGS) $(QR_CFLAGS)
+  $(QT_INCLUDES) $(QT_DBUS_INCLUDES) $(PROTOBUF_CFLAGS) $(QR_CFLAGS) $(SVG_CFLAGS) $(CHARTS_CFLAGS)
 qt_libbitcoinqt_a_CXXFLAGS = $(AM_CXXFLAGS) $(QT_PIE_FLAGS)
 qt_libbitcoinqt_a_OBJCXXFLAGS = $(AM_OBJCXXFLAGS) $(QT_PIE_FLAGS)
 
@@ -399,7 +731,7 @@ $(QT_MOC_CPP): $(PROTOBUF_H)
 
 # digidinar-qt binary #
 qt_digidinar_qt_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES) $(BITCOIN_QT_INCLUDES) \
-  $(QT_INCLUDES) $(PROTOBUF_CFLAGS) $(QR_CFLAGS)
+  $(QT_INCLUDES) $(PROTOBUF_CFLAGS) $(QR_CFLAGS) $(SVG_CFLAGS) $(CHARTS_CFLAGS)
 qt_digidinar_qt_CXXFLAGS = $(AM_CXXFLAGS) $(QT_PIE_FLAGS)
 
 qt_digidinar_qt_SOURCES = qt/digidinar.cpp
@@ -417,7 +749,7 @@ if ENABLE_ZMQ
 qt_digidinar_qt_LDADD += $(LIBBITCOIN_ZMQ) $(ZMQ_LIBS)
 endif
 qt_digidinar_qt_LDADD += $(LIBBITCOIN_CLI) $(LIBBITCOIN_COMMON) $(LIBBITCOIN_UTIL) $(LIBBITCOIN_CRYPTO) $(LIBUNIVALUE) $(LIBBITCOIN_ZEROCOIN) $(LIBLEVELDB) $(LIBLEVELDB_SSE42) $(LIBMEMENV) \
-  $(BOOST_LIBS) $(QT_LIBS) $(QT_DBUS_LIBS) $(QR_LIBS) $(PROTOBUF_LIBS) $(BDB_LIBS) $(SSL_LIBS) $(CRYPTO_LIBS) $(MINIUPNPC_LIBS) $(LIBSECP256K1) \
+  $(BOOST_LIBS) $(QT_LIBS) $(QT_DBUS_LIBS) $(QR_LIBS) $(PROTOBUF_LIBS) $(SVG_LIBS) $(CHARTS_LIBS) $(BDB_LIBS) $(SSL_LIBS) $(CRYPTO_LIBS) $(MINIUPNPC_LIBS) $(LIBSECP256K1) \
   $(EVENT_PTHREADS_LIBS) $(EVENT_LIBS)
 qt_digidinar_qt_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(QT_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
 qt_digidinar_qt_LIBTOOLFLAGS = $(AM_LIBTOOLFLAGS) --tag CXX

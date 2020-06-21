@@ -7,10 +7,11 @@ Release Process
 
 * Update translations (ping Fuzzbawls on Discord) see [translation_process.md](https://github.com/DIGIDINAR-Project/DIGIDINAR/blob/master/doc/translation_process.md#synchronising-translations).
 * Update manpages, see [gen-manpages.sh](https://github.com/digidinar-project/digidinar/blob/master/contrib/devtools/README.md#gen-manpagessh).
+* Update release candidate version in `configure.ac` (`CLIENT_VERSION_RC`)
 
 ### Before every major and minor release
 
-* Update version in `configure.ac` (don't forget to set `CLIENT_VERSION_IS_RELEASE` to `true`)
+* Update version in `configure.ac` (don't forget to set `CLIENT_VERSION_IS_RELEASE` to `true`) (don't forget to set `CLIENT_VERSION_RC` to `0`)
 * Write release notes (see below)
 
 ### Before every major release
@@ -228,7 +229,6 @@ Create (and optionally verify) the signed Windows binaries:
     ./bin/gsign --signer "$SIGNER" --release ${VERSION}-win-signed --destination ../gitian.sigs/ ../digidinar/contrib/gitian-descriptors/gitian-win-signer.yml
     ./bin/gverify -v -d ../gitian.sigs/ -r ${VERSION}-win-signed ../digidinar/contrib/gitian-descriptors/gitian-win-signer.yml
     mv build/out/digidinar-*win64-setup.exe ../digidinar-${VERSION}-win64-setup.exe
-    mv build/out/digidinar-*win32-setup.exe ../digidinar-${VERSION}-win32-setup.exe
     popd
 
 Commit your signature for the signed macOS/Windows binaries:
@@ -258,8 +258,6 @@ digidinar-${VERSION}-x86_64-linux-gnu.tar.gz
 digidinar-${VERSION}-osx64.tar.gz
 digidinar-${VERSION}-osx.dmg
 digidinar-${VERSION}.tar.gz
-digidinar-${VERSION}-win32-setup.exe
-digidinar-${VERSION}-win32.zip
 digidinar-${VERSION}-win64-setup.exe
 digidinar-${VERSION}-win64.zip
 ```

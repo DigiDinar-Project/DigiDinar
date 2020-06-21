@@ -1,5 +1,5 @@
 // Copyright (c) 2014 The Bitcoin developers
-// Copyright (c) 2017-2018 The DIGIDINAR developers
+// Copyright (c) 2017-2020 The DIVX developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -11,7 +11,7 @@
 
 /**
  * CBaseChainParams defines the base parameters (shared between digidinar-cli and digidinard)
- * of a given instance of the DigiDinar system.
+ * of a given instance of the Digidinar system.
  */
 class CBaseChainParams
 {
@@ -20,7 +20,6 @@ public:
         MAIN,
         TESTNET,
         REGTEST,
-        UNITTEST,
 
         MAX_NETWORK_TYPES
     };
