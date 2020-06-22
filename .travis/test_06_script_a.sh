@@ -52,7 +52,7 @@ DOCKER_EXEC  $TRAVIS_BUILD_DIR/contrib/travis-artifacts/collect-artifacts.sh $TR
 END_FOLD
 
 BEGIN_FOLD upload
-DOCKER_EXEC export SSHPASS=$DEPLOY_PASS && sshpass -p $DEPLOY_PASS rsync -avz -e "ssh -o StrictHostKeyChecking=no" package-$HOST.tgz  $DEPLOY_USER@$DEPLOY_HOST:$DEPLOY_PATH/
+DOCKER_EXEC export SSHPASS=$DEPLOY_PASS && sshpass -p $DEPLOY_PASS scp -rp package-$HOST.tgz $DEPLOY_USER@$DEPLOY_HOST:$DEPLOY_PATH/
 END_FOLD
 
 cd ${TRAVIS_BUILD_DIR} || (echo "could not enter travis build dir $TRAVIS_BUILD_DIR"; exit 1)
