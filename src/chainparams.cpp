@@ -210,8 +210,10 @@ public:
 
         // Note that of those with the service bits flag, most only support a subset of possible options
         vSeeds.push_back(CDNSSeedData("134.255.234.59", "134.255.234.59"));     // Primary DNS Seeder
-        vSeeds.push_back(CDNSSeedData("134.255.216.244", "134.255.216.244"));     // Primary DNS Seeder
-        vSeeds.push_back(CDNSSeedData("92.42.46.121", "92.42.46.121"));     // Primary DNS Seeder
+        vSeeds.push_back(CDNSSeedData("134.255.218.45", "134.255.218.45"));     // Primary DNS Seeder
+        vSeeds.push_back(CDNSSeedData("185.239.237.170", "185.239.237.170"));     // Primary DNS Seeder
+        vSeeds.push_back(CDNSSeedData("185.223.30.236", "185.223.30.236"));     // Primary DNS Seeder
+        vSeeds.push_back(CDNSSeedData("207.246.86.188", "207.246.86.188"));     // Primary DNS Seeder
         
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1, 30);
