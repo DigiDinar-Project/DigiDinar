@@ -26,17 +26,17 @@ CMasternodeSync::CMasternodeSync()
 
 bool CMasternodeSync::IsSynced()
 {
-    return true;//RequestedMasternodeAssets == MASTERNODE_SYNC_FINISHED;
+    return RequestedMasternodeAssets == MASTERNODE_SYNC_FINISHED;
 }
 
 bool CMasternodeSync::IsSporkListSynced()
 {
-    return true;//RequestedMasternodeAssets > MASTERNODE_SYNC_SPORKS;
+    return RequestedMasternodeAssets > MASTERNODE_SYNC_SPORKS;
 }
 
 bool CMasternodeSync::IsMasternodeListSynced()
 {
-    return true; //RequestedMasternodeAssets > MASTERNODE_SYNC_LIST;
+    return RequestedMasternodeAssets > MASTERNODE_SYNC_LIST;
 }
 
 bool CMasternodeSync::NotCompleted()
@@ -72,7 +72,7 @@ bool CMasternodeSync::IsBlockchainSynced()
         blockTime = pindex->nTime;
     }
 
-    if (blockTime + 200* 60 * 60 < lastProcess)
+    if (blockTime + 60 * 60 < lastProcess)
         return false;
 
     fBlockchainSynced = true;
