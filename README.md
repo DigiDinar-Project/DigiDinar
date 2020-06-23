@@ -10,7 +10,7 @@ The goal of DIGIDINAR is to achieve a decentralized sustainable crypto currency 
 - Fast transactions featuring guaranteed zero confirmation transactions, we call it _SwiftX_.
 - Decentralized blockchain voting utilizing Masternode technology to form a DAO. The blockchain will distribute monthly treasury funds based on successful proposals submitted by the community and voted on by the DAO.
 
-More information at [digidinar.org](http://www.digidinar.org) Visit our ANN thread at [BitcoinTalk](http://www.bitcointalk.org/index.php?topic=1262920)
+More information at [digidinar.com](http://www.digidinar.com) Visit our ANN thread at [BitcoinTalk](http://www.bitcointalk.org/index.php?topic=1262920)
 
 ### Coin Specs
 <table>
@@ -18,7 +18,7 @@ More information at [digidinar.org](http://www.digidinar.org) Visit our ANN thre
 <tr><td>Block Time</td><td>60 Seconds</td></tr>
 <tr><td>Difficulty Retargeting</td><td>Every Block</td></tr>
 <tr><td>Max Coin Supply (PoW Phase)</td><td>43,199,500 DDR</td></tr>
-<tr><td>Max Coin Supply (PoS Phase)</td><td>Infinite</td></tr>
+<tr><td>Max Coin Supply (PoS Phase)</td><td>25,000,000</td></tr>
 <tr><td>Premine</td><td>60,000 DDR*</td></tr>
 </table>
 
