@@ -6397,7 +6397,7 @@ DIGIDINAR核心钱包</translation>
         <translation>版权所有(C) 2014-%i的达世核心开发者</translation>
     </message>
     <message>
-        <source>Copyright (C) 2015-%i The DIVX Core Developers</source>
+        <source>Copyright (C) 2015-%i The PIVX Core Developers</source>
         <translation>版权所有(C) 2015-%i DIGIDINAR核心开发者</translation>
     </message>
     <message>

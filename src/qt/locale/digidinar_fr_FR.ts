@@ -6430,8 +6430,8 @@ Portefeuille DIGIDINAR Core</translation>
         <translation>Copyright (C) 2014-%i Les développeurs de DASH Core</translation>
     </message>
     <message>
-        <source>Copyright (C) 2015-%i The DIVX Core Developers</source>
-        <translation>Copyright (C) 2015-%i Les développeurs de DIVX Core</translation>
+        <source>Copyright (C) 2015-%i The PIVX Core Developers</source>
+        <translation>Copyright (C) 2015-%i Les développeurs de PIVX Core</translation>
     </message>
     <message>
         <source>Corrupted block database detected</source>

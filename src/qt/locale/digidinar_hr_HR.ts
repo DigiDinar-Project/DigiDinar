@@ -6438,7 +6438,7 @@ DIGIDINAR temeljni novčanik</translation>
         <translation>Autorska prava (C) 2014-%i The Dash Core Developers</translation>
     </message>
     <message>
-        <source>Copyright (C) 2015-%i The DIVX Core Developers</source>
+        <source>Copyright (C) 2015-%i The PIVX Core Developers</source>
         <translation>Autorska prava (C) 2015-%i The DIGIDINAR Core Developers</translation>
     </message>
     <message>

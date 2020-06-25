@@ -256,7 +256,7 @@ QT_TRANSLATE_NOOP("digidinar-core", "Connect to a node to retrieve peer addresse
 QT_TRANSLATE_NOOP("digidinar-core", "Connection options:"),
 QT_TRANSLATE_NOOP("digidinar-core", "Copyright (C) 2009-%i The Bitcoin Core Developers"),
 QT_TRANSLATE_NOOP("digidinar-core", "Copyright (C) 2014-%i The Dash Core Developers"),
-QT_TRANSLATE_NOOP("digidinar-core", "Copyright (C) 2015-%i The DIVX Core Developers"),
+QT_TRANSLATE_NOOP("digidinar-core", "Copyright (C) 2015-%i The PIVX Core Developers"),
 QT_TRANSLATE_NOOP("digidinar-core", "Corrupted block database detected"),
 QT_TRANSLATE_NOOP("digidinar-core", "Could not parse masternode.conf"),
 QT_TRANSLATE_NOOP("digidinar-core", "Debugging/Testing options:"),

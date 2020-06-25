@@ -1,5 +1,5 @@
 // Copyright (c) 2009-2014 The Bitcoin developers
-// Copyright (c) 2017-2020 The DIVX developers
+// Copyright (c) 2017-2020 The PIVX developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -173,6 +173,7 @@ public:
     bool GetPubKey(const CKeyID& address, CPubKey& vchPubKeyOut) const;
     void GetKeys(std::set<CKeyID>& setAddress) const
     {
+        LOCK(cs_KeyStore);
         if (!IsCrypted()) {
             CBasicKeyStore::GetKeys(setAddress);
             return;
