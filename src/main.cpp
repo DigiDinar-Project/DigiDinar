@@ -1603,7 +1603,7 @@ int64_t GetBlockValue(int nHeight)
 
 int64_t GetMasternodePayment()
 {
-    return 1.4 * COIN;
+    return 14 * COIN / 100;
 }
 
 bool IsInitialBlockDownload()
