@@ -18,7 +18,7 @@ More information at [digidinar.com](http://www.digidinar.com) Visit our ANN thre
 <tr><td>Block Time</td><td>60 Seconds</td></tr>
 <tr><td>Difficulty Retargeting</td><td>Every Block</td></tr>
 <tr><td>Max Coin Supply (PoW Phase)</td><td>43,199,500 DDR</td></tr>
-<tr><td>Max Coin Supply (PoS Phase)</td><td>25,000,000</td></tr>
+<tr><td>Max Coin Supply (PoS Phase)</td><td>250,000,000</td></tr>
 <tr><td>Premine</td><td>60,000 DDR*</td></tr>
 </table>
 
