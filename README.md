@@ -15,7 +15,7 @@ More information at [digidinar.com](http://www.digidinar.com) Visit our ANN thre
 ### Coin Specs
 <table>
 <tr><td>Algo</td><td>Quark</td></tr>
-<tr><td>Block Time</td><td>60 Seconds</td></tr>
+<tr><td>Block Time</td><td>60 Seconds</td></tr>Master node (10,000 DDR)<tr><td>
 <tr><td>Difficulty Retargeting</td><td>Every Block</td></tr>
 <tr><td>Max Coin Supply (PoW Phase)</td><td>43,199,500 DDR</td></tr>
 <tr><td>Max Coin Supply (PoS Phase)</td><td>120,000,000 DDR</td></tr>
