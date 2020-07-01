@@ -15,11 +15,12 @@ More information at [digidinar.com](http://www.digidinar.com) Visit our ANN thre
 ### Coin Specs
 <table>
 <tr><td>Algo</td><td>Quark</td></tr>
-<tr><td>Block Time</td><td>60 Seconds</td></tr>Master node (10,000 DDR)<tr><td>
+<tr><td>Block Time</td><td>60 Seconds</td></tr>
 <tr><td>Difficulty Retargeting</td><td>Every Block</td></tr>
 <tr><td>Max Coin Supply (PoW Phase)</td><td>43,199,500 DDR</td></tr>
 <tr><td>Max Coin Supply (PoS Phase)</td><td>120,000,000 DDR</td></tr>
 <tr><td>Premine</td><td>60,000 DDR*</td></tr>
+<tr><td>Master node (10,000 DDR)<tr><td>
 </table>
 
 *60,000 DDR Premine was burned in block [279917](http://www.presstab.pw/phpexplorer/DIGIDINAR/block.php?blockhash=206d9cfe859798a0b0898ab00d7300be94de0f5469bb446cecb41c3e173a57e0)
